@@ -210,7 +210,7 @@ strings and objects which will be sent to the order API.
 | items                 | Array of objects | Required | This subobject contains an array of objects, with one object for each item being sold to the customer. Please read [Resource Subobject](#resource-subobject) for more information.
 | comment               | String    | Optional | Set a comment on an order.
 | customer              | Object    | Conditional | Include some customer-related information. Only needed if selling to a business. Please read [Customer Subobject](#customer-subobject) for more information.
-| merchant\_urls        | Object    | Required | Callback URLs for various merchant-page URLs. Please read [Merchant Object](#merchant-subobject) for more information.
+| merchant\_urls        | Object    | Required | Callback URLs for various merchant-page URLs. Please read [Merchant-URLs Object](#merchant-urls-subobject) for more information.
 | merchant\_reference1, merchant\_reference2  | String    | Optional | Optional internal order IDs.
 | created\_date, completed\_date, updated\_date | Datetime (String) | Read-Only| Read-only response. Gives the datetime the order was created/completed/updated. Formatted as ISO 8601 datetime strings.
 | options               | Object    | Optional | Optional checkout design options. Please read [Options Subobject](#options-subobject) for more information.
