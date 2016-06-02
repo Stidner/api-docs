@@ -1,0 +1,606 @@
+<h1 id="order-api">Order API</h1>
+
+<p>This document references the /order API endpoint and its contents, which developers can use to create checkout orders.</p>
+
+<p>Note: we offer a <a href="https://github.com/Stidner/php-sdk">PHP SDK</a> if you would like to use that to craft requests instead.</p>
+
+<h2 id="request">Request</h2>
+
+<blockquote>
+<p><strong>You must use both HTTPS and BasicAuth when posting to this API.</strong></p>
+</blockquote>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/v1/order</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">api.stidner.com</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">Basic</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">171000</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">42750</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">213750</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"billing_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"street_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"461 33"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"items"</span><span class="p">:</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digital"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: The Burning Crusade Collectors edition"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Latest game"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">16500</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">82500</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.test"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"654321"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Golden shoes"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"These shoes are made of gold"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">26250</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">131250</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.test"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"merchant_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"terms"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"checkout"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"confirmation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"color_background"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#ffffff"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This is an example request which should be POSTed to api.stidner.com/v1/order using HTTPS and BasicAuth.</p>
+
+<p>For headers:</p>
+
+<ul>
+<li><p>Authorization will be using BasicAuth; it will be a base64-encoded string, which consists of &ldquo;USER-ID:API-KEY&rdquo;.
+You will receive these credentials after you sign up.</p></li>
+<li><p>The Content-Type should also always be an application/json object.</p></li>
+</ul>
+
+<p>For the request body:</p>
+
+<ul>
+<li>Body should be just a properly-formatted json object. An example object is shown to the right, and the full
+options are shown <a href="#main-quot-order-quot-object">later in the documentation</a>.</li>
+</ul>
+
+<h2 id="response">Response</h2>
+<pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"171000"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42750"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"213750"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"billing_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"street_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"461 33"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"items"</span><span class="p">:</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digital"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: The Burning Crusade Collectors edition"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Latest game"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"130"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"66000"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"66000"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16500"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"82500"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/game.jpg"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"654321"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Golden shoes"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"These shoes are made of gold"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"130"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"105000"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"105000"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26250"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"131250"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/goldshoes.jpg"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nt">"merchant_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"terms"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"checkout"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"confirmation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"color_background"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#ffffff"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Here is an example of the response you should get when sending the POST shown above.</p>
+
+<p>The HTTP status code has a few results:</p>
+
+<ul>
+<li>200 OK: all is fine, order is created.</li>
+<li>401 Unauthorized: your Authorization header is invalid or missing.</li>
+<li>412 Precondition Failed: validation failed on some variable in the json object; the &ldquo;details&rdquo; object in response will give more information.</li>
+</ul>
+
+<h1 id="main-quot-order-quot-object">Main &ldquo;order&rdquo; object</h1>
+
+<p>These following tables describe all the objects which will be sent in your
+json-formatted POST request to the /order API.</p>
+
+<p>This particular object should be the &ldquo;main object&rdquo;, which contains all other
+strings and objects which will be sent to the order API.</p>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>The unique order ID, max 255 characters. This is created by our API, and you should always use it if it has been set.</td>
+</tr>
+<tr>
+<td>purchase_country</td>
+<td>String</td>
+<td>Required</td>
+<td>The ISO 3166-1 alpha-2 (two character) country code of the customer. <em>Example: &ldquo;SE&rdquo; for Sweden.</em></td>
+</tr>
+<tr>
+<td>purchase_currency</td>
+<td>String</td>
+<td>Required</td>
+<td>The ISO 4217 (three character) currency code of the customer. <em>Example: &ldquo;SEK&rdquo; for Swedish kronor.</em></td>
+</tr>
+<tr>
+<td>locale</td>
+<td>String</td>
+<td>Required</td>
+<td>The locale of the customer. <em>Example: &ldquo;se_sv&rdquo; for a Swedish IP visiting your page using the Swedish language.</em></td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>A read-only response given by the API, showing status of order. Possible values: <code class="prettyprint">&quot;example1&quot;</code>, <code class="prettyprint">&quot;TODO&quot;</code>, <code class="prettyprint">&quot;example3&quot;</code>, <code class="prettyprint">&quot;example4&quot;</code>, <code class="prettyprint">&quot;example5&quot;</code>, and <code class="prettyprint">&quot;example6&quot;</code>.</td>
+</tr>
+<tr>
+<td>billing_address</td>
+<td>Object</td>
+<td>Optional</td>
+<td>An optional subobject array of the customer&rsquo;s billing/shipping info. Use this if you wish to supply some pre-supplied customer info; otherwise the API will do this for you. Please read <a href="#billing-subobject">Billing Subobject</a> for more information.</td>
+</tr>
+<tr>
+<td>shipping_address</td>
+<td>Object</td>
+<td>Read-Only</td>
+<td>A read-only response from the API. This contains the customer&rsquo;s shipping information which we fetched ourselves. This has the same structure as the billing-object.</td>
+</tr>
+<tr>
+<td>total_price_excluding_tax, total_price_including_tax, total_tax_amount</td>
+<td>Integer</td>
+<td>Required</td>
+<td>Price calculation of entire order. These values should include cents/ören (with an implicit decimal). <em>Example for an order worth 150 SEK before tax, being 187.5 SEK after 25% VAT:</em> <code class="prettyprint">&quot;total_price_excluding_tax&quot;: 15000,</code> <code class="prettyprint">&quot;total_tax_amount&quot;: 3750,</code> <code class="prettyprint">&quot;total_price_including_tax&quot;: 18750</code></td>
+</tr>
+<tr>
+<td>items</td>
+<td>Array of objects</td>
+<td>Required</td>
+<td>This subobject contains an array of objects, with one object for each item being sold to the customer. Please read <a href="#resource-subobject">Resource Subobject</a> for more information.</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>String</td>
+<td>Optional</td>
+<td>Set a comment on an order.</td>
+</tr>
+<tr>
+<td>customer</td>
+<td>Object</td>
+<td>Conditional</td>
+<td>Include some customer-related information. Only needed if selling to a business. Please read <a href="#customer-subobject">Customer Subobject</a> for more information.</td>
+</tr>
+<tr>
+<td>merchant_urls</td>
+<td>Object</td>
+<td>Required</td>
+<td>Callback URLs for various merchant-page URLs. Please read <a href="#merchant-subobject">Merchant Object</a> for more information.</td>
+</tr>
+<tr>
+<td>merchant_reference1, merchant_reference2</td>
+<td>String</td>
+<td>Optional</td>
+<td>Optional internal order IDs.</td>
+</tr>
+<tr>
+<td>created_date, completed_date, updated_date</td>
+<td>Datetime (String)</td>
+<td>Read-Only</td>
+<td>Read-only response. Gives the datetime the order was created/completed/updated. Formatted as ISO 8601 datetime strings.</td>
+</tr>
+<tr>
+<td>options</td>
+<td>Object</td>
+<td>Optional</td>
+<td>Optional checkout design options. Please read <a href="#options-subobject">Options Subobject</a> for more information.</td>
+</tr>
+<tr>
+<td>shipping_countries</td>
+<td>Array of strings</td>
+<td>Optional</td>
+<td>A list of countries which you may send your products to. <em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipping_countries: {&quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot;}</code></td>
+</tr>
+<tr>
+<td>free_shipping</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Set to True to offer free shipping for the customer. If unset, this will default to False.</td>
+</tr>
+</tbody></table>
+
+<h2 id="billing-subobject">Billing Subobject</h2>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>business_name</td>
+<td>String</td>
+<td>Optional</td>
+<td>Customer&rsquo;s business name, if they are buying as a business. <code class="prettyprint">json { &quot;hi&quot;: 2 }</code></td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>Optional</td>
+<td>Customer&rsquo;s first name.</td>
+</tr>
+<tr>
+<td>family_name</td>
+<td>String</td>
+<td>Optional</td>
+<td>Customer&rsquo;s last name.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>Optional</td>
+<td>Title of customer. (Mr, Mrs, Dr, etc)</td>
+</tr>
+<tr>
+<td>street_address</td>
+<td>String</td>
+<td>Optional</td>
+<td>Street address of customer, first line. <em>Example: &ldquo;Drottninggatan 57&rdquo;</em></td>
+</tr>
+<tr>
+<td>street_address2</td>
+<td>String</td>
+<td>Optional</td>
+<td>Street address of customer, second line. <em>Example: &ldquo;LGH 1102&rdquo;</em></td>
+</tr>
+<tr>
+<td>postal_code</td>
+<td>String</td>
+<td>Optional</td>
+<td>Customer&rsquo;s postal code. <em>Example: &ldquo;46132&rdquo;</em></td>
+</tr>
+<tr>
+<td>city</td>
+<td>String</td>
+<td>Optional</td>
+<td>Customer&rsquo;s city.</td>
+</tr>
+<tr>
+<td>region</td>
+<td>String</td>
+<td>Optional</td>
+<td>Customer&rsquo;s region or state. <em>Example: &ldquo;Västra Götalands län&rdquo;</em></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>String</td>
+<td>Optional</td>
+<td>Customer&rsquo;s phone number, including country code. *Example: &ldquo;</td>
+</tr>
+<tr>
+<td>country</td>
+<td>String</td>
+<td>Optional</td>
+<td>The ISO 3166-1 alpha-2 (two character) country code of the customer. <em>Example: &quot;SE&rdquo; for Sweden.</em></td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td>Optional</td>
+<td>Customer&rsquo;s email address.</td>
+</tr>
+</tbody></table>
+
+<h2 id="resource-subobject">Resource Subobject</h2>
+
+<p>This is the resource object, which basically describes one type of item
+in a customer&rsquo;s order, and various related values. For example, if a
+customer bought 3 of the same coffee mug, and one bag of coffee from
+your store, you would use this object twice in the main &ldquo;order&rdquo; items
+array. Values:</p>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>Required</td>
+<td>The &ldquo;type of item&rdquo; this object is. Acceptable values: &ldquo;physical&rdquo; (items you will eventually ship), &ldquo;digital&rdquo; (non-physical items, such as a software license key), &ldquo;fee&rdquo; (various fees, such as a shipping expense), and &ldquo;discount&rdquo; (store promotions, such as a sale code).</td>
+</tr>
+<tr>
+<td>artno</td>
+<td>String</td>
+<td>Required</td>
+<td>Article number in the internal system.</td>
+</tr>
+<tr>
+<td>sku</td>
+<td>String</td>
+<td>Optional</td>
+<td>The SKU of the item.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Required</td>
+<td>The name of the product.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>Optional</td>
+<td>The description of the product.</td>
+</tr>
+<tr>
+<td>weight</td>
+<td>Integer</td>
+<td>Conditional</td>
+<td>Weight of product, in grams. Will be rounded to the nearest tenth. Only used if the &ldquo;type&rdquo; of item is &ldquo;physical&rdquo;. <em>Example: an item of 10,5kg would be set as &lsquo;1050&rsquo;.</em></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>Integer</td>
+<td>Required</td>
+<td>Quantity of item.</td>
+</tr>
+<tr>
+<td>quantity_unit</td>
+<td>String</td>
+<td>Conditional</td>
+<td>Unit to describe quantity. Only used when &lt;TODO&gt;. <em>Example: &ldquo;kg&rdquo;, &ldquo;pcs&rdquo;, etc.</em></td>
+</tr>
+<tr>
+<td>unit_price</td>
+<td>Integer</td>
+<td>Required</td>
+<td>How much each unit costs. This will be in minor units, excluding tax. <em>Example: if one unit of an item you&rsquo;re selling is worth 40 SEK before tax, you would use &#39;4000&rsquo; here.</em></td>
+</tr>
+<tr>
+<td>tax_rate</td>
+<td>Integer</td>
+<td>Required</td>
+<td>The tax rate of this item. Written like most numbers in this API: no decimals, but to the 10th place. <em>Example: in Sweden, the standard VAT rate is 25%, so the request is most likely going to be:</em> <code class="prettyprint">&quot;tax_rate&quot;: 2500</code></td>
+</tr>
+<tr>
+<td>total_price_excluding_tax, total_price_including_tax, total_tax_amount</td>
+<td>Integer</td>
+<td>Required</td>
+<td>This object&rsquo;s price calculations. These values should include cents/ören (with an implicit decimal). Basically the same thing as the main order calculation, but containing only this item&rsquo;s values. <em>Example: one customer buys 3 of the same coffee mug. 40 SEK is the value of each mug, giving 120 SEK total before tax. Given the VAT rate of 25%, 30 SEK is added in tax. So the finalized values become:</em> <code class="prettyprint">&quot;total_price_excluding_tax&quot;: 12000,</code> <code class="prettyprint">&quot;total_tax_amount&quot;: 3000,</code> <code class="prettyprint">&quot;total_price_including_tax&quot;: 15000</code></td>
+</tr>
+<tr>
+<td>image_url</td>
+<td>String</td>
+<td>Optional</td>
+<td>URL to a picture of this item.</td>
+</tr>
+</tbody></table>
+
+<h2 id="customer-subobject">Customer Subobject</h2>
+
+<p>This object only needs to be initialized if you are selling to a business.</p>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>String</td>
+<td>Optional</td>
+<td>The customer&rsquo;s email address.</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>String</td>
+<td>Optional</td>
+<td>The customer&rsquo;s phone number.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>Required</td>
+<td>Despite being &ldquo;required&rdquo;, this does not need to be set, unless you&rsquo;re setting an &ldquo;orgno&rdquo; as well. (This will be set internally to &ldquo;person&rdquo;, meaning a private customer. If you set an orgno, this should be set explicitly to &ldquo;business&rdquo;).</td>
+</tr>
+<tr>
+<td>orgno</td>
+<td>String</td>
+<td>Conditional</td>
+<td>The customer&rsquo;s organization number. This should only be used if &ldquo;type&rdquo; is set to &ldquo;business&rdquo;.</td>
+</tr>
+</tbody></table>
+
+<h2 id="merchant-urls-subobject">Merchant-URLs Subobject</h2>
+
+<p>All of the items in this object are strings of URLs. These URLs should
+link to various pages of your webshop. Values:</p>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>terms</td>
+<td>String</td>
+<td>Required</td>
+<td>URL to the merchant&rsquo;s terms and conditions page.</td>
+</tr>
+<tr>
+<td>checkout</td>
+<td>String</td>
+<td>Required</td>
+<td>URL to the merchant&rsquo;s checkout page.</td>
+</tr>
+<tr>
+<td>confirmation</td>
+<td>String</td>
+<td>Required</td>
+<td>URL to the merchant&rsquo;s confirmation page.</td>
+</tr>
+<tr>
+<td>push</td>
+<td>String</td>
+<td>Optional</td>
+<td>URL to the merchant push endpoint. If used, this will be an endpoint on the merchant&rsquo;s server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST&rsquo;s response. If this feature is used, the URL must be HTTPS. <em>As a reminder, if you want to view the formatting:</em> send a GET to api.stidner.com/v1/order/\$order_id, with \$order_id being the order&rsquo;s ID.</td>
+</tr>
+<tr>
+<td>discount</td>
+<td>String</td>
+<td>Optional</td>
+<td>URL to the merchant&rsquo;s discount page. This is used during checkout to get the value and validity of any discount code provided by the customer. This <strong>must</strong> be set if you are wishing to offer any kinds of discount codes with our discount process. Please read <a href="discount.html">Discount Callback</a> for more information and requirements.</td>
+</tr>
+</tbody></table>
+
+<h2 id="options-subobject">Options Subobject</h2>
+
+<p>All of the items in this object are strings of CSS hex colors. All of
+these are 100% optional, but feel free to use them if you wish to
+customize the checkout design. Acceptable values:</p>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>color_button</td>
+<td>String</td>
+<td>Optional</td>
+<td>Color to fill the checkout buttons with.</td>
+</tr>
+<tr>
+<td>color_checkbox</td>
+<td>String</td>
+<td>Optional</td>
+<td>Color to fill checkboxes with.</td>
+</tr>
+<tr>
+<td>color_checkbox_checkmarks</td>
+<td>String</td>
+<td>Optional</td>
+<td>Color of any checkmarks in checkboxes.</td>
+</tr>
+<tr>
+<td>color_header</td>
+<td>String</td>
+<td>Optional</td>
+<td>Color of header texts.</td>
+</tr>
+<tr>
+<td>color_link</td>
+<td>String</td>
+<td>Optional</td>
+<td>Color of links.</td>
+</tr>
+<tr>
+<td>color_background</td>
+<td>String</td>
+<td>Optional</td>
+<td>Background coloring. <em>Example: for a white background, send:</em> <code class="prettyprint">&quot;color_background&quot;: &quot;#ffffff&quot;</code></td>
+</tr>
+</tbody></table>
