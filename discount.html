@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Stidner -- Discount Callback documentation</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="discount" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" />
+        <div class="lang-selector">
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='http://stidner.com/'>About Stidner</a></li>
+            <li><a href='http://stidner.com/'>Request an API key</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="discount-callback">Discount Callback</h1>
+
+<p>This document references the discount system and how it all connects.
+There are two parts in this process:</p>
+
+<ol>
+<li><a href="#stidner-checkouts-request">Stidner Checkout&rsquo;s request</a>, and</li>
+<li><a href="#merchants-response">Merchant&rsquo;s response</a></li>
+</ol>
+
+<p>As a reminder, this is a callback for the Order API; please <a href="./">read it</a> first if you have not already!</p>
+
+<h2 id="stidner-checkout-39-s-request">Stidner Checkout&rsquo;s request</h2>
+
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/discounts</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">merchant.example.com</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">Basic</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This object is sent to the webshop&rsquo;s discount URL. To make discounting
+very flexible, we have chosen to have the shop-owner manage their own
+discounts through their own endpoint.</p>
+
+<p>To reiterate, you will <strong>not</strong> be crafting this first object as a
+merchant. This object will be sent from the Stidner Checkout page when a
+customer enters a discount code. As a merchant, you simply read this
+request (which will be sent to the previously configured &ldquo;discount&rdquo; URL,
+which was set in the <a href="./">Order API</a>), and then respond in the format
+defined in the <a href="#merchants-response">response section</a>.</p>
+
+<p>Additionally, the merchant endpoint Stidner Checkout will be sending to:</p>
+
+<ul>
+<li><p>must be using HTTPS, and</p></li>
+<li><p>must accept requests only with the shared BasicAuth token
+(as a reminder, you used it to POST to the <a href="./">Order API</a>).</p></li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>Required</td>
+<td>The unique order ID. This should always be the existing ID generated by the /order API.</td>
+</tr>
+<tr>
+<td>discount_code</td>
+<td>String</td>
+<td>Required</td>
+<td>The discount code that a customer is trying to apply.</td>
+</tr>
+<tr>
+<td>merchant_reference1, merchant_reference2</td>
+<td>String</td>
+<td>Optional</td>
+<td>Optional internal reference IDs.</td>
+</tr>
+</tbody></table>
+
+<h2 id="merchant-39-s-response">Merchant&rsquo;s response</h2>
+
+<blockquote>
+<p>Example response (<strong>SUCCESS</strong>):</p>
+</blockquote>
+<pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="w">
+    </span><span class="s2">"name"</span><span class="err">:</span><span class="w"> </span><span class="s2">"100kr sale!"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Save 100kr on all orders more than 500 kr."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount_100530"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>As said above, this is the merchant&rsquo;s part to handle; all the
+converting, processing, etc is in your hands. Stidner Checkout will
+simply take the amount returned here, and subtract it from the order&rsquo;s
+total cost.</p>
+
+<p>If the discount code was successful, your system should send back
+everything it received in the above POST, plus adding on the
+following:</p>
+
+<ol>
+<li> An article number for the discount,</li>
+<li> the name and description of the discount code, and</li>
+<li> how much currency to subtract from the order.</li>
+</ol>
+
+<blockquote>
+<p>Example response (<strong>DENIAL</strong>):</p>
+</blockquote>
+<pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">412</span> <span class="ne">Precondition Failed</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="w">
+    </span><span class="s2">"description"</span><span class="err">:</span><span class="w"> </span><span class="s2">"Code only applies to orders of more than 500 kr."</span><span class="p">,</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
+<p>If the discount code is denied for some reason, the server should send
+back only:</p>
+
+<ol>
+<li>The order_id,</li>
+<li>the given discount_code, and</li>
+<li>a description of why it failed.</li>
+</ol>
+
+<p>Additionally, the HTTP response code should be <em>anything except</em>
+HTTP 200; we suggest HTTP 412.</p>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>The unique order ID. This should always be the existing ID previously generated by the /order API.</td>
+</tr>
+<tr>
+<td>discount_code</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>The discount code that a customer is trying to apply.</td>
+</tr>
+<tr>
+<td>merchant_reference1, merchant_reference2</td>
+<td>String</td>
+<td>Optional</td>
+<td>Optional internal reference IDs.</td>
+</tr>
+<tr>
+<td>name, description</td>
+<td>String</td>
+<td>Required</td>
+<td>A name and description of what the discount is for. This will be shown on various customer and merchant pages, so proper (non-&ldquo;internal&rdquo;) descriptions and names are important, as to reduce any possible confusion! The description should be set to a customer-friendly error message if the discount code is denied; see above denial for an example.</td>
+</tr>
+<tr>
+<td>artno</td>
+<td>String</td>
+<td>Required</td>
+<td>Article number for internal system.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Integer</td>
+<td>Required</td>
+<td>This should be how much to subtract from the order. This should be in basic units (meaning 100 SEK becomes &lsquo;10000&rsquo;, 5 EUR is &#39;500&rsquo;, etc).</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
