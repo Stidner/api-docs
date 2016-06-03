@@ -531,21 +531,13 @@ html, body {
     background-color: #29b592;
     color: #fff; }
   .tocify-wrapper .tocify-subheader {
+    display: none;
+    background-color: #262626;
+    font-weight: 500;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 8px), linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent 8px), linear-gradient(to bottom, black, transparent 1.5px), linear-gradient(to top, #939393, rgba(147, 147, 147, 0) 1.5px), #262626; }
-    .tocify-wrapper .tocify-subheader .tocify-subheader {
-      display: none;
-      background-color: #262626;
-      font-weight: 500; }
-      .tocify-wrapper .tocify-subheader .tocify-subheader .tocify-item > a {
-        padding-left: 35px;
-        font-size: 10px; }
-    .tocify-wrapper .tocify-subheader .tocify-subheader {
-      display: none;
-      background-color: #262626;
-      font-weight: 500; }
-      .tocify-wrapper .tocify-subheader .tocify-subheader .tocify-item > a {
-        padding-left: 25px;
-        font-size: 12px; }
+    .tocify-wrapper .tocify-subheader .tocify-item > a {
+      padding-left: 25px;
+      font-size: 12px; }
     .tocify-wrapper .tocify-subheader > li:last-child {
       box-shadow: none; }
   .tocify-wrapper .toc-footer {
