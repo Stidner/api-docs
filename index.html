@@ -4,7 +4,17 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Stidner -- Order API documentation</title>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-78735040-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <title>Stidner - Order API documentation</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -294,12 +304,12 @@ options are shown <a href="#main-quot-order-quot-object">later in the documentat
 <li>412 Precondition Failed: validation failed on some variable in the json object; the &ldquo;details&rdquo; object in response will give more information.</li>
 </ul>
 
-<h1 id="main-quot-order-quot-object">Main &ldquo;order&rdquo; object</h1>
+<h1 id="order-object">Order object</h1>
 
 <p>These following tables describe all the objects which will be sent in your
 json-formatted POST request to the /order API.</p>
 
-<p>This particular object should be the &ldquo;main object&rdquo;, which contains all other
+<p>This particular object will be the &ldquo;main object&rdquo; in your request, which contains all other
 strings and objects which will be sent to the order API.</p>
 
 <table><thead>
@@ -320,25 +330,25 @@ strings and objects which will be sent to the order API.</p>
 <td>purchase_country</td>
 <td>String</td>
 <td>Required</td>
-<td>The ISO 3166-1 alpha-2 (two character) country code of the customer. <em>Example: &ldquo;SE&rdquo; for Sweden.</em></td>
+<td>The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br><em>Example: &ldquo;SE&rdquo; for Sweden.</em></td>
 </tr>
 <tr>
 <td>purchase_currency</td>
 <td>String</td>
 <td>Required</td>
-<td>The ISO 4217 (three character) currency code of the customer. <em>Example: &ldquo;SEK&rdquo; for Swedish kronor.</em></td>
+<td>The ISO 4217 (three character) currency code of the customer.<br><br><em>Example: &ldquo;SEK&rdquo; for Swedish kronor.</em></td>
 </tr>
 <tr>
 <td>locale</td>
 <td>String</td>
 <td>Required</td>
-<td>The locale of the customer. <em>Example: &ldquo;se_sv&rdquo; for a Swedish IP visiting your page using the Swedish language.</em></td>
+<td>The locale of the customer.<br><br><em>Example: &ldquo;se_sv&rdquo; for a Swedish IP visiting your page using the Swedish language.</em></td>
 </tr>
 <tr>
 <td>status</td>
 <td>String</td>
 <td>Read-Only</td>
-<td>A read-only response given by the API, showing status of order. Possible values: <code class="prettyprint">&quot;example1&quot;</code>, <code class="prettyprint">&quot;TODO&quot;</code>, <code class="prettyprint">&quot;example3&quot;</code>, <code class="prettyprint">&quot;example4&quot;</code>, <code class="prettyprint">&quot;example5&quot;</code>, and <code class="prettyprint">&quot;example6&quot;</code>.</td>
+<td>A read-only response given by the API, showing status of order. Possible values: <code class="prettyprint">&quot;example1&quot;</code>, <code class="prettyprint">&quot;todo&quot;</code></td>
 </tr>
 <tr>
 <td>billing_address</td>
@@ -356,7 +366,7 @@ strings and objects which will be sent to the order API.</p>
 <td>total_price_excluding_tax, total_price_including_tax, total_tax_amount</td>
 <td>Integer</td>
 <td>Required</td>
-<td>Price calculation of entire order. These values should include cents/ören (with an implicit decimal). <em>Example for an order worth 150 SEK before tax, being 187.5 SEK after 25% VAT:</em> <code class="prettyprint">&quot;total_price_excluding_tax&quot;: 15000,</code> <code class="prettyprint">&quot;total_tax_amount&quot;: 3750,</code> <code class="prettyprint">&quot;total_price_including_tax&quot;: 18750</code></td>
+<td>Price calculation of entire order. These values should include cents/ören (with an implicit decimal).<br><br><em>Example for an order worth 150 SEK before tax, being 187.5 SEK after 25% VAT:</em><br><code class="prettyprint">&quot;total_price_excluding_tax&quot;: 15000,</code><br><code class="prettyprint">&quot;total_tax_amount&quot;: 3750,</code><br><code class="prettyprint">&quot;total_price_including_tax&quot;: 18750</code></td>
 </tr>
 <tr>
 <td>items</td>
@@ -404,7 +414,7 @@ strings and objects which will be sent to the order API.</p>
 <td>shipping_countries</td>
 <td>Array of strings</td>
 <td>Optional</td>
-<td>A list of countries which you may send your products to. <em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipping_countries: {&quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot;}</code></td>
+<td>A list of countries which you may send your products to.<br><br><em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipping_countries: {&quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot;}</code></td>
 </tr>
 <tr>
 <td>free_shipping</td>
@@ -428,7 +438,7 @@ strings and objects which will be sent to the order API.</p>
 <td>business_name</td>
 <td>String</td>
 <td>Optional</td>
-<td>Customer&rsquo;s business name, if they are buying as a business. <code class="prettyprint">json { &quot;hi&quot;: 2 }</code></td>
+<td>Customer&rsquo;s business name, if they are buying as a business.</td>
 </tr>
 <tr>
 <td>first_name</td>
@@ -452,19 +462,19 @@ strings and objects which will be sent to the order API.</p>
 <td>street_address</td>
 <td>String</td>
 <td>Optional</td>
-<td>Street address of customer, first line. <em>Example: &ldquo;Drottninggatan 57&rdquo;</em></td>
+<td>Street address of customer, first line.<br><br><em>Example: &ldquo;Drottninggatan 57&rdquo;</em></td>
 </tr>
 <tr>
 <td>street_address2</td>
 <td>String</td>
 <td>Optional</td>
-<td>Street address of customer, second line. <em>Example: &ldquo;LGH 1102&rdquo;</em></td>
+<td>Street address of customer, second line.<br><br><em>Example: &ldquo;LGH 1102&rdquo;</em></td>
 </tr>
 <tr>
 <td>postal_code</td>
 <td>String</td>
 <td>Optional</td>
-<td>Customer&rsquo;s postal code. <em>Example: &ldquo;46132&rdquo;</em></td>
+<td>Customer&rsquo;s postal code.<br><br><em>Example: &ldquo;46132&rdquo;</em></td>
 </tr>
 <tr>
 <td>city</td>
@@ -476,19 +486,19 @@ strings and objects which will be sent to the order API.</p>
 <td>region</td>
 <td>String</td>
 <td>Optional</td>
-<td>Customer&rsquo;s region or state. <em>Example: &ldquo;Västra Götalands län&rdquo;</em></td>
+<td>Customer&rsquo;s region or state.<br><br><em>Example: &ldquo;Västra Götalands län&rdquo;</em></td>
 </tr>
 <tr>
 <td>phone</td>
 <td>String</td>
 <td>Optional</td>
-<td>Customer&rsquo;s phone number, including country code. *Example: &ldquo;</td>
+<td>Customer&rsquo;s phone number, including country code.<br><br><em>Example: &ldquo;+46851972000&rdquo;</em></td>
 </tr>
 <tr>
 <td>country</td>
 <td>String</td>
 <td>Optional</td>
-<td>The ISO 3166-1 alpha-2 (two character) country code of the customer. <em>Example: &quot;SE&rdquo; for Sweden.</em></td>
+<td>The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br><em>Example: &ldquo;SE&rdquo; for Sweden.</em></td>
 </tr>
 <tr>
 <td>email</td>
@@ -548,7 +558,7 @@ array. Values:</p>
 <td>weight</td>
 <td>Integer</td>
 <td>Conditional</td>
-<td>Weight of product, in grams. Will be rounded to the nearest tenth. Only used if the &ldquo;type&rdquo; of item is &ldquo;physical&rdquo;. <em>Example: an item of 10,5kg would be set as &lsquo;1050&rsquo;.</em></td>
+<td>Weight of product, in grams. Will be rounded to the nearest tenth. Only used if the &ldquo;type&rdquo; of item is &ldquo;physical&rdquo;.<br><br><em>Example: an item of 10,5kg would be set as &lsquo;1050&rsquo;.</em></td>
 </tr>
 <tr>
 <td>quantity</td>
@@ -560,25 +570,25 @@ array. Values:</p>
 <td>quantity_unit</td>
 <td>String</td>
 <td>Conditional</td>
-<td>Unit to describe quantity. Only used when &lt;TODO&gt;. <em>Example: &ldquo;kg&rdquo;, &ldquo;pcs&rdquo;, etc.</em></td>
+<td>Unit to describe quantity. Only used when &lt;TODO&gt;.<br><br><em>Example: &ldquo;kg&rdquo;, &ldquo;pcs&rdquo;, etc.</em></td>
 </tr>
 <tr>
 <td>unit_price</td>
 <td>Integer</td>
 <td>Required</td>
-<td>How much each unit costs. This will be in minor units, excluding tax. <em>Example: if one unit of an item you&rsquo;re selling is worth 40 SEK before tax, you would use &#39;4000&rsquo; here.</em></td>
+<td>How much each unit costs. This will be in minor units, excluding tax.<br><br><em>Example: if one unit of an item you&rsquo;re selling is worth 40 SEK before tax, you would use &#39;4000&rsquo; here.</em></td>
 </tr>
 <tr>
 <td>tax_rate</td>
 <td>Integer</td>
 <td>Required</td>
-<td>The tax rate of this item. Written like most numbers in this API: no decimals, but to the 10th place. <em>Example: in Sweden, the standard VAT rate is 25%, so the request is most likely going to be:</em> <code class="prettyprint">&quot;tax_rate&quot;: 2500</code></td>
+<td>The tax rate of this item. Written like most numbers in this API: no decimals, but to the 10th place.<br><br><em>Example: in Sweden, the standard VAT rate is 25%, so the request is most likely going to be:</em> <code class="prettyprint">&quot;tax_rate&quot;: 2500</code></td>
 </tr>
 <tr>
 <td>total_price_excluding_tax, total_price_including_tax, total_tax_amount</td>
 <td>Integer</td>
 <td>Required</td>
-<td>This object&rsquo;s price calculations. These values should include cents/ören (with an implicit decimal). Basically the same thing as the main order calculation, but containing only this item&rsquo;s values. <em>Example: one customer buys 3 of the same coffee mug. 40 SEK is the value of each mug, giving 120 SEK total before tax. Given the VAT rate of 25%, 30 SEK is added in tax. So the finalized values become:</em> <code class="prettyprint">&quot;total_price_excluding_tax&quot;: 12000,</code> <code class="prettyprint">&quot;total_tax_amount&quot;: 3000,</code> <code class="prettyprint">&quot;total_price_including_tax&quot;: 15000</code></td>
+<td>This object&rsquo;s price calculations. These values should include cents/ören (with an implicit decimal). Basically the same thing as the main order calculation, but containing only this item&rsquo;s values.<br><br><em>Example: one customer buys 3 of the same coffee mug. 40 SEK is the value of each mug, giving 120 SEK total before tax. Given the VAT rate of 25%, 30 SEK is added in tax. So the finalized values become:</em> <code class="prettyprint">&quot;total_price_excluding_tax&quot;: 12000,</code> <code class="prettyprint">&quot;total_tax_amount&quot;: 3000,</code> <code class="prettyprint">&quot;total_price_including_tax&quot;: 15000</code></td>
 </tr>
 <tr>
 <td>image_url</td>
@@ -667,7 +677,7 @@ link to various pages of your webshop. Values:</p>
 <td>discount</td>
 <td>String</td>
 <td>Optional</td>
-<td>URL to the merchant&rsquo;s discount page. This is used during checkout to get the value and validity of any discount code provided by the customer. This <strong>must</strong> be set if you are wishing to offer any kinds of discount codes with our discount process. Please read <a href="discount.html">Discount Callback</a> for more information and requirements.</td>
+<td>URL to the merchant&rsquo;s discount page. This is used during checkout to get the value and validity of any discount code provided by the customer. This <strong>must</strong> be set if you are wishing to offer any kinds of discount codes with our discount process. Please read <a href="#discount-callback">Discount Callback</a> for more information and requirements.</td>
 </tr>
 </tbody></table>
 
@@ -719,7 +729,187 @@ customize the checkout design. Acceptable values:</p>
 <td>color_background</td>
 <td>String</td>
 <td>Optional</td>
-<td>Background coloring. <em>Example: for a white background, send:</em> <code class="prettyprint">&quot;color_background&quot;: &quot;#ffffff&quot;</code></td>
+<td>Background coloring.<br><br><em>Example: for a white background, send:</em> <code class="prettyprint">&quot;color_background&quot;: &quot;#ffffff&quot;</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="discount-callback">Discount Callback</h1>
+
+<p>This document references the discount system and how it all connects.
+There are two parts in this process:</p>
+
+<ol>
+<li><a href="#stidner-checkout-39-s-request">Stidner Checkout&rsquo;s request</a>, and</li>
+<li><a href="#merchant-39-s-response">Merchant&rsquo;s response</a></li>
+</ol>
+
+<p>As a reminder, this is a callback for the discount API; you do not need to use it if you
+are not using <code class="prettyprint">merchant.discount</code> in the order API.</p>
+
+<h2 id="stidner-checkout-39-s-request">Stidner Checkout&rsquo;s request</h2>
+
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/discounts</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">merchant.example.com</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">Basic</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This object is sent to the webshop&rsquo;s discount URL. To make discounting
+very flexible, we have chosen to have the shop-owner manage their own
+discounts through their own endpoint.</p>
+
+<p>To reiterate, you will <strong>not</strong> be crafting this first object as a
+merchant. This object will be sent from the Stidner Checkout page when a
+customer enters a discount code. As a merchant, you simply read this
+request (which will be sent to the previously configured &ldquo;discount&rdquo; URL,
+which was set in the <a href="#order-api">Order API</a>), and then respond in the format
+defined in the <a href="#merchants-response">response section</a>.</p>
+
+<p>Additionally, the merchant endpoint Stidner Checkout will be sending to:</p>
+
+<ul>
+<li><p>must be using HTTPS, and</p></li>
+<li><p>must accept requests only with the shared BasicAuth token
+(as a reminder, you used it to POST to the <a href="#order-api">Order API</a>).</p></li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>Required</td>
+<td>The unique order ID. This should always be the existing ID generated by the /order API.</td>
+</tr>
+<tr>
+<td>discount_code</td>
+<td>String</td>
+<td>Required</td>
+<td>The discount code that a customer is trying to apply.</td>
+</tr>
+<tr>
+<td>merchant_reference1, merchant_reference2</td>
+<td>String</td>
+<td>Optional</td>
+<td>Optional internal reference IDs.</td>
+</tr>
+</tbody></table>
+
+<h2 id="merchant-39-s-response">Merchant&rsquo;s response</h2>
+
+<blockquote>
+<p>Example response (<strong>SUCCESS</strong>):</p>
+</blockquote>
+<pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100kr sale!"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Save 100 SEK on all orders more than 500 SEK."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount_100530"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>As said above, this is the merchant&rsquo;s part to handle; all the
+converting, processing, etc is in your hands. Stidner Checkout will
+simply take the amount returned here, and subtract it from the order&rsquo;s
+total cost.</p>
+
+<p>If the discount code was successful, your system should send back
+everything it received in the above POST, plus adding on the
+following:</p>
+
+<ol>
+<li> An article number for the discount,</li>
+<li> the name and description of the discount code, and</li>
+<li> how much currency to subtract from the order.</li>
+</ol>
+
+<blockquote>
+<p>Example response (<strong>DENIAL</strong>):</p>
+</blockquote>
+<pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">412</span> <span class="ne">Precondition Failed</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code only applies to orders of more than 500 SEK."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>If the discount code is denied for some reason, the server should send
+back only:</p>
+
+<ol>
+<li>The order_id,</li>
+<li>the given discount_code, and</li>
+<li>a description of why it failed.</li>
+</ol>
+
+<p>Additionally, the HTTP response code should be <em>anything except</em>
+HTTP 200; we suggest using HTTP 412.</p>
+
+<table><thead>
+<tr>
+<th>Key name</th>
+<th>Type</th>
+<th>R/O/C</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>The unique order ID. This should always be the existing ID previously generated by the /order API.</td>
+</tr>
+<tr>
+<td>discount_code</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>The discount code that a customer is trying to apply.</td>
+</tr>
+<tr>
+<td>merchant_reference1, merchant_reference2</td>
+<td>String</td>
+<td>Optional</td>
+<td>Optional internal reference IDs.</td>
+</tr>
+<tr>
+<td>name, description</td>
+<td>String</td>
+<td>Required</td>
+<td>A name and description of what the discount is for. This will be shown on various customer and merchant pages, so proper (non-&ldquo;internal&rdquo;) descriptions and names are important, as to reduce any possible confusion! The description should be set to a customer-friendly error message if the discount code is denied; see above denial for an example.</td>
+</tr>
+<tr>
+<td>artno</td>
+<td>String</td>
+<td>Required</td>
+<td>Article number for internal system.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Integer</td>
+<td>Required</td>
+<td>This should be how much to subtract from the order. This should be in basic units (meaning 100 SEK becomes &#39;10000&rsquo;, 5 EUR is &#39;500&rsquo;, etc).</td>
 </tr>
 </tbody></table>
 
