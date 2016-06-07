@@ -5,12 +5,13 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (function(i,s,o,g,r,a,m){i['Googl'+'eAn'+'alyti'+'csObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      })(window,document,'script','https://www.goo'+'gle-ana'+'lytics.com/an'+'alyti'+'cs.js','ga');
 
-      ga('create', 'UA-78735040-1', 'auto');
+      ga('create', 'U'+'A-78'+'7350'+'40-'+'14', 'auto');
+      ga('require', 'linkid');
       ga('send', 'pageview');
 
     </script>
@@ -174,7 +175,7 @@
             </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
             </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">16500</span><span class="p">,</span><span class="w">
             </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">82500</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.test"</span><span class="w">
+            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/game.jpg"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
@@ -190,7 +191,7 @@
             </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
             </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">26250</span><span class="p">,</span><span class="w">
             </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">131250</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.test"</span><span class="w">
+            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/goldshoes.jpg"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="nt">"merchant_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -234,7 +235,7 @@ options are shown <a href="#main-quot-order-quot-object">later in the documentat
         </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase_incomplete"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"171000"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42750"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"213750"</span><span class="p">,</span><span class="w">
@@ -327,6 +328,18 @@ strings and objects which will be sent to the order API.</p>
 <td>The unique order ID, max 255 characters. This is created by our API, and you should always use it if it has been set.</td>
 </tr>
 <tr>
+<td>iframe_url</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>This URL should be opened in an iframe if it has been set. This is normally used for handling payment gateways.</td>
+</tr>
+<tr>
+<td>merchant_reference1, merchant_reference2</td>
+<td>String</td>
+<td>Optional</td>
+<td>Optional internal order IDs, max 255 characters.</td>
+</tr>
+<tr>
 <td>purchase_country</td>
 <td>String</td>
 <td>Required</td>
@@ -345,58 +358,52 @@ strings and objects which will be sent to the order API.</p>
 <td>The locale of the customer.<br><br><em>Example: &ldquo;se_sv&rdquo; for a Swedish IP visiting your page using the Swedish language.</em></td>
 </tr>
 <tr>
-<td>status</td>
-<td>String</td>
-<td>Read-Only</td>
-<td>A read-only response given by the API, showing status of order. Possible values: <code class="prettyprint">&quot;example1&quot;</code>, <code class="prettyprint">&quot;todo&quot;</code></td>
-</tr>
-<tr>
-<td>billing_address</td>
-<td>Object</td>
-<td>Optional</td>
-<td>An optional subobject array of the customer&rsquo;s billing/shipping info. Use this if you wish to supply some pre-supplied customer info; otherwise the API will do this for you. Please read <a href="#billing-subobject">Billing Subobject</a> for more information.</td>
-</tr>
-<tr>
-<td>shipping_address</td>
-<td>Object</td>
-<td>Read-Only</td>
-<td>A read-only response from the API. This contains the customer&rsquo;s shipping information which we fetched ourselves. This has the same structure as the billing-object.</td>
-</tr>
-<tr>
 <td>total_price_excluding_tax, total_price_including_tax, total_tax_amount</td>
 <td>Integer</td>
 <td>Required</td>
 <td>Price calculation of entire order. These values should include cents/ören (with an implicit decimal).<br><br><em>Example for an order worth 150 SEK before tax, being 187.5 SEK after 25% VAT:</em><br><code class="prettyprint">&quot;total_price_excluding_tax&quot;: 15000,</code><br><code class="prettyprint">&quot;total_tax_amount&quot;: 3750,</code><br><code class="prettyprint">&quot;total_price_including_tax&quot;: 18750</code></td>
 </tr>
 <tr>
-<td>items</td>
-<td>Array of objects</td>
-<td>Required</td>
-<td>This subobject contains an array of objects, with one object for each item being sold to the customer. Please read <a href="#resource-subobject">Resource Subobject</a> for more information.</td>
-</tr>
-<tr>
-<td>comment</td>
+<td>status</td>
 <td>String</td>
-<td>Optional</td>
-<td>Set a comment on an order.</td>
+<td>Read-Only</td>
+<td>A read-only response given by the API, showing status of order. Possible values: <code class="prettyprint">&quot;purchase_incomplete&quot;</code> (default), <code class="prettyprint">&quot;purchase_complete&quot;</code>, and <code class="prettyprint">&quot;purchase_refunded&quot;</code>.</td>
 </tr>
 <tr>
-<td>customer</td>
-<td>Object</td>
-<td>Conditional</td>
-<td>Include some customer-related information. Only needed if selling to a business. Please read <a href="#customer-subobject">Customer Subobject</a> for more information.</td>
+<td>billing_address</td>
+<td><a href="#address-subobject">address</a> Object</td>
+<td>Optional</td>
+<td>An optional subobject of the customer&rsquo;s billing/shipping info. Use this if you wish to supply some pre-supplied customer info; otherwise the API will do this for you. Please read <a href="#address-subobject">address Subobject</a> for more information.</td>
+</tr>
+<tr>
+<td>shipping_address</td>
+<td><a href="#address-subobject">address</a> Object</td>
+<td>Read-Only</td>
+<td>A read-only response from the API. This contains the customer&rsquo;s shipping information which we fetched ourselves. This has the same structure as the billing-object. Please read <a href="#address-subobject">address Subobject</a> for more information.</td>
+</tr>
+<tr>
+<td>items</td>
+<td>Array of <a href="#item-subobject">item</a> object</td>
+<td>Required</td>
+<td>This subobject contains an array of objects, with one object for each item being sold to the customer. Please read <a href="#item-subobject">item Subobject</a> for more information.</td>
 </tr>
 <tr>
 <td>merchant_urls</td>
-<td>Object</td>
+<td><a href="#urls-subobject">URLs</a> Object</td>
 <td>Required</td>
-<td>Callback URLs for various merchant-page URLs. Please read <a href="#merchant-urls-subobject">Merchant-URLs Object</a> for more information.</td>
+<td>Callback URLs for various merchant-page URLs. Please read <a href="#urls-subobject">URLs Object</a> for more information.</td>
 </tr>
 <tr>
-<td>merchant_reference1, merchant_reference2</td>
-<td>String</td>
+<td>options</td>
+<td><a href="#options-subobject">options</a> Object</td>
 <td>Optional</td>
-<td>Optional internal order IDs.</td>
+<td>Optional checkout design options. Please read <a href="#options-subobject">options Subobject</a> for more information.</td>
+</tr>
+<tr>
+<td>shipping_countries</td>
+<td>Array of strings</td>
+<td>Optional</td>
+<td>A list of countries which you may send your products to.<br><br><em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipping_countries: {&quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot;}</code></td>
 </tr>
 <tr>
 <td>created_date, completed_date, updated_date</td>
@@ -405,16 +412,10 @@ strings and objects which will be sent to the order API.</p>
 <td>Read-only response. Gives the datetime the order was created/completed/updated. Formatted as ISO 8601 datetime strings.</td>
 </tr>
 <tr>
-<td>options</td>
-<td>Object</td>
+<td>comment</td>
+<td>String</td>
 <td>Optional</td>
-<td>Optional checkout design options. Please read <a href="#options-subobject">Options Subobject</a> for more information.</td>
-</tr>
-<tr>
-<td>shipping_countries</td>
-<td>Array of strings</td>
-<td>Optional</td>
-<td>A list of countries which you may send your products to.<br><br><em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipping_countries: {&quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot;}</code></td>
+<td>Set a comment on an order.</td>
 </tr>
 <tr>
 <td>free_shipping</td>
@@ -424,7 +425,7 @@ strings and objects which will be sent to the order API.</p>
 </tr>
 </tbody></table>
 
-<h2 id="billing-subobject">Billing Subobject</h2>
+<h2 id="address-subobject">address Subobject</h2>
 
 <table><thead>
 <tr>
@@ -435,22 +436,28 @@ strings and objects which will be sent to the order API.</p>
 </tr>
 </thead><tbody>
 <tr>
+<td>type</td>
+<td>String</td>
+<td>Required</td>
+<td>Must be set to either <code class="prettyprint">&quot;person&quot;</code> (private customers) or <code class="prettyprint">&quot;business&quot;</code> (if selling to a business).</td>
+</tr>
+<tr>
 <td>business_name</td>
 <td>String</td>
-<td>Optional</td>
-<td>Customer&rsquo;s business name, if they are buying as a business.</td>
+<td>Conditional</td>
+<td>Customer&rsquo;s business name, if they are buying as a business. Max 100 characters.</td>
 </tr>
 <tr>
 <td>first_name</td>
 <td>String</td>
-<td>Optional</td>
-<td>Customer&rsquo;s first name.</td>
+<td>Conditional</td>
+<td>Customer&rsquo;s first name. Max 100 characters.</td>
 </tr>
 <tr>
 <td>family_name</td>
 <td>String</td>
-<td>Optional</td>
-<td>Customer&rsquo;s last name.</td>
+<td>Conditional</td>
+<td>Customer&rsquo;s last name. Max 100 characters.</td>
 </tr>
 <tr>
 <td>title</td>
@@ -459,58 +466,58 @@ strings and objects which will be sent to the order API.</p>
 <td>Title of customer. (Mr, Mrs, Dr, etc)</td>
 </tr>
 <tr>
-<td>street_address</td>
+<td>addressLine</td>
 <td>String</td>
-<td>Optional</td>
-<td>Street address of customer, first line.<br><br><em>Example: &ldquo;Drottninggatan 57&rdquo;</em></td>
+<td>Required</td>
+<td>Street address of customer, first line. Max 100 characters.<br><br><em>Example: &ldquo;Drottninggatan 57&rdquo;</em></td>
 </tr>
 <tr>
-<td>street_address2</td>
+<td>addressLine2</td>
 <td>String</td>
 <td>Optional</td>
-<td>Street address of customer, second line.<br><br><em>Example: &ldquo;LGH 1102&rdquo;</em></td>
+<td>Street address of customer, second line. Max 100 characters.<br><br><em>Example: &ldquo;LGH 1102&rdquo;</em></td>
 </tr>
 <tr>
-<td>postal_code</td>
+<td>postalCode</td>
 <td>String</td>
-<td>Optional</td>
+<td>Required</td>
 <td>Customer&rsquo;s postal code.<br><br><em>Example: &ldquo;46132&rdquo;</em></td>
 </tr>
 <tr>
 <td>city</td>
 <td>String</td>
-<td>Optional</td>
+<td>Required</td>
 <td>Customer&rsquo;s city.</td>
 </tr>
 <tr>
 <td>region</td>
 <td>String</td>
-<td>Optional</td>
+<td>Required</td>
 <td>Customer&rsquo;s region or state.<br><br><em>Example: &ldquo;Västra Götalands län&rdquo;</em></td>
 </tr>
 <tr>
 <td>phone</td>
 <td>String</td>
-<td>Optional</td>
+<td>Required</td>
 <td>Customer&rsquo;s phone number, including country code.<br><br><em>Example: &ldquo;+46851972000&rdquo;</em></td>
-</tr>
-<tr>
-<td>country</td>
-<td>String</td>
-<td>Optional</td>
-<td>The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br><em>Example: &ldquo;SE&rdquo; for Sweden.</em></td>
 </tr>
 <tr>
 <td>email</td>
 <td>String</td>
-<td>Optional</td>
+<td>Required</td>
 <td>Customer&rsquo;s email address.</td>
+</tr>
+<tr>
+<td>countryCode</td>
+<td>String</td>
+<td>Optional</td>
+<td>The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br><em>Example: &ldquo;SE&rdquo; for Sweden.</em></td>
 </tr>
 </tbody></table>
 
-<h2 id="resource-subobject">Resource Subobject</h2>
+<h2 id="item-subobject">item Subobject</h2>
 
-<p>This is the resource object, which basically describes one type of item
+<p>This is the &ldquo;item&rdquo; object, which basically describes one type of item
 in a customer&rsquo;s order, and various related values. For example, if a
 customer bought 3 of the same coffee mug, and one bag of coffee from
 your store, you would use this object twice in the main &ldquo;order&rdquo; items
@@ -528,7 +535,7 @@ array. Values:</p>
 <td>type</td>
 <td>String</td>
 <td>Required</td>
-<td>The &ldquo;type of item&rdquo; this object is. Acceptable values: &ldquo;physical&rdquo; (items you will eventually ship), &ldquo;digital&rdquo; (non-physical items, such as a software license key), &ldquo;fee&rdquo; (various fees, such as a shipping expense), and &ldquo;discount&rdquo; (store promotions, such as a sale code).</td>
+<td>The &ldquo;type of item&rdquo; this object is.<br><br>Acceptable values: <code class="prettyprint">&quot;physical&quot;</code> (items you will eventually ship), <code class="prettyprint">&quot;digital&quot;</code> (non-physical items, such as a software license key), <code class="prettyprint">&quot;fee&quot;</code> (various fees, such as a shipping expense), and <code class="prettyprint">&quot;discount&quot;</code> (store promotions, such as a sale code).</td>
 </tr>
 <tr>
 <td>artno</td>
@@ -558,7 +565,7 @@ array. Values:</p>
 <td>weight</td>
 <td>Integer</td>
 <td>Conditional</td>
-<td>Weight of product, in grams. Will be rounded to the nearest tenth. Only used if the &ldquo;type&rdquo; of item is &ldquo;physical&rdquo;.<br><br><em>Example: an item of 10,5kg would be set as &lsquo;1050&rsquo;.</em></td>
+<td>Needed when type is set to &ldquo;physical&rdquo;. Weight of product, in grams. Will be rounded to the nearest tenth.<br><br><em>Example: an item of 10,5kg would be set as &lsquo;1050&rsquo;.</em></td>
 </tr>
 <tr>
 <td>quantity</td>
@@ -569,8 +576,8 @@ array. Values:</p>
 <tr>
 <td>quantity_unit</td>
 <td>String</td>
-<td>Conditional</td>
-<td>Unit to describe quantity. Only used when &lt;TODO&gt;.<br><br><em>Example: &ldquo;kg&rdquo;, &ldquo;pcs&rdquo;, etc.</em></td>
+<td>Required</td>
+<td>Unit to describe quantity. <br><br>Acceptable values: <code class="prettyprint">&quot;pcs&quot;</code>, <code class="prettyprint">&quot;metre&quot;</code>, <code class="prettyprint">&quot;m3&quot;</code>, or <code class="prettyprint">&quot;kg&quot;</code>.</td>
 </tr>
 <tr>
 <td>unit_price</td>
@@ -594,49 +601,11 @@ array. Values:</p>
 <td>image_url</td>
 <td>String</td>
 <td>Optional</td>
-<td>URL to a picture of this item.</td>
+<td>URL to a picture of this item. Max 2000 characters.</td>
 </tr>
 </tbody></table>
 
-<h2 id="customer-subobject">Customer Subobject</h2>
-
-<p>This object only needs to be initialized if you are selling to a business.</p>
-
-<table><thead>
-<tr>
-<th>Key name</th>
-<th>Type</th>
-<th>R/O/C</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>email</td>
-<td>String</td>
-<td>Optional</td>
-<td>The customer&rsquo;s email address.</td>
-</tr>
-<tr>
-<td>phone</td>
-<td>String</td>
-<td>Optional</td>
-<td>The customer&rsquo;s phone number.</td>
-</tr>
-<tr>
-<td>type</td>
-<td>String</td>
-<td>Required</td>
-<td>Despite being &ldquo;required&rdquo;, this does not need to be set, unless you&rsquo;re setting an &ldquo;orgno&rdquo; as well. (This will be set internally to &ldquo;person&rdquo;, meaning a private customer. If you set an orgno, this should be set explicitly to &ldquo;business&rdquo;).</td>
-</tr>
-<tr>
-<td>orgno</td>
-<td>String</td>
-<td>Conditional</td>
-<td>The customer&rsquo;s organization number. This should only be used if &ldquo;type&rdquo; is set to &ldquo;business&rdquo;.</td>
-</tr>
-</tbody></table>
-
-<h2 id="merchant-urls-subobject">Merchant-URLs Subobject</h2>
+<h2 id="urls-subobject">URLs Subobject</h2>
 
 <p>All of the items in this object are strings of URLs. These URLs should
 link to various pages of your webshop. Values:</p>
@@ -653,38 +622,38 @@ link to various pages of your webshop. Values:</p>
 <td>terms</td>
 <td>String</td>
 <td>Required</td>
-<td>URL to the merchant&rsquo;s terms and conditions page.</td>
+<td>HTTP/HTTPS URL to the merchant&rsquo;s terms and conditions page.</td>
 </tr>
 <tr>
 <td>checkout</td>
 <td>String</td>
 <td>Required</td>
-<td>URL to the merchant&rsquo;s checkout page.</td>
+<td>HTTP/HTTPS URL to the merchant&rsquo;s checkout page.</td>
 </tr>
 <tr>
 <td>confirmation</td>
 <td>String</td>
 <td>Required</td>
-<td>URL to the merchant&rsquo;s confirmation page.</td>
+<td>HTTP/HTTPS URL to the merchant&rsquo;s confirmation page.</td>
 </tr>
 <tr>
 <td>push</td>
 <td>String</td>
 <td>Optional</td>
-<td>URL to the merchant push endpoint. If used, this will be an endpoint on the merchant&rsquo;s server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST&rsquo;s response. If this feature is used, the URL must be HTTPS. <em>As a reminder, if you want to view the formatting:</em> send a GET to api.stidner.com/v1/order/\$order_id, with \$order_id being the order&rsquo;s ID.</td>
+<td>HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant&rsquo;s server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST&rsquo;s response. If this feature is used, the URL must be HTTPS. <em>As a reminder, if you want to view the formatting:</em> send a GET to api.stidner.com/v1/order/\$order_id, with \$order_id being the order&rsquo;s ID.</td>
 </tr>
 <tr>
 <td>discount</td>
 <td>String</td>
 <td>Optional</td>
-<td>URL to the merchant&rsquo;s discount page. This is used during checkout to get the value and validity of any discount code provided by the customer. This <strong>must</strong> be set if you are wishing to offer any kinds of discount codes with our discount process. Please read <a href="#discount-callback">Discount Callback</a> for more information and requirements.</td>
+<td>HTTPS-only URL to the merchant&rsquo;s discount page. This is used during checkout to get the value and validity of any discount code provided by the customer. This <strong>must</strong> be set if you are wishing to offer any kinds of discount codes with our discount process. Please read <a href="#discount-callback">Discount Callback</a> for more information and requirements.</td>
 </tr>
 </tbody></table>
 
-<h2 id="options-subobject">Options Subobject</h2>
+<h2 id="options-subobject">options Subobject</h2>
 
-<p>All of the items in this object are strings of CSS hex colors. All of
-these are 100% optional, but feel free to use them if you wish to
+<p>All of the items in this object are strings of CSS hex colors (eg #FFFFFF).
+All of these are 100% optional, but feel free to use them if you wish to
 customize the checkout design. Acceptable values:</p>
 
 <table><thead>
@@ -700,6 +669,12 @@ customize the checkout design. Acceptable values:</p>
 <td>String</td>
 <td>Optional</td>
 <td>Color to fill the checkout buttons with.</td>
+</tr>
+<tr>
+<td>color_button_text</td>
+<td>String</td>
+<td>Optional</td>
+<td>Color of the characters in the buttons on the checkout pages.</td>
 </tr>
 <tr>
 <td>color_checkbox</td>
@@ -729,7 +704,7 @@ customize the checkout design. Acceptable values:</p>
 <td>color_background</td>
 <td>String</td>
 <td>Optional</td>
-<td>Background coloring.<br><br><em>Example: for a white background, send:</em> <code class="prettyprint">&quot;color_background&quot;: &quot;#ffffff&quot;</code></td>
+<td>Background coloring.<br><br><em>Example for a white background:</em> <code class="prettyprint">&quot;color_background&quot;: &quot;#ffffff&quot;</code></td>
 </tr>
 </tbody></table>
 
@@ -744,7 +719,7 @@ There are two parts in this process:</p>
 </ol>
 
 <p>As a reminder, this is a callback for the discount API; you do not need to use it if you
-are not using <code class="prettyprint">merchant.discount</code> in the order API.</p>
+are not using <code class="prettyprint">urls.discount</code> in the order API.</p>
 
 <h2 id="stidner-checkout-39-s-request">Stidner Checkout&rsquo;s request</h2>
 
