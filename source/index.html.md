@@ -58,7 +58,7 @@ Content-Type: application/json
             "total_price_excluding_tax": 66000,
             "total_tax_amount": 16500,
             "total_price_including_tax": 82500,
-            "image_url": "http://test.test"
+            "image_url": "https://example.com/game.jpg"
         },
         {
             "type": "physical",
@@ -74,7 +74,7 @@ Content-Type: application/json
             "total_price_excluding_tax": 105000,
             "total_tax_amount": 26250,
             "total_price_including_tax": 131250,
-            "image_url": "http://test.test"
+            "image_url": "https://example.com/goldshoes.jpg"
         }
     ],
     "merchant_urls": {
@@ -119,7 +119,7 @@ Content-Type: application/json
         "purchase_country": "SE",
         "purchase_currency": "SEK",
         "locale": "se_sv",
-        "status": "",
+        "status": "purchase_incomplete",
         "total_price_excluding_tax": "171000",
         "total_tax_amount": "42750",
         "total_price_including_tax": "213750",
@@ -206,7 +206,7 @@ strings and objects which will be sent to the order API.
 | purchase\_currency | String | Required | The ISO 4217 (three character) currency code of the customer.<br><br>*Example: "SEK" for Swedish kronor.*
 | locale | String | Required | The locale of the customer.<br><br>*Example: "se\_sv" for a Swedish IP visiting your page using the Swedish language.*
 | total\_price\_excluding\_tax, total\_price\_including\_tax, total\_tax\_amount | Integer | Required | Price calculation of entire order. These values should include cents/ören (with an implicit decimal).<br><br>*Example for an order worth 150 SEK before tax, being 187.5 SEK after 25% VAT:*<br>`"total_price_excluding_tax": 15000,`<br>`"total_tax_amount": 3750,`<br>`"total_price_including_tax": 18750`
-| status | String | Read-Only| A read-only response given by the API, showing status of order. Possible values: `"example1"`, `"todo"`
+| status | String | Read-Only| A read-only response given by the API, showing status of order. Possible values: `"purchase_incomplete"` (default), `"purchase_complete"`, and `"purchase_refunded"`.
 | billing\_address | [address](#address-subobject) Object | Optional | An optional subobject of the customer's billing/shipping info. Use this if you wish to supply some pre-supplied customer info; otherwise the API will do this for you. Please read [address Subobject](#address-subobject) for more information.
 | shipping\_address | [address](#address-subobject) Object | Read-Only| A read-only response from the API. This contains the customer's shipping information which we fetched ourselves. This has the same structure as the billing-object. Please read [address Subobject](#address-subobject) for more information.
 | items | Array of [item](#item-subobject) object | Required | This subobject contains an array of objects, with one object for each item being sold to the customer. Please read [item Subobject](#item-subobject) for more information.
@@ -254,7 +254,7 @@ array. Values:
 | description | String | Optional | The description of the product.
 | weight | Integer | Conditional | Needed when type is set to "physical". Weight of product, in grams. Will be rounded to the nearest tenth.<br><br>*Example: an item of 10,5kg would be set as '1050'.*
 | quantity | Integer | Required | Quantity of item.
-| quantity\_unit | String | Required | Unit to describe quantity. <br><br>*Example: "kg", "pcs", etc.*
+| quantity\_unit | String | Required | Unit to describe quantity. <br><br>Acceptable values: `"pcs"`, `"metre"`, `"m3"`, or `"kg"`.
 | unit\_price | Integer | Required | How much each unit costs. This will be in minor units, excluding tax.<br><br>*Example: if one unit of an item you're selling is worth 40 SEK before tax, you would use '4000' here.*
 | tax\_rate | Integer | Required | The tax rate of this item. Written like most numbers in this API: no decimals, but to the 10th place.<br><br>*Example: in Sweden, the standard VAT rate is 25%, so the request is most likely going to be:* `"tax_rate": 2500`
 | total\_price\_excluding\_tax, total\_price\_including\_tax, total\_tax\_amount | Integer | Required | This object's price calculations. These values should include cents/ören (with an implicit decimal). Basically the same thing as the main order calculation, but containing only this item's values.<br><br>*Example: one customer buys 3 of the same coffee mug. 40 SEK is the value of each mug, giving 120 SEK total before tax. Given the VAT rate of 25%, 30 SEK is added in tax. So the finalized values become:* `"total_price_excluding_tax": 12000,` `"total_tax_amount": 3000,` `"total_price_including_tax": 15000`
@@ -289,7 +289,7 @@ customize the checkout design. Acceptable values:
 | color\_checkbox\_checkmarks | String | Optional | Color of any checkmarks in checkboxes.
 | color\_header | String | Optional | Color of header texts.
 | color\_link | String | Optional | Color of links.
-| color\_background | String | Optional | Background coloring.<br><br>*Example: for a white background, send:* `"color_background": "#ffffff"`
+| color\_background | String | Optional | Background coloring.<br><br>*Example for a white background:* `"color_background": "#ffffff"`
 
 
 # Discount Callback
