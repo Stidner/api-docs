@@ -5,6 +5,10 @@ toc_footers:
   - <a href='http://stidner.com/'>About Stidner</a>
   - <a href='http://stidner.com/'>Request an API key</a>
 
+language_tabs:
+  - json-object
+  - php-sdk
+
 search: true
 ---
 
@@ -13,19 +17,22 @@ search: true
 This document references the /order API endpoint and its contents, which developers can use to create checkout orders.
 
 Note: we offer a [PHP SDK](https://github.com/Stidner/php-sdk) if you would like to use that to craft requests instead.
+<br />
+Some parts in this document assumes that you will be using the API directly (without the SDK), but most of the
+information is still relevant. In addition, you can change the language-tab on the right-hand sidebar to "php-sdk" for
+the PHP SDK examples, instead of the typical JSON objects.
+<br />
+Additionally, you can read the auto-generated (phpDocumentor) docs [here](http://developer.stidner.com/phpdoc/).
 
 
 ## Request
 
-> **You must use both HTTPS and BasicAuth when posting to this API.**
-
-```http
+```json-object
 POST /v1/order HTTP/1.1
 Host: api.stidner.com
 Authorization: Basic
 Content-Type: application/json
-```
-```json
+
 {
     "purchase_country": "SE",
     "purchase_currency": "SEK",
@@ -88,29 +95,143 @@ Content-Type: application/json
     }
 }
 ```
+```php-sdk
+<?php
+// Include the composer autoloads, or whatever way you prefer.
+require "vendor/autoload.php";
 
-This is an example request which should be POSTed to api.stidner.com/v1/order using HTTPS and BasicAuth.
+// Initiate an API handle with the login credentials.
+$api_handle = new \Stidner\Api(USER-ID-NUMBER, 'API-KEY');
 
-For headers:
 
-- Authorization will be using BasicAuth; it will be a base64-encoded string, which consists of "USER-ID:API-KEY".
-You will receive these credentials after you sign up.
+// Set the merchant URLs. First three are required (and can be http), last two are optional (and require https).
+$merchant = new \Stidner\Model\Merchant('http://example.com/tos.html', //$terms (required, HTTP/HTTPS)
+    'http://example.com/checkout.php', // $checkout (required, HTTP/HTTPS)
+    'http://example.com/confirmation.php', // $confirmation (required, HTTP/HTTPS)
+    null, // $push (optional, HTTPS-only)
+    null); // $discount (optional, HTTPS-only)
 
-- The Content-Type should also always be an application/json object.
 
-For the request body:
+// Optional: customize display elements on checkout.
+// If you don't want to customize, you don't even need this initialized.
+$options = new \Stidner\Model\Order\Options();
+$options->setColorButton(null)
+    ->setColorButtonText(null)
+    ->setColorCheckbox(null)
+    ->setColorCheckboxCheckmarks(null)
+    ->setColorHeader(null)
+    ->setColorLink(null)
+    ->setColorBackground(null);
 
-- Body should be just a properly-formatted json object. An example object is shown to the right, and the full
-options are shown [later in the documentation](#main-quot-order-quot-object).
+
+// Make billing address object.
+$billingAddress = new \Stidner\Model\Address();
+$billingAddress->setType("person")
+    ->setBusinessName(null) // Do NOT use if setType("person")!
+    ->setFirstName("Sven")
+    ->setFamilyName("Andersson")
+    ->setTitle("Mr")
+    ->setAddressLine("Drottninggatan 75")
+    ->setAddressLine2("LGH 1102")
+    ->setPostalCode("46133")
+    ->setCity("Trollhättan")
+    ->setRegion("Västra Götalands Län")
+    ->setPhone("+46851972000")
+    ->setEmail("email@example.com")
+    ->setCountryCode("SE");
+
+
+// Add items. Each unique item in the order should have an unique ID or index.
+$item[1] = new \Stidner\Model\Order\Item();
+$item[1]->setType('digital')
+    ->setArtno("123456")
+    ->setSku("5205-250SE")
+    ->setName('World of Warcraft: The Burning Crusade Collectors edition')
+    ->setDescription("Latest game")
+    ->setWeight(null)
+    ->setQuantity(1)
+    ->setQuantityUnit('pcs')
+    ->setUnitPrice(66000)
+    ->setTaxRate(2500)
+    ->setTotalPriceExcludingTax(66000)
+    ->setTotalPriceIncludingTax(82500)
+    ->setTotalTaxAmount(16500)
+    ->setImageUrl("https://example.com/game.jpg");
+
+// One more unique item (again, using a unique variable or index).
+$item[2] = new \Stidner\Model\Order\Item();
+$item[2]->setType('physical')
+    ->setArtno("654321")
+    ->setSku("5205-250SE")
+    ->setName('Golden shoes')
+    ->setDescription("These shoes are made of gold")
+    ->setWeight(1300)
+    ->setQuantity(1)
+    ->setQuantityUnit('pcs')
+    ->setUnitPrice(105000)
+    ->setTaxRate(2500)
+    ->setTotalPriceExcludingTax(105000)
+    ->setTotalPriceIncludingTax(131250)
+    ->setTotalTaxAmount(26250)
+    ->setImageUrl("https://example.com/goldshoes.jpg");
+
+
+// Bundle it all together now...
+// Make the main order object, and add everything to it!
+$order = new \Stidner\Model\Order();
+$order->setMerchantReference1(null)
+    ->setMerchantReference2(null)
+    ->setPurchaseCountry("SE")
+    ->setPurchaseCurrency("SEK")
+    ->setLocale("sv_se")
+    ->setTotalPriceExcludingTax(171000)
+    ->setTotalPriceIncludingTax(213750)
+    ->setTotalTaxAmount(42750)
+    ->setBillingAddress($billingAddress) // Don't forget to add all the objects!
+    ->addItem($item[1])
+    ->addItem($item[2])
+    ->setMerchantUrls($merchant)
+    ->setOptions($options);
+
+
+// Now send it off!
+try {
+    $request = $api_handle->createOrder($order);
+
+    // Get Stidner Checkout's URL using Api::getCompleteUrl($orderId).
+    $iframeUrl = $api_handle->getCompleteUrl($request->getOrderId());
+
+    // then load that URL in an iframe. Style it however fits best!
+    echo "<iframe src='$iframeUrl' width='75%' height='75%'></iframe>";
+} catch (\Stidner\ApiException $e) {
+    print $e;
+} catch (\Stidner\Api\ResponseException $e) {
+    print $e;
+}
+?>
+```
+
+The API can be directly accessed by POSTing to https://api.stidner.com/v1/order.
+
+Header requirements (non-SDK users):
+
+- "Authorization": must be BasicAuth. If you're not using the SDK, it will most likely be a base64-encoded string,
+consisting of "USER-ID:API-KEY". You will receive these credentials from Stidner after sign-up.
+
+- "Content-Type": should always be an application/json object.
+
+Request body (non-SDK users):
+
+- Body contents should be only a properly-formatted json object. An example object is shown to the right in the
+json-object language-tab, and the full options can be seen [later in the documentation](#order-object).
 
 
 ## Response
 
-```http
+```json-object
 HTTP/1.1 200 OK
 Content-Type: application/json
-```
-```json
+
 {
     "status": 200,
     "message": "OK",
@@ -178,10 +299,18 @@ Content-Type: application/json
     }
 }
 ```
+```php-sdk
+<?php
+// Not much handling needs to be done with the response if using the PHP SDK.
+// As a reminder, these two lines (previously shown in example request) are
+// handling the response, by opening an iframe with the recieved order ID.
+$iframeUrl = $api_handle->getCompleteUrl($request->getOrderId());
+echo "<iframe src='$iframeUrl' width='75%' height='75%'></iframe>";
+?>
+```
 
-Here is an example of the response you should get when sending the POST shown above.
-
-The HTTP status code has a few results:
+For non-SDK users, here is an example of the response you should get after sending
+the request shown above. The HTTP status code has a few results:
 
 - 200 OK: all is fine, order is created.
 - 401 Unauthorized: your Authorization header is invalid or missing.
@@ -196,11 +325,10 @@ json-formatted POST request to the /order API.
 This particular object will be the "main object" in your request, which contains all other
 strings and objects which will be sent to the order API.
 
-
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
 | order\_id | String | Read-Only| The unique order ID, max 255 characters. This is created by our API, and you should always use it if it has been set.
-| iframe_url | String | Read-Only | This URL should be opened in an iframe if it has been set. This is normally used for handling payment gateways.
+| iframe_url | String | Read-Only | This URL should be opened in an iframe if it has been set. This URL is typically a link to Stidner Complete's checkout page.
 | merchant\_reference1, merchant\_reference2 | String | Optional | Optional internal order IDs, max 255 characters.
 | purchase\_country | String | Required | The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br>*Example: "SE" for Sweden.*
 | purchase\_currency | String | Required | The ISO 4217 (three character) currency code of the customer.<br><br>*Example: "SEK" for Swedish kronor.*
@@ -209,7 +337,7 @@ strings and objects which will be sent to the order API.
 | status | String | Read-Only| A read-only response given by the API, showing status of order. Possible values: `"purchase_incomplete"` (default), `"purchase_complete"`, and `"purchase_refunded"`.
 | billing\_address | [address](#address-subobject) Object | Optional | An optional subobject of the customer's billing/shipping info. Use this if you wish to supply some pre-supplied customer info; otherwise the API will do this for you. Please read [address Subobject](#address-subobject) for more information.
 | shipping\_address | [address](#address-subobject) Object | Read-Only| A read-only response from the API. This contains the customer's shipping information which we fetched ourselves. This has the same structure as the billing-object. Please read [address Subobject](#address-subobject) for more information.
-| items | Array of [item](#item-subobject) object | Required | This subobject contains an array of objects, with one object for each item being sold to the customer. Please read [item Subobject](#item-subobject) for more information.
+| items | Array of [item](#item-subobject) Object | Required | This subobject contains an array of objects, with one object for each item being sold to the customer. Please read [item Subobject](#item-subobject) for more information.
 | merchant\_urls | [URLs](#urls-subobject) Object | Required | Callback URLs for various merchant-page URLs. Please read [URLs Object](#urls-subobject) for more information.
 | options | [options](#options-subobject) Object | Optional | Optional checkout design options. Please read [options Subobject](#options-subobject) for more information.
 | shipping\_countries | Array of strings | Optional | A list of countries which you may send your products to.<br><br>*Example for shipping within Scandinavia and Finland:* `shipping_countries: {"FI", "SE", "NO", "DK"}`
@@ -234,7 +362,7 @@ strings and objects which will be sent to the order API.
 | region | String | Required | Customer's region or state.<br><br>*Example: "Västra Götalands län"*
 | phone | String | Required | Customer's phone number, including country code.<br><br>*Example: "+46851972000"*
 | email | String | Required | Customer's email address.
-| countryCode | String | Optional | The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br>*Example: "SE" for Sweden.*
+| countryCode | String | Required | The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br>*Example: "SE" for Sweden.*
 
 
 ## item Subobject
@@ -261,7 +389,7 @@ array. Values:
 | image\_url | String | Optional | URL to a picture of this item. Max 2000 characters.
 
 
-## URLs Subobject
+## urls Subobject
 
 All of the items in this object are strings of URLs. These URLs should
 link to various pages of your webshop. Values:
@@ -294,14 +422,14 @@ customize the checkout design. Acceptable values:
 
 # Discount Callback
 
-This document references the discount system and how it all connects.
+This section references the discount system and how it all connects.
 There are two parts in this process:
 
 1. [Stidner Checkout's request](#stidner-checkout-39-s-request), and
 2. [Merchant's response](#merchant-39-s-response)
 
 
-As a reminder, this is a callback for the discount API; you do not need to use it if you
+As a reminder, this is a callback for the discount process; you do not need to use it if you
 are not using `urls.discount` in the order API.
 
 
@@ -314,8 +442,7 @@ POST /discounts HTTP/1.1
 Host: merchant.example.com
 Authorization: Basic
 Content-Type: application/json
-```
-```json
+
 {
     "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
     "discount_code": "100KR-SALE"
@@ -355,8 +482,7 @@ Additionally, the merchant endpoint Stidner Checkout will be sending to:
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
-```
-```json
+
 {
     "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
     "discount_code": "100KR-SALE",
@@ -369,7 +495,7 @@ Content-Type: application/json
 
 As said above, this is the merchant's part to handle; all the
 converting, processing, etc is in your hands. Stidner Checkout will
-simply take the amount returned here, and subtract it from the order's
+simply take the amount returned here, and internally subtract it from the order's
 total cost.
 
 If the discount code was successful, your system should send back
@@ -385,8 +511,7 @@ following:
 ```http
 HTTP/1.1 412 Precondition Failed
 Content-Type: application/json
-```
-```json
+
 {
     "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
     "discount_code": "100KR-SALE",

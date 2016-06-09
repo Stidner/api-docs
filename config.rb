@@ -1,3 +1,5 @@
+require File.expand_path('../extend-lexer', __FILE__)
+
 # Markdown
 set :markdown_engine, :redcarpet
 set :markdown,
