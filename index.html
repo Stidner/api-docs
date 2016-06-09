@@ -109,7 +109,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[]">
+  <body class="index" data-languages="[&quot;json-object&quot;,&quot;php-sdk&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -119,6 +119,8 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
+              <a href="#" data-language-name="json-object">json-object</a>
+              <a href="#" data-language-name="php-sdk">php-sdk</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -138,19 +140,21 @@
 
 <p>This document references the /order API endpoint and its contents, which developers can use to create checkout orders.</p>
 
-<p>Note: we offer a <a href="https://github.com/Stidner/php-sdk">PHP SDK</a> if you would like to use that to craft requests instead.</p>
+<p>Note: we offer a <a href="https://github.com/Stidner/php-sdk">PHP SDK</a> if you would like to use that to craft requests instead.
+<br />
+Some parts in this document assumes that you will be using the API directly (without the SDK), but most of the
+information is still relevant. In addition, you can change the language-tab on the right-hand sidebar to &ldquo;php-sdk&rdquo; for
+the PHP SDK examples, instead of the typical JSON objects.
+<br />
+Additionally, you can read the auto-generated (phpDocumentor) docs <a href="http://developer.stidner.com/phpdoc/">here</a>.</p>
 
 <h2 id="request">Request</h2>
-
-<blockquote>
-<p><strong>You must use both HTTPS and BasicAuth when posting to this API.</strong></p>
-</blockquote>
-<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/v1/order</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<pre class="highlight json-object"><code><span class="nf">POST</span> <span class="nn">/v1/order</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="p">:</span> <span class="s">api.stidner.com</span>
 <span class="na">Authorization</span><span class="p">:</span> <span class="s">Basic</span>
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+
+<span class="p">{</span><span class="w">
     </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
@@ -212,29 +216,143 @@
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<pre class="highlight php-sdk"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Include the composer autoloads, or whatever way you prefer.
+</span><span class="k">require</span> <span class="s2">"vendor/autoload.php"</span><span class="p">;</span>
 
-<p>This is an example request which should be POSTed to api.stidner.com/v1/order using HTTPS and BasicAuth.</p>
+<span class="c1">// Initiate an API handle with the login credentials.
+</span><span class="nv">$api_handle</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Stidner\Api</span><span class="p">(</span><span class="nx">USER</span><span class="o">-</span><span class="nx">ID</span><span class="o">-</span><span class="nx">NUMBER</span><span class="p">,</span> <span class="s1">'API-KEY'</span><span class="p">);</span>
 
-<p>For headers:</p>
+
+<span class="c1">// Set the merchant URLs. First three are required (and can be http), last two are optional (and require https).
+</span><span class="nv">$merchant</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Stidner\Model\Merchant</span><span class="p">(</span><span class="s1">'http://example.com/tos.html'</span><span class="p">,</span> <span class="c1">//$terms (required, HTTP/HTTPS)
+</span>    <span class="s1">'http://example.com/checkout.php'</span><span class="p">,</span> <span class="c1">// $checkout (required, HTTP/HTTPS)
+</span>    <span class="s1">'http://example.com/confirmation.php'</span><span class="p">,</span> <span class="c1">// $confirmation (required, HTTP/HTTPS)
+</span>    <span class="kc">null</span><span class="p">,</span> <span class="c1">// $push (optional, HTTPS-only)
+</span>    <span class="kc">null</span><span class="p">);</span> <span class="c1">// $discount (optional, HTTPS-only)
+</span>
+
+<span class="c1">// Optional: customize display elements on checkout.
+// If you don't want to customize, you don't even need this initialized.
+</span><span class="nv">$options</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Stidner\Model\Order\Options</span><span class="p">();</span>
+<span class="nv">$options</span><span class="o">-&gt;</span><span class="na">setColorButton</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setColorButtonText</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setColorCheckbox</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setColorCheckboxCheckmarks</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setColorHeader</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setColorLink</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setColorBackground</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+
+<span class="c1">// Make billing address object.
+</span><span class="nv">$billingAddress</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Stidner\Model\Address</span><span class="p">();</span>
+<span class="nv">$billingAddress</span><span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s2">"person"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setBusinessName</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span> <span class="c1">// Do NOT use if setType("person")!
+</span>    <span class="o">-&gt;</span><span class="na">setFirstName</span><span class="p">(</span><span class="s2">"Sven"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setFamilyName</span><span class="p">(</span><span class="s2">"Andersson"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTitle</span><span class="p">(</span><span class="s2">"Mr"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setAddressLine</span><span class="p">(</span><span class="s2">"Drottninggatan 75"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setAddressLine2</span><span class="p">(</span><span class="s2">"LGH 1102"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setPostalCode</span><span class="p">(</span><span class="s2">"46133"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setCity</span><span class="p">(</span><span class="s2">"Trollhättan"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setRegion</span><span class="p">(</span><span class="s2">"Västra Götalands Län"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setPhone</span><span class="p">(</span><span class="s2">"+46851972000"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setEmail</span><span class="p">(</span><span class="s2">"email@example.com"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setCountryCode</span><span class="p">(</span><span class="s2">"SE"</span><span class="p">);</span>
+
+
+<span class="c1">// Add items. Each unique item in the order should have an unique ID or index.
+</span><span class="nv">$item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Stidner\Model\Order\Item</span><span class="p">();</span>
+<span class="nv">$item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">'digital'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setArtno</span><span class="p">(</span><span class="s2">"123456"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setSku</span><span class="p">(</span><span class="s2">"5205-250SE"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">'World of Warcraft: The Burning Crusade Collectors edition'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setDescription</span><span class="p">(</span><span class="s2">"Latest game"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setWeight</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setQuantity</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setQuantityUnit</span><span class="p">(</span><span class="s1">'pcs'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setUnitPrice</span><span class="p">(</span><span class="mi">66000</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTaxRate</span><span class="p">(</span><span class="mi">2500</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">66000</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">82500</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalTaxAmount</span><span class="p">(</span><span class="mi">16500</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setImageUrl</span><span class="p">(</span><span class="s2">"https://example.com/game.jpg"</span><span class="p">);</span>
+
+<span class="c1">// One more unique item (again, using a unique variable or index).
+</span><span class="nv">$item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Stidner\Model\Order\Item</span><span class="p">();</span>
+<span class="nv">$item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">'physical'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setArtno</span><span class="p">(</span><span class="s2">"654321"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setSku</span><span class="p">(</span><span class="s2">"5205-250SE"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">'Golden shoes'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setDescription</span><span class="p">(</span><span class="s2">"These shoes are made of gold"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setWeight</span><span class="p">(</span><span class="mi">1300</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setQuantity</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setQuantityUnit</span><span class="p">(</span><span class="s1">'pcs'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setUnitPrice</span><span class="p">(</span><span class="mi">105000</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTaxRate</span><span class="p">(</span><span class="mi">2500</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">105000</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">131250</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalTaxAmount</span><span class="p">(</span><span class="mi">26250</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setImageUrl</span><span class="p">(</span><span class="s2">"https://example.com/goldshoes.jpg"</span><span class="p">);</span>
+
+
+<span class="c1">// Bundle it all together now...
+// Make the main order object, and add everything to it!
+</span><span class="nv">$order</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Stidner\Model\Order</span><span class="p">();</span>
+<span class="nv">$order</span><span class="o">-&gt;</span><span class="na">setMerchantReference1</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setMerchantReference2</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setPurchaseCountry</span><span class="p">(</span><span class="s2">"SE"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setPurchaseCurrency</span><span class="p">(</span><span class="s2">"SEK"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setLocale</span><span class="p">(</span><span class="s2">"sv_se"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">171000</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">213750</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalTaxAmount</span><span class="p">(</span><span class="mi">42750</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setBillingAddress</span><span class="p">(</span><span class="nv">$billingAddress</span><span class="p">)</span> <span class="c1">// Don't forget to add all the objects!
+</span>    <span class="o">-&gt;</span><span class="na">addItem</span><span class="p">(</span><span class="nv">$item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="o">-&gt;</span><span class="na">addItem</span><span class="p">(</span><span class="nv">$item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="o">-&gt;</span><span class="na">setMerchantUrls</span><span class="p">(</span><span class="nv">$merchant</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">(</span><span class="nv">$options</span><span class="p">);</span>
+
+
+<span class="c1">// Now send it off!
+</span><span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$api_handle</span><span class="o">-&gt;</span><span class="na">createOrder</span><span class="p">(</span><span class="nv">$order</span><span class="p">);</span>
+
+    <span class="c1">// Get Stidner Checkout's URL using Api::getCompleteUrl($orderId).
+</span>    <span class="nv">$iframeUrl</span> <span class="o">=</span> <span class="nv">$api_handle</span><span class="o">-&gt;</span><span class="na">getCompleteUrl</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getOrderId</span><span class="p">());</span>
+
+    <span class="c1">// then load that URL in an iframe. Style it however fits best!
+</span>    <span class="k">echo</span> <span class="s2">"&lt;iframe src='</span><span class="nv">$iframeUrl</span><span class="s2">' width='75%' height='75%'&gt;&lt;/iframe&gt;"</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Stidner\ApiException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="nv">$e</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Stidner\Api\ResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="nv">$e</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+
+<p>The API can be directly accessed by POSTing to https://api.stidner.com/v1/order.</p>
+
+<p>Header requirements (non-SDK users):</p>
 
 <ul>
-<li><p>Authorization will be using BasicAuth; it will be a base64-encoded string, which consists of &ldquo;USER-ID:API-KEY&rdquo;.
-You will receive these credentials after you sign up.</p></li>
-<li><p>The Content-Type should also always be an application/json object.</p></li>
+<li><p>&ldquo;Authorization&rdquo;: must be BasicAuth. If you&rsquo;re not using the SDK, it will most likely be a base64-encoded string,
+consisting of &ldquo;USER-ID:API-KEY&rdquo;. You will receive these credentials from Stidner after sign-up.</p></li>
+<li><p>&ldquo;Content-Type&rdquo;: should always be an application/json object.</p></li>
 </ul>
 
-<p>For the request body:</p>
+<p>Request body (non-SDK users):</p>
 
 <ul>
-<li>Body should be just a properly-formatted json object. An example object is shown to the right, and the full
-options are shown <a href="#main-quot-order-quot-object">later in the documentation</a>.</li>
+<li>Body contents should be only a properly-formatted json object. An example object is shown to the right in the
+json-object language-tab, and the full options can be seen <a href="#order-object">later in the documentation</a>.</li>
 </ul>
 
 <h2 id="response">Response</h2>
-<pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<pre class="highlight json-object"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+
+<span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -301,10 +419,17 @@ options are shown <a href="#main-quot-order-quot-object">later in the documentat
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<pre class="highlight php-sdk"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Not much handling needs to be done with the response if using the PHP SDK.
+// As a reminder, these two lines (previously shown in example request) are
+// handling the response, by opening an iframe with the recieved order ID.
+</span><span class="nv">$iframeUrl</span> <span class="o">=</span> <span class="nv">$api_handle</span><span class="o">-&gt;</span><span class="na">getCompleteUrl</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getOrderId</span><span class="p">());</span>
+<span class="k">echo</span> <span class="s2">"&lt;iframe src='</span><span class="nv">$iframeUrl</span><span class="s2">' width='75%' height='75%'&gt;&lt;/iframe&gt;"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre>
 
-<p>Here is an example of the response you should get when sending the POST shown above.</p>
-
-<p>The HTTP status code has a few results:</p>
+<p>For non-SDK users, here is an example of the response you should get after sending
+the request shown above. The HTTP status code has a few results:</p>
 
 <ul>
 <li>200 OK: all is fine, order is created.</li>
@@ -338,7 +463,7 @@ strings and objects which will be sent to the order API.</p>
 <td>iframe_url</td>
 <td>String</td>
 <td>Read-Only</td>
-<td>This URL should be opened in an iframe if it has been set. This is normally used for handling payment gateways.</td>
+<td>This URL should be opened in an iframe if it has been set. This URL is typically a link to Stidner Complete&rsquo;s checkout page.</td>
 </tr>
 <tr>
 <td>merchant_reference1, merchant_reference2</td>
@@ -390,7 +515,7 @@ strings and objects which will be sent to the order API.</p>
 </tr>
 <tr>
 <td>items</td>
-<td>Array of <a href="#item-subobject">item</a> object</td>
+<td>Array of <a href="#item-subobject">item</a> Object</td>
 <td>Required</td>
 <td>This subobject contains an array of objects, with one object for each item being sold to the customer. Please read <a href="#item-subobject">item Subobject</a> for more information.</td>
 </tr>
@@ -517,7 +642,7 @@ strings and objects which will be sent to the order API.</p>
 <tr>
 <td>countryCode</td>
 <td>String</td>
-<td>Optional</td>
+<td>Required</td>
 <td>The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br><em>Example: &ldquo;SE&rdquo; for Sweden.</em></td>
 </tr>
 </tbody></table>
@@ -612,7 +737,7 @@ array. Values:</p>
 </tr>
 </tbody></table>
 
-<h2 id="urls-subobject">URLs Subobject</h2>
+<h2 id="urls-subobject">urls Subobject</h2>
 
 <p>All of the items in this object are strings of URLs. These URLs should
 link to various pages of your webshop. Values:</p>
@@ -717,7 +842,7 @@ customize the checkout design. Acceptable values:</p>
 
 <h1 id="discount-callback">Discount Callback</h1>
 
-<p>This document references the discount system and how it all connects.
+<p>This section references the discount system and how it all connects.
 There are two parts in this process:</p>
 
 <ol>
@@ -725,7 +850,7 @@ There are two parts in this process:</p>
 <li><a href="#merchant-39-s-response">Merchant&rsquo;s response</a></li>
 </ol>
 
-<p>As a reminder, this is a callback for the discount API; you do not need to use it if you
+<p>As a reminder, this is a callback for the discount process; you do not need to use it if you
 are not using <code class="prettyprint">urls.discount</code> in the order API.</p>
 
 <h2 id="stidner-checkout-39-s-request">Stidner Checkout&rsquo;s request</h2>
@@ -737,8 +862,8 @@ are not using <code class="prettyprint">urls.discount</code> in the order API.</
 <span class="na">Host</span><span class="p">:</span> <span class="s">merchant.example.com</span>
 <span class="na">Authorization</span><span class="p">:</span> <span class="s">Basic</span>
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+
+<span class="p">{</span><span class="w">
     </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -798,8 +923,8 @@ defined in the <a href="#merchants-response">response section</a>.</p>
 </blockquote>
 <pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+
+<span class="p">{</span><span class="w">
     </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100kr sale!"</span><span class="p">,</span><span class="w">
@@ -811,7 +936,7 @@ defined in the <a href="#merchants-response">response section</a>.</p>
 
 <p>As said above, this is the merchant&rsquo;s part to handle; all the
 converting, processing, etc is in your hands. Stidner Checkout will
-simply take the amount returned here, and subtract it from the order&rsquo;s
+simply take the amount returned here, and internally subtract it from the order&rsquo;s
 total cost.</p>
 
 <p>If the discount code was successful, your system should send back
@@ -829,8 +954,8 @@ following:</p>
 </blockquote>
 <pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">412</span> <span class="ne">Precondition Failed</span>
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+
+<span class="p">{</span><span class="w">
     </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code only applies to orders of more than 500 SEK."</span><span class="w">
@@ -898,6 +1023,8 @@ HTTP 200; we suggest using HTTP 412.</p>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
+                <a href="#" data-language-name="json-object">json-object</a>
+                <a href="#" data-language-name="php-sdk">php-sdk</a>
           </div>
       </div>
     </div>
