@@ -318,8 +318,8 @@ Additionally, you can read the auto-generated (phpDocumentor) docs <a href="http
 </span><span class="k">try</span> <span class="p">{</span>
     <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$api_handle</span><span class="o">-&gt;</span><span class="na">createOrder</span><span class="p">(</span><span class="nv">$order</span><span class="p">);</span>
 
-    <span class="c1">// Get Stidner Checkout's URL using Api::getCompleteUrl($orderId).
-</span>    <span class="nv">$iframeUrl</span> <span class="o">=</span> <span class="nv">$api_handle</span><span class="o">-&gt;</span><span class="na">getCompleteUrl</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getOrderId</span><span class="p">());</span>
+    <span class="c1">// Get Stidner Checkout's URL, which is in the $request object
+</span>    <span class="nv">$iframeUrl</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getIframeUrl</span><span class="p">();</span>
 
     <span class="c1">// then load that URL in an iframe. Style it however fits best!
 </span>    <span class="k">echo</span> <span class="s2">"&lt;iframe src='</span><span class="nv">$iframeUrl</span><span class="s2">' width='75%' height='75%'&gt;&lt;/iframe&gt;"</span><span class="p">;</span>
@@ -357,6 +357,7 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
     </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iframe_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://complete.stidner.com/order/ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
@@ -422,8 +423,8 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
 <pre class="highlight php-sdk"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Not much handling needs to be done with the response if using the PHP SDK.
 // As a reminder, these two lines (previously shown in example request) are
-// handling the response, by opening an iframe with the recieved order ID.
-</span><span class="nv">$iframeUrl</span> <span class="o">=</span> <span class="nv">$api_handle</span><span class="o">-&gt;</span><span class="na">getCompleteUrl</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getOrderId</span><span class="p">());</span>
+// handling the response, by opening an iframe with the recieved iframe_url.
+</span><span class="nv">$iframeUrl</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getIframeUrl</span><span class="p">();</span>
 <span class="k">echo</span> <span class="s2">"&lt;iframe src='</span><span class="nv">$iframeUrl</span><span class="s2">' width='75%' height='75%'&gt;&lt;/iframe&gt;"</span><span class="p">;</span>
 <span class="cp">?&gt;</span>
 </code></pre>
@@ -772,7 +773,7 @@ link to various pages of your webshop. Values:</p>
 <td>push</td>
 <td>String</td>
 <td>Optional</td>
-<td>HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant&rsquo;s server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST&rsquo;s response. If this feature is used, the URL must be HTTPS. <em>As a reminder, if you want to view the formatting:</em> send a GET to api.stidner.com/v1/order/\$order_id, with \$order_id being the order&rsquo;s ID.</td>
+<td>HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant&rsquo;s server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST&rsquo;s response. If this feature is used, the URL must be HTTPS. <em>As a reminder, if you want to view the formatting:</em> send a GET to https://api.stidner.com/v1/order/\$order_id, with \$order_id being the order&rsquo;s ID.</td>
 </tr>
 <tr>
 <td>discount</td>
