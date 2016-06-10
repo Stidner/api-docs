@@ -198,8 +198,8 @@ $order->setMerchantReference1(null)
 try {
     $request = $api_handle->createOrder($order);
 
-    // Get Stidner Checkout's URL using Api::getCompleteUrl($orderId).
-    $iframeUrl = $api_handle->getCompleteUrl($request->getOrderId());
+    // Get Stidner Checkout's URL, which is in the $request object
+    $iframeUrl = $request->getIframeUrl();
 
     // then load that URL in an iframe. Style it however fits best!
     echo "<iframe src='$iframeUrl' width='75%' height='75%'></iframe>";
@@ -237,6 +237,7 @@ Content-Type: application/json
     "message": "OK",
     "data": {
         "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
+        "iframe_url": "https://complete.stidner.com/order/ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
         "purchase_country": "SE",
         "purchase_currency": "SEK",
         "locale": "se_sv",
@@ -303,8 +304,8 @@ Content-Type: application/json
 <?php
 // Not much handling needs to be done with the response if using the PHP SDK.
 // As a reminder, these two lines (previously shown in example request) are
-// handling the response, by opening an iframe with the recieved order ID.
-$iframeUrl = $api_handle->getCompleteUrl($request->getOrderId());
+// handling the response, by opening an iframe with the recieved iframe_url.
+$iframeUrl = $request->getIframeUrl();
 echo "<iframe src='$iframeUrl' width='75%' height='75%'></iframe>";
 ?>
 ```
@@ -399,7 +400,7 @@ link to various pages of your webshop. Values:
 | terms | String | Required | HTTP/HTTPS URL to the merchant's terms and conditions page.
 | checkout | String | Required | HTTP/HTTPS URL to the merchant's checkout page.
 | confirmation | String | Required | HTTP/HTTPS URL to the merchant's confirmation page.
-| push | String | Optional | HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant's server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST's response. If this feature is used, the URL must be HTTPS. *As a reminder, if you want to view the formatting:* send a GET to api.stidner.com/v1/order/\$order\_id, with \$order\_id being the order's ID.
+| push | String | Optional | HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant's server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST's response. If this feature is used, the URL must be HTTPS. *As a reminder, if you want to view the formatting:* send a GET to https://api.stidner.com/v1/order/\$order\_id, with \$order\_id being the order's ID.
 | discount | String | Optional | HTTPS-only URL to the merchant's discount page. This is used during checkout to get the value and validity of any discount code provided by the customer. This **must** be set if you are wishing to offer any kinds of discount codes with our discount process. Please read [Discount Callback](#discount-callback) for more information and requirements.
 
 
