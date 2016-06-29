@@ -642,7 +642,7 @@ merchant. This object will be sent from the Stidner Checkout page when a
 customer enters a discount code. As a merchant, you simply read this
 request (which will be sent to the previously configured "discount" URL,
 which was set in the [Order API](#order-api)), and then respond in the format
-defined in the [response section](#merchants-response).
+defined in the [response section](#merchant-39-s-response).
 
 Additionally, the merchant endpoint Stidner Checkout will be sending to:
 
