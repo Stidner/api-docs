@@ -34,20 +34,27 @@ Authorization: Basic
 Content-Type: application/json
 
 {
+    "merchant_reference1": "Reference123",
+    "merchant_reference2": "Reference321",
     "purchase_country": "SE",
     "purchase_currency": "SEK",
     "locale": "se_sv",
-    "total_price_excluding_tax": 171000,
+    "total_price_excluding_tax": 151000,
     "total_tax_amount": 42750,
-    "total_price_including_tax": 213750,
+    "total_price_including_tax": 193750,
     "billing_address": {
+        "type": "person",
         "first_name": "Sven",
         "family_name": "Andersson",
         "title": "Mr",
-        "street_address": "Drottninggatan 75",
-        "postal_code": "461 33",
+        "phone": "+46851972000",
+        "email": "email@example.com",
+        "addressLine": "Drottninggatan 75",
+        "addressLine2": "LGH 1102",
+        "postalCode": "46133",
+        "city": "Trollhättan",
         "region": "Västra Götalands Län",
-        "country": "SE"
+        "countryCode": "SE"
     },
     "items":
     [
@@ -82,13 +89,24 @@ Content-Type: application/json
             "total_tax_amount": 26250,
             "total_price_including_tax": 131250,
             "image_url": "https://example.com/goldshoes.jpg"
+        },
+        {
+            "type": "discount",
+            "artno": "654321",
+            "name": "Store Credit",
+            "quantity": 1,
+            "quantity_unit": "pcs",
+            "unit_price": 20000,
+            "tax_rate": 0,
+            "total_price_excluding_tax": 20000,
+            "total_tax_amount": 0,
+            "total_price_including_tax": 20000
         }
     ],
     "merchant_urls": {
-        "terms": "https://example.com",
-        "checkout": "https://example.com",
-        "confirmation": "https://example.com",
-        "push": "https://example.com"
+        "terms": "http://example.com/terms_of_service.html",
+        "checkout": "http://example.com/checkout.php",
+        "confirmation": "http://example.com/confirmation.php"
     },
     "options": {
         "color_background": "#ffffff"
@@ -98,18 +116,21 @@ Content-Type: application/json
 ```php-sdk
 <?php
 // Include the composer autoloads, or whatever way you prefer.
-require "vendor/autoload.php";
+require_once 'vendor/autoload.php';
 
 // Initiate an API handle with the login credentials.
-$api_handle = new \Stidner\Api(USER-ID-NUMBER, 'API-KEY');
+$api_handle = new \Stidner\Api(USER_ID_NUMBER, 'API_KEY');
 
 
-// Set the merchant URLs. First three are required (and can be http), last two are optional (and require https).
-$merchant = new \Stidner\Model\Merchant('http://example.com/tos.html', //$terms (required, HTTP/HTTPS)
-    'http://example.com/checkout.php', // $checkout (required, HTTP/HTTPS)
-    'http://example.com/confirmation.php', // $confirmation (required, HTTP/HTTPS)
-    null, // $push (optional, HTTPS-only)
-    null); // $discount (optional, HTTPS-only)
+// Set the merchant URLs.
+// - Terms, Checkout, and Confirmation are required, and can be HTTP.
+// - Push and Discount are optional, but must be HTTPS.
+$merchant = new \Stidner\Model\Merchant();
+$merchant->setTerms('http://example.com/terms_of_service.html')
+    ->setCheckout('http://example.com/checkout.php')
+    ->setConfirmation('http://example.com/confirmation.php')
+    ->setPush(null)
+    ->setDiscount(null);
 
 
 // Optional: customize display elements on checkout.
@@ -126,19 +147,19 @@ $options->setColorButton(null)
 
 // Make billing address object.
 $billingAddress = new \Stidner\Model\Address();
-$billingAddress->setType("person")
-    ->setBusinessName(null) // Do NOT use if setType("person")!
-    ->setFirstName("Sven")
-    ->setFamilyName("Andersson")
-    ->setTitle("Mr")
-    ->setAddressLine("Drottninggatan 75")
-    ->setAddressLine2("LGH 1102")
-    ->setPostalCode("46133")
-    ->setCity("Trollhättan")
-    ->setRegion("Västra Götalands Län")
-    ->setPhone("+46851972000")
-    ->setEmail("email@example.com")
-    ->setCountryCode("SE");
+$billingAddress->setType('person')
+    ->setBusinessName(null)// Do NOT use if setType("person")!
+    ->setFirstName('Sven')
+    ->setFamilyName('Andersson')
+    ->setTitle('Mr')
+    ->setAddressLine('Drottninggatan 75')
+    ->setAddressLine2('LGH 1102')
+    ->setPostalCode('46133')
+    ->setCity('Trollhättan')
+    ->setRegion('Västra Götalands Län')
+    ->setPhone('+46851972000')
+    ->setEmail('email@example.com')
+    ->setCountryCode('SE');
 
 
 // Add items. Each unique item in the order should have an unique ID or index.
@@ -236,75 +257,123 @@ Content-Type: application/json
     "status": 200,
     "message": "OK",
     "data": {
-        "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
-        "iframe_url": "https://complete.stidner.com/order/ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
+        "order_id": "NmI5M2U2MTMtNDA1MC00NjdhLTk3ZDItY2YxZjVjZWM4ZjM1",
+        "iframe_url": "https://complete.stidner.com/order/NmI5M2U2MTMtNDA1MC00NjdhLTk3ZDItY2YxZjVjZWM4ZjM1",
+        "merchant_reference1": "Reference123",
+        "merchant_reference2": "Reference321",
         "purchase_country": "SE",
         "purchase_currency": "SEK",
         "locale": "se_sv",
+        "total_price_including_tax": 193750,
+        "total_price_excluding_tax": 151000,
+        "total_tax_amount": 42750,
         "status": "purchase_incomplete",
-        "total_price_excluding_tax": "171000",
-        "total_tax_amount": "42750",
-        "total_price_including_tax": "213750",
         "billing_address": {
+            "type": "person",
+            "business_name": null,
             "first_name": "Sven",
             "family_name": "Andersson",
-            "street_address": "Drottninggatan 75",
-            "postal_code": "461 33",
+            "title": "mr",
+            "phone": "+46851972000",
+            "email": "email@example.com",
+            "addressLine": "Drottninggatan 75",
+            "addressLine2": "LGH 1102",
+            "postalCode": "46133",
+            "city": "Trollhättan",
             "region": "Västra Götalands Län",
-            "country": "SE"
+            "countryCode": "SE"
         },
+        "shipping_address": {
+            "type": "person",
+            "business_name": null,
+            "first_name": "Sven",
+            "family_name": "Andersson",
+            "title": "mr",
+            "phone": "+46851972000",
+            "email": "email@example.com",
+            "addressLine": "Drottninggatan 75",
+            "addressLine2": "LGH 1102",
+            "postalCode": "46133",
+            "city": "Trollhättan",
+            "region": "Västra Götalands Län",
+            "countryCode": "SE"
+        },
+        "merchant_urls": {
+            "terms": "http://example.com/terms_of_service.html",
+            "checkout": "http://example.com/checkout.php",
+            "confirmation": "http://example.com/confirmation.php",
+            "push": null,
+            "discount": null
+        },
+        "created_date": "2016-06-29 14:52:11",
+        "completed_date": "",
+        "updated_date": "2016-06-29 14:52:11",
+        "comment": "",
         "items":
         [
             {
-                "type": "digital",
-                "artno": "123456",
                 "sku": "5205-250SE",
+                "artno": "123456",
                 "name": "World of Warcraft: The Burning Crusade Collectors edition",
+                "type": "digital",
                 "description": "Latest game",
-                "weight": "130",
-                "quantity": "1",
+                "total_price_excluding_tax": 66000,
+                "total_tax_amount": 16500,
+                "total_price_including_tax": 82500,
+                "weight": 130,
+                "quantity": 1,
                 "quantity_unit": "pcs",
-                "unit_price": "66000",
-                "tax_rate": "2500",
-                "total_price_excluding_tax": "66000",
-                "total_tax_amount": "16500",
-                "total_price_including_tax": "82500",
-                "image_url": "https://example.com/game.jpg"
+                "unit_price": 66000,
+                "image_url": "https://example.com/game.jpg",
+                "tax_rate": 2500,
+                "refunded": 0
             },
             {
-                "type": "physical",
-                "artno": "654321",
                 "sku": "5205-250SE",
+                "artno": "654321",
                 "name": "Golden shoes",
+                "type": "physical",
                 "description": "These shoes are made of gold",
-                "weight": "130",
-                "quantity": "1",
+                "total_price_excluding_tax": 105000,
+                "total_tax_amount": 26250,
+                "total_price_including_tax": 131250,
+                "weight": 130,
+                "quantity": 1,
                 "quantity_unit": "pcs",
-                "unit_price": "105000",
-                "tax_rate": "2500",
-                "total_price_excluding_tax": "105000",
-                "total_tax_amount": "26250",
-                "total_price_including_tax": "131250",
-                "image_url": "https://example.com/goldshoes.jpg"
+                "unit_price": 105000,
+                "image_url": "https://example.com/goldshoes.jpg",
+                "tax_rate": 2500,
+                "refunded": 0
+            },
+            {
+                "sku": "",
+                "artno": "654321",
+                "name": "Store Credit",
+                "type": "discount",
+                "description": null,
+                "total_price_excluding_tax": 20000,
+                "total_tax_amount": 0,
+                "total_price_including_tax": 20000,
+                "weight": null,
+                "quantity": 1,
+                "quantity_unit": "pcs",
+                "unit_price": 20000,
+                "image_url": null,
+                "tax_rate": 0,
+                "refunded": 0
             }
-        ],
-        "merchant_urls": {
-            "terms": "https://example.com",
-            "checkout": "https://example.com",
-            "confirmation": "https://example.com",
-            "push": "https://example.com"
-        },
-        "options": {
-            "color_background": "#ffffff"
-        }
+        ]
     }
 }
 ```
 ```php-sdk
 <?php
-// Not much handling needs to be done with the response if using the PHP SDK.
-// As a reminder, these two lines (previously shown in example request) are
-// handling the response, by opening an iframe with the recieved iframe_url.
+// You shouldn't need to see/handle the API response manually with the PHP SDK,
+//  but you can of course var_dump($request) to see the object in testing.
+//
+// These two lines (previously shown in the example request) is the only handling
+//  required for basic operation of the PHP SDK: loading the iframe_url.
+
 $iframeUrl = $request->getIframeUrl();
 echo "<iframe src='$iframeUrl' width='75%' height='75%'></iframe>";
 ?>
@@ -319,6 +388,28 @@ the request shown above. The HTTP status code has a few results:
 
 
 # Order object
+
+```php-sdk
+<?php
+// This creates the main order object, which will be sent to the API.
+// Remember to include all the subobjects!
+
+$order = new \Stidner\Model\Order();
+$order->setMerchantReference1(null)
+    ->setMerchantReference2(null)
+    ->setPurchaseCountry('SE')
+    ->setPurchaseCurrency('SEK')
+    ->setLocale('sv_se')
+    ->setTotalPriceExcludingTax(171000)
+    ->setTotalPriceIncludingTax(213750)
+    ->setTotalTaxAmount(42750)
+    ->setBillingAddress($billingAddress)
+    ->addItem($item[1])
+    ->addItem($item[2])
+    ->setMerchantUrls($merchant)
+    ->setOptions($options);
+?>
+```
 
 These following tables describe all the objects which will be sent in your
 json-formatted POST request to the /order API.
@@ -349,6 +440,29 @@ strings and objects which will be sent to the order API.
 
 ## address Subobject
 
+```php-sdk
+<?php
+// Make the optional billing address object.
+
+$billingAddress = new \Stidner\Model\Address();
+$billingAddress->setType('person')
+    ->setBusinessName(null)// Do NOT use if setType("person")!
+    ->setFirstName('Sven')
+    ->setFamilyName('Andersson')
+    ->setTitle('Mr')
+    ->setAddressLine('Drottninggatan 75')
+    ->setAddressLine2('LGH 1102')
+    ->setPostalCode('46133')
+    ->setCity('Trollhättan')
+    ->setRegion('Västra Götalands Län')
+    ->setPhone('+46851972000')
+    ->setEmail('email@example.com')
+    ->setCountryCode('SE');
+?>
+```
+
+This object can be set using the key "billing_address", but it is not required.
+
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
 | type | String | Required | Must be set to either `"person"` (private customers) or `"business"` (if selling to a business).
@@ -368,7 +482,45 @@ strings and objects which will be sent to the order API.
 
 ## item Subobject
 
-This is the "item" object, which basically describes one type of item
+```php-sdk
+<?php
+// Add items. Each unique item in the order should have an unique ID or index.
+$item[1] = new \Stidner\Model\Order\Item();
+$item[1]->setType('digital')
+    ->setArtno('123456')
+    ->setSku('5205-250SE')
+    ->setName('World of Warcraft: The Burning Crusade Collectors edition')
+    ->setDescription('Latest game')
+    ->setWeight(null)
+    ->setQuantity(1)
+    ->setQuantityUnit('pcs')
+    ->setUnitPrice(66000)
+    ->setTaxRate(2500)
+    ->setTotalPriceExcludingTax(66000)
+    ->setTotalPriceIncludingTax(82500)
+    ->setTotalTaxAmount(16500)
+    ->setImageUrl('https://example.com/game.jpg');
+
+// One more unique item (again, using a unique variable or index).
+$item[2] = new \Stidner\Model\Order\Item();
+$item[2]->setType('physical')
+    ->setArtno('654321')
+    ->setSku('5205-250SE')
+    ->setName('Golden shoes')
+    ->setDescription('These shoes are made of gold')
+    ->setWeight(1300)
+    ->setQuantity(1)
+    ->setQuantityUnit('pcs')
+    ->setUnitPrice(105000)
+    ->setTaxRate(2500)
+    ->setTotalPriceExcludingTax(105000)
+    ->setTotalPriceIncludingTax(131250)
+    ->setTotalTaxAmount(26250)
+    ->setImageUrl('https://example.com/goldshoes.jpg');
+?>
+```
+
+This is the "item" subobject, which basically is an array of items
 in a customer's order, and various related values. For example, if a
 customer bought 3 of the same coffee mug, and one bag of coffee from
 your store, you would use this object twice in the main "order" items
@@ -392,19 +544,50 @@ array. Values:
 
 ## urls Subobject
 
+```php-sdk
+<?php
+// Set the merchant URLs.
+// - Terms, Checkout, and Confirmation are required, and can be HTTP/HTTPS.
+// - Push and Discount are optional, but must be HTTPS.
+
+$merchant = new \Stidner\Model\Merchant();
+$merchant->setTerms('http://example.com/terms_of_service.html')
+    ->setCheckout('http://example.com/checkout.php')
+    ->setConfirmation('http://example.com/confirmation.php')
+    ->setPush(null)
+    ->setDiscount(null);
+?>
+```
+
 All of the items in this object are strings of URLs. These URLs should
-link to various pages of your webshop. Values:
+link to various pages of your web-shop. Values:
 
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
 | terms | String | Required | HTTP/HTTPS URL to the merchant's terms and conditions page.
 | checkout | String | Required | HTTP/HTTPS URL to the merchant's checkout page.
 | confirmation | String | Required | HTTP/HTTPS URL to the merchant's confirmation page.
-| push | String | Optional | HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant's server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST's response. If this feature is used, the URL must be HTTPS. *As a reminder, if you want to view the formatting:* send a GET to https://api.stidner.com/v1/order/\$order\_id, with \$order\_id being the order's ID.
+| push | String | Optional | HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant's server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST's response. If this feature is used, the URL must be HTTPS. *As a reminder, if you want to view the formatting:* send a GET to https://api.stidner.com/v1/order/$order\_id, with "$order\_id" being the order's ID.
 | discount | String | Optional | HTTPS-only URL to the merchant's discount page. This is used during checkout to get the value and validity of any discount code provided by the customer. This **must** be set if you are wishing to offer any kinds of discount codes with our discount process. Please read [Discount Callback](#discount-callback) for more information and requirements.
 
 
 ## options Subobject
+
+```php-sdk
+<?php
+// Optional: customize display elements on checkout.
+// If you don't want to customize, you don't even need this initialized.
+
+$options = new \Stidner\Model\Order\Options();
+$options->setColorButton(null)
+    ->setColorButtonText(null)
+    ->setColorCheckbox(null)
+    ->setColorCheckboxCheckmarks(null)
+    ->setColorHeader(null)
+    ->setColorLink(null)
+    ->setColorBackground(null);
+?>
+```
 
 All of the items in this object are strings of CSS hex colors (eg #FFFFFF).
 All of these are 100% optional, but feel free to use them if you wish to
@@ -450,9 +633,9 @@ Content-Type: application/json
 }
 ```
 
-This object is sent to the webshop's discount URL. To make discounting
-very flexible, we have chosen to have the shop-owner manage their own
-discounts through their own endpoint.
+This object is sent from Stidner's servers to the web-shop's discount URL.
+To make discounting very flexible, we have chosen to have the shop-owner
+manage their own discounts, through their own endpoint.
 
 To reiterate, you will **not** be crafting this first object as a
 merchant. This object will be sent from the Stidner Checkout page when a
