@@ -420,13 +420,16 @@ strings and objects which will be sent to the order API.
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
 | order\_id | String | Read-Only| The unique order ID, max 255 characters. This is created by our API, and you should always use it if it has been set.
-| iframe_url | String | Read-Only | This URL should be opened in an iframe if it has been set. This URL is typically a link to Stidner Complete's checkout page.
+| iframe\_url | String | Read-Only | This URL should be opened in an iframe if it has been set. This URL is typically a link to Stidner Complete's checkout page.
 | merchant\_reference1, merchant\_reference2 | String | Optional | Optional internal order IDs, max 255 characters.
 | purchase\_country | String | Required | The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br>*Example: "SE" for Sweden.*
 | purchase\_currency | String | Required | The ISO 4217 (three character) currency code of the customer.<br><br>*Example: "SEK" for Swedish kronor.*
 | locale | String | Required | The locale of the customer.<br><br>*Example: "se\_sv" for a Swedish IP visiting your page using the Swedish language.*
 | total\_price\_excluding\_tax, total\_price\_including\_tax, total\_tax\_amount | Integer | Required | Price calculation of entire order. These values should include cents/ören (with an implicit decimal).<br><br>*Example for an order worth 150 SEK before tax, being 187.5 SEK after 25% VAT:*<br>`"total_price_excluding_tax": 15000,`<br>`"total_tax_amount": 3750,`<br>`"total_price_including_tax": 18750`
-| status | String | Read-Only| A read-only response given by the API, showing status of order. Possible values: `"purchase_incomplete"` (default), `"purchase_complete"`, and `"purchase_refunded"`.
+| status | String | Read-Only| A read-only response given by the API, showing status of order. Possible results: `"purchase_incomplete"` (default), `"purchase_complete"`, and `"purchase_refunded"`.
+| shipment\_status | String | Read-Only| Shows the shipment status of an order. Possible results: `"choosing_provider"` (default), `"pending"`, and `"shipped"`.
+| shipment\_carrier | String | Read-Only| Shows the selected shipping company. For example: `"dhl"`, `"bring"`, etc.
+| shipment\_product | String | Read-Only| Shows what shipping service is being used. For example, `"PICKUP_PARCEL"` is the PickUp Parcel service from Bring.
 | billing\_address | [address](#address-subobject) Object | Optional | An optional subobject of the customer's billing/shipping info. Use this if you wish to supply some pre-supplied customer info; otherwise the API will do this for you. Please read [address Subobject](#address-subobject) for more information.
 | shipping\_address | [address](#address-subobject) Object | Read-Only| A read-only response from the API. This contains the customer's shipping information which we fetched ourselves. This has the same structure as the billing-object. Please read [address Subobject](#address-subobject) for more information.
 | items | Array of [item](#item-subobject) Object | Required | This subobject contains an array of objects, with one object for each item being sold to the customer. Please read [item Subobject](#item-subobject) for more information.
