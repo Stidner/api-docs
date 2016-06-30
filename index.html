@@ -589,7 +589,25 @@ strings and objects which will be sent to the order API.</p>
 <td>status</td>
 <td>String</td>
 <td>Read-Only</td>
-<td>A read-only response given by the API, showing status of order. Possible values: <code class="prettyprint">&quot;purchase_incomplete&quot;</code> (default), <code class="prettyprint">&quot;purchase_complete&quot;</code>, and <code class="prettyprint">&quot;purchase_refunded&quot;</code>.</td>
+<td>A read-only response given by the API, showing status of order. Possible results: <code class="prettyprint">&quot;purchase_incomplete&quot;</code> (default), <code class="prettyprint">&quot;purchase_complete&quot;</code>, and <code class="prettyprint">&quot;purchase_refunded&quot;</code>.</td>
+</tr>
+<tr>
+<td>shipment_status</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>Shows the shipment status of an order. Possible results: <code class="prettyprint">&quot;choosing_provider&quot;</code> (default), <code class="prettyprint">&quot;pending&quot;</code>, and <code class="prettyprint">&quot;shipped&quot;</code>.</td>
+</tr>
+<tr>
+<td>shipment_carrier</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>Shows the selected shipping company. For example: <code class="prettyprint">&quot;dhl&quot;</code>, <code class="prettyprint">&quot;bring&quot;</code>, etc.</td>
+</tr>
+<tr>
+<td>shipment_product</td>
+<td>String</td>
+<td>Read-Only</td>
+<td>Shows what shipping service is being used. For example, <code class="prettyprint">&quot;PICKUP_PARCEL&quot;</code> is the PickUp Parcel service from Bring.</td>
 </tr>
 <tr>
 <td>billing_address</td>
