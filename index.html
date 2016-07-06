@@ -610,6 +610,12 @@ strings and objects which will be sent to the order API.</p>
 <td>Shows what shipping service is being used. For example, <code class="prettyprint">&quot;PICKUP_PARCEL&quot;</code> is the PickUp Parcel service from Bring.</td>
 </tr>
 <tr>
+<td>shipment_countries</td>
+<td>Array of strings</td>
+<td>Optional</td>
+<td>A list of countries which you may send your products to.<br><br><em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipment_countries: {&quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot;}</code></td>
+</tr>
+<tr>
 <td>billing_address</td>
 <td><a href="#address-subobject">address</a> Object</td>
 <td>Optional</td>
@@ -638,12 +644,6 @@ strings and objects which will be sent to the order API.</p>
 <td><a href="#options-subobject">options</a> Object</td>
 <td>Optional</td>
 <td>Optional checkout design options. Please read <a href="#options-subobject">options Subobject</a> for more information.</td>
-</tr>
-<tr>
-<td>shipping_countries</td>
-<td>Array of strings</td>
-<td>Optional</td>
-<td>A list of countries which you may send your products to.<br><br><em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipping_countries: {&quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot;}</code></td>
 </tr>
 <tr>
 <td>created_date, completed_date, updated_date</td>
