@@ -430,12 +430,12 @@ strings and objects which will be sent to the order API.
 | shipment\_status | String | Read-Only| Shows the shipment status of an order. Possible results: `"choosing_provider"` (default), `"pending"`, and `"shipped"`.
 | shipment\_carrier | String | Read-Only| Shows the selected shipping company. For example: `"dhl"`, `"bring"`, etc.
 | shipment\_product | String | Read-Only| Shows what shipping service is being used. For example, `"PICKUP_PARCEL"` is the PickUp Parcel service from Bring.
+| shipment\_countries | Array of strings | Optional | A list of countries which you may send your products to.<br><br>*Example for shipping within Scandinavia and Finland:* `shipment_countries: {"FI", "SE", "NO", "DK"}`
 | billing\_address | [address](#address-subobject) Object | Optional | An optional subobject of the customer's billing/shipping info. Use this if you wish to supply some pre-supplied customer info; otherwise the API will do this for you. Please read [address Subobject](#address-subobject) for more information.
 | shipping\_address | [address](#address-subobject) Object | Read-Only| A read-only response from the API. This contains the customer's shipping information which we fetched ourselves. This has the same structure as the billing-object. Please read [address Subobject](#address-subobject) for more information.
 | items | Array of [item](#item-subobject) Object | Required | This subobject contains an array of objects, with one object for each item being sold to the customer. Please read [item Subobject](#item-subobject) for more information.
 | merchant\_urls | [URLs](#urls-subobject) Object | Required | Callback URLs for various merchant-page URLs. Please read [URLs Object](#urls-subobject) for more information.
 | options | [options](#options-subobject) Object | Optional | Optional checkout design options. Please read [options Subobject](#options-subobject) for more information.
-| shipping\_countries | Array of strings | Optional | A list of countries which you may send your products to.<br><br>*Example for shipping within Scandinavia and Finland:* `shipping_countries: {"FI", "SE", "NO", "DK"}`
 | created\_date, completed\_date, updated\_date | Datetime (String) | Read-Only| Read-only response. Gives the datetime the order was created/completed/updated. Formatted as ISO 8601 datetime strings.
 | comment | String | Optional | Set a comment on an order.
 | free\_shipping | Boolean | Optional | Set to True to offer free shipping for the customer. If unset, this will default to False.
