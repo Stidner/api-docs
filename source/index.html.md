@@ -2,8 +2,10 @@
 title: Stidner - Order API documentation
 
 toc_footers:
-  - <a href='http://stidner.com/'>About Stidner</a>
-  - <a href='http://stidner.com/'>Request an API key</a>
+  - <a href='https://www.stidner.com/' target='_blank'>About Stidner</a>
+  - <a href='https://www.stidner.com/?lang=sv_SE#register-inputs' target='_blank'>Request an API key</a>
+  - <a href='mailto:integration@stidner.com'>Ask a question (email)</a>
+  - <a href='http://developer.stidner.com/#questions-comments'>Ask a question (Disqus)</a>
 
 language_tabs:
   - json-object
@@ -14,16 +16,19 @@ search: true
 
 # Order API
 
-This document references the /order API endpoint and its contents, which developers can use to create checkout orders.
+This document references the /order API endpoint and its contents. This API is used to create checkout orders.
 
-Note: we offer a [PHP SDK](https://github.com/Stidner/php-sdk) if you would like to use that to craft requests instead.
-<br />
-Some parts in this document assumes that you will be using the API directly (without the SDK), but most of the
-information is still relevant. In addition, you can change the language-tab on the right-hand sidebar to "php-sdk" for
-the PHP SDK examples, instead of the typical JSON objects.
-<br />
-Additionally, you can read the auto-generated (phpDocumentor) docs [here](http://developer.stidner.com/phpdoc/).
+Although the API may look complex because of the size of the documentation, it's actually quite straightforward to use:
 
+1. POST a json object containing information about the purchase to the /order endpoint.
+2. *If the request was invalid in some way*, the API gives an error code and message explaining what went wrong.
+3. *If the request and object was valid*, the response will include a URL. This URL should be displayed in an iframe on the merchant's website. All done!
+
+Alternatively, we offer a <a href='https://github.com/Stidner/php-sdk' target='_blank'>PHP SDK</a> if you would like to
+use that to craft requests. In the future, we plan to offer plugins for various e-commerce platforms.
+
+If you have any questions/comments about anything Stidner-related, please click one of the "ask a question" links in the
+left-hand sidebar, and we will get back to you. Thanks!
 
 ## Request
 
@@ -34,21 +39,22 @@ Authorization: Basic
 Content-Type: application/json
 
 {
-    "merchant_reference1": "Reference123",
-    "merchant_reference2": "Reference321",
+    "merchant_reference1": "ref1",
+    "merchant_reference2": "ref2",
     "purchase_country": "SE",
     "purchase_currency": "SEK",
     "locale": "se_sv",
     "total_price_excluding_tax": 151000,
     "total_tax_amount": 42750,
     "total_price_including_tax": 193750,
+    "shipment_countries": ["DK", "SE"],
     "billing_address": {
         "type": "person",
         "first_name": "Sven",
         "family_name": "Andersson",
-        "title": "Mr",
+        "title": "mr",
         "phone": "+46851972000",
-        "email": "email@example.com",
+        "email": "svenandersson@example.com",
         "addressLine": "Drottninggatan 75",
         "addressLine2": "LGH 1102",
         "postalCode": "46133",
@@ -56,15 +62,13 @@ Content-Type: application/json
         "region": "Västra Götalands Län",
         "countryCode": "SE"
     },
-    "items":
-    [
+    "items": [
         {
             "type": "digital",
-            "artno": "123456",
-            "sku": "5205-250SE",
-            "name": "World of Warcraft: The Burning Crusade Collectors edition",
-            "description": "Latest game",
-            "weight": 130,
+            "artno": "160830",
+            "sku": "8000-660SE",
+            "name": "World of Warcraft: Legion",
+            "description": "Digital download",
             "quantity": 1,
             "quantity_unit": "pcs",
             "unit_price": 66000,
@@ -76,7 +80,7 @@ Content-Type: application/json
         },
         {
             "type": "physical",
-            "artno": "654321",
+            "artno": "220333",
             "sku": "5205-250SE",
             "name": "Golden shoes",
             "description": "These shoes are made of gold",
@@ -92,7 +96,7 @@ Content-Type: application/json
         },
         {
             "type": "discount",
-            "artno": "654321",
+            "artno": "REA200",
             "name": "Store Credit",
             "quantity": 1,
             "quantity_unit": "pcs",
@@ -232,18 +236,14 @@ try {
 ?>
 ```
 
-The API can be directly accessed by POSTing to https://api.stidner.com/v1/order.
+The API can be directly accessed by POSTing to https://api.stidner.com/v1/order, with the following requirements:
 
-Header requirements (non-SDK users):
-
-- "Authorization": must be BasicAuth. If you're not using the SDK, it will most likely be a base64-encoded string,
+- Header "Authorization": must be BasicAuth. If you're not using the SDK, it will most likely be a base64-encoded string,
 consisting of "USER-ID:API-KEY". You will receive these credentials from Stidner after sign-up.
 
-- "Content-Type": should always be an application/json object.
+- Header "Content-Type": should always be an application/json object.
 
-Request body (non-SDK users):
-
-- Body contents should be only a properly-formatted json object. An example object is shown to the right in the
+- Body contents: should be only a properly-formatted json object. An example object is shown to the right in the
 json-object language-tab, and the full options can be seen [later in the documentation](#order-object).
 
 
@@ -257,10 +257,10 @@ Content-Type: application/json
     "status": 200,
     "message": "OK",
     "data": {
-        "order_id": "NmI5M2U2MTMtNDA1MC00NjdhLTk3ZDItY2YxZjVjZWM4ZjM1",
-        "iframe_url": "https://complete.stidner.com/order/NmI5M2U2MTMtNDA1MC00NjdhLTk3ZDItY2YxZjVjZWM4ZjM1",
-        "merchant_reference1": "Reference123",
-        "merchant_reference2": "Reference321",
+        "order_id": "NWM4MDI5ZWItZGM0MS00ZDQ5LWE1OWYtMmQ0NmU5MzEzZGY3",
+        "iframe_url": "https://complete.stidner.com/order/NWM4MDI5ZWItZGM0MS00ZDQ5LWE1OWYtMmQ0NmU5MzEzZGY3",
+        "merchant_reference1": "ref1",
+        "merchant_reference2": "ref2",
         "purchase_country": "SE",
         "purchase_currency": "SEK",
         "locale": "se_sv",
@@ -268,6 +268,10 @@ Content-Type: application/json
         "total_price_excluding_tax": 151000,
         "total_tax_amount": 42750,
         "status": "purchase_incomplete",
+        "shipment_status": "choosing_provider",
+        "shipment_carrier": null,
+        "shipment_product": null,
+        "shipment_countries": ["DK", "SE"],
         "billing_address": {
             "type": "person",
             "business_name": null,
@@ -275,7 +279,7 @@ Content-Type: application/json
             "family_name": "Andersson",
             "title": "mr",
             "phone": "+46851972000",
-            "email": "email@example.com",
+            "email": "svenandersson@example.com",
             "addressLine": "Drottninggatan 75",
             "addressLine2": "LGH 1102",
             "postalCode": "46133",
@@ -290,7 +294,7 @@ Content-Type: application/json
             "family_name": "Andersson",
             "title": "mr",
             "phone": "+46851972000",
-            "email": "email@example.com",
+            "email": "svenandersson@example.com",
             "addressLine": "Drottninggatan 75",
             "addressLine2": "LGH 1102",
             "postalCode": "46133",
@@ -305,32 +309,32 @@ Content-Type: application/json
             "push": null,
             "discount": null
         },
-        "created_date": "2016-06-29 14:52:11",
+        "created_date": "2016-07-26 13:01:26",
         "completed_date": "",
-        "updated_date": "2016-06-29 14:52:11",
+        "updated_date": "2016-07-26 13:01:26",
         "comment": "",
-        "items":
-        [
+        "items": [
             {
-                "sku": "5205-250SE",
-                "artno": "123456",
-                "name": "World of Warcraft: The Burning Crusade Collectors edition",
+                "sku": "8000-660SE",
+                "artno": "160830",
+                "name": "World of Warcraft: Legion",
                 "type": "digital",
-                "description": "Latest game",
+                "description": "Digital download",
                 "total_price_excluding_tax": 66000,
                 "total_tax_amount": 16500,
                 "total_price_including_tax": 82500,
-                "weight": 130,
+                "weight": null,
                 "quantity": 1,
                 "quantity_unit": "pcs",
                 "unit_price": 66000,
                 "image_url": "https://example.com/game.jpg",
                 "tax_rate": 2500,
+                "returned": 0,
                 "refunded": 0
             },
             {
                 "sku": "5205-250SE",
-                "artno": "654321",
+                "artno": "220333",
                 "name": "Golden shoes",
                 "type": "physical",
                 "description": "These shoes are made of gold",
@@ -343,11 +347,12 @@ Content-Type: application/json
                 "unit_price": 105000,
                 "image_url": "https://example.com/goldshoes.jpg",
                 "tax_rate": 2500,
+                "returned": 0,
                 "refunded": 0
             },
             {
                 "sku": "",
-                "artno": "654321",
+                "artno": "REA200",
                 "name": "Store Credit",
                 "type": "discount",
                 "description": null,
@@ -360,6 +365,7 @@ Content-Type: application/json
                 "unit_price": 20000,
                 "image_url": null,
                 "tax_rate": 0,
+                "returned": 0,
                 "refunded": 0
             }
         ]
@@ -379,8 +385,11 @@ echo "<iframe src='$iframeUrl' width='75%' height='75%'></iframe>";
 ?>
 ```
 
-For non-SDK users, here is an example of the response you should get after sending
-the request shown above. The HTTP status code has a few results:
+The response from the API will be a json object containing your inputs, and a few read-only items. One of these
+read-only items is "iframe_url", which is the Stidner Complete checkout URL; this URL should be displayed in an iframe
+on the merchant's checkout page.
+
+The HTTP response code will be one of the following:
 
 - 200 OK: all is fine, order is created.
 - 401 Unauthorized: your Authorization header is invalid or missing.
@@ -414,8 +423,7 @@ $order->setMerchantReference1(null)
 These following tables describe all the objects which will be sent in your
 json-formatted POST request to the /order API.
 
-This particular object will be the "main object" in your request, which contains all other
-strings and objects which will be sent to the order API.
+This object will be the "main object" in your request, containing everything else which will be sent to the order API.
 
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
@@ -430,7 +438,7 @@ strings and objects which will be sent to the order API.
 | shipment\_status | String | Read-Only| Shows the shipment status of an order. Possible results: `"choosing_provider"` (default), `"pending"`, and `"shipped"`.
 | shipment\_carrier | String | Read-Only| Shows the selected shipping company. For example: `"dhl"`, `"bring"`, etc.
 | shipment\_product | String | Read-Only| Shows what shipping service is being used. For example, `"PICKUP_PARCEL"` is the PickUp Parcel service from Bring.
-| shipment\_countries | Array of strings | Optional | A list of countries which you may send your products to.<br><br>*Example for shipping within Scandinavia and Finland:* `shipment_countries: {"FI", "SE", "NO", "DK"}`
+| shipment\_countries | Array of strings | Optional | A list of countries which you may send your products to.<br><br>*Example for shipping within Scandinavia and Finland:* `shipment_countries: [ "FI", "SE", "NO", "DK" ]`
 | billing\_address | [address](#address-subobject) Object | Optional | An optional subobject of the customer's billing/shipping info. Use this if you wish to supply some pre-supplied customer info; otherwise the API will do this for you. Please read [address Subobject](#address-subobject) for more information.
 | shipping\_address | [address](#address-subobject) Object | Read-Only| A read-only response from the API. This contains the customer's shipping information which we fetched ourselves. This has the same structure as the billing-object. Please read [address Subobject](#address-subobject) for more information.
 | items | Array of [item](#item-subobject) Object | Required | This subobject contains an array of objects, with one object for each item being sold to the customer. Please read [item Subobject](#item-subobject) for more information.
@@ -523,11 +531,7 @@ $item[2]->setType('physical')
 ?>
 ```
 
-This is the "item" subobject, which basically is an array of items
-in a customer's order, and various related values. For example, if a
-customer bought 3 of the same coffee mug, and one bag of coffee from
-your store, you would use this object twice in the main "order" items
-array. Values:
+This is the "item" subobject, which basically is an array of items in a customer's order, and various related values.
 
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
@@ -562,12 +566,12 @@ $merchant->setTerms('http://example.com/terms_of_service.html')
 ?>
 ```
 
-All of the items in this object are strings of URLs. These URLs should
-link to various pages of your web-shop. Values:
+All of the items in this object are strings, which should be URLs. These URLs should link to various pages of the
+merchant's web-shop.
 
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
-| terms | String | Required | HTTP/HTTPS URL to the merchant's terms and conditions page.
+| terms | String | Required | HTTP/HTTPS URL to the merchant's Terms and Conditions page.
 | checkout | String | Required | HTTP/HTTPS URL to the merchant's checkout page.
 | confirmation | String | Required | HTTP/HTTPS URL to the merchant's confirmation page.
 | push | String | Optional | HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant's server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST's response. If this feature is used, the URL must be HTTPS. *As a reminder, if you want to view the formatting:* send a GET to https://api.stidner.com/v1/order/$order\_id, with "$order\_id" being the order's ID.
@@ -592,9 +596,8 @@ $options->setColorButton(null)
 ?>
 ```
 
-All of the items in this object are strings of CSS hex colors (eg #FFFFFF).
-All of these are 100% optional, but feel free to use them if you wish to
-customize the checkout design. Acceptable values:
+All of the items in this object are strings of CSS hex colors (eg #FFFFFF). These are all optional, and only need to be
+used if the merchant wishes to customize Stidner's checkout design. Acceptable values:
 
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
@@ -609,15 +612,16 @@ customize the checkout design. Acceptable values:
 
 # Discount Callback
 
-This section references the discount system and how it all connects.
-There are two parts in this process:
+This section references the *optional* discount system and how it all connects. There are two parts in this process:
 
 1. [Stidner Checkout's request](#stidner-checkout-39-s-request), and
 2. [Merchant's response](#merchant-39-s-response)
 
+As a merchant, you have a URL set up which will accept a POST from Stidner's servers containing a json object, and
+your response should be another json object showing if the discount code entered was valid or not.
 
-As a reminder, this is a callback for the discount process; you do not need to use it if you
-are not using `urls.discount` in the order API.
+Again, this is a callback for the discount process; you do not need to use it if you are not setting `urls.discount` in
+the order API, and/or if you will not be offering discount codes in the checkout.
 
 
 ## Stidner Checkout's request
@@ -636,23 +640,18 @@ Content-Type: application/json
 }
 ```
 
-This object is sent from Stidner's servers to the web-shop's discount URL.
-To make discounting very flexible, we have chosen to have the shop-owner
-manage their own discounts, through their own endpoint.
+This object is sent from Stidner's servers to the merchant's configured discount URL. To make discounting very flexible,
+merchants will manage their own discounts through their own endpoint.
 
-To reiterate, you will **not** be crafting this first object as a
-merchant. This object will be sent from the Stidner Checkout page when a
-customer enters a discount code. As a merchant, you simply read this
-request (which will be sent to the previously configured "discount" URL,
-which was set in the [Order API](#order-api)), and then respond in the format
+To reiterate, merchants will **not** be crafting this request. This request will be sent to the merchant's server
+from Stidner's checkout page when a customer tries to enter a discount code. The merchant will simply read this
+request (which will be sent to the previously configured `urls.discount` endpoint), and will respond in the format
 defined in the [response section](#merchant-39-s-response).
 
 Additionally, the merchant endpoint Stidner Checkout will be sending to:
 
 - must be using HTTPS, and
-
-- must accept requests only with the shared BasicAuth token
-(as a reminder, you used it to POST to the [Order API](#order-api)).
+- must only accept requests using your BasicAuth token (which was used to create the order in the first place).
 
 
 | Key name | Type | R/O/C | Description |
@@ -674,24 +673,22 @@ Content-Type: application/json
     "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
     "discount_code": "100KR-SALE",
     "name": "100kr sale!",
-    "description": "Save 100 SEK on all orders more than 500 SEK.",
+    "description": "Save 100 SEK on all orders of more than 500 SEK.",
     "artno": "discount_100530",
     "amount": "10000"
 }
 ```
 
-As said above, this is the merchant's part to handle; all the
-converting, processing, etc is in your hands. Stidner Checkout will
-simply take the amount returned here, and internally subtract it from the order's
-total cost.
+As said above, this is the merchant's part to handle; all the converting, processing, etc is for the merchant to do.
+Stidner Checkout will just take the amount returned here, and internally subtract it from the order's total cost.
+<br/><br/>
 
-If the discount code was successful, your system should send back
-everything it received in the above POST, plus adding on the
-following:
+*If the discount code was valid*, the merchant's system should send back everything it received in the previous POST,
+and add on the following:
 
-1.  An article number for the discount,
-2.  the name and description of the discount code, and
-3.  how much currency to subtract from the order.
+1. An article number for the discount code,
+2. the name and description of the discount code, and
+3. how much currency to subtract from the order.
 
 > Example response (**DENIAL**):
 
@@ -702,20 +699,18 @@ Content-Type: application/json
 {
     "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
     "discount_code": "100KR-SALE",
-    "description": "Code only applies to orders of more than 500 SEK."
+    "description": "Code applies only to orders of more than 500 SEK."
 }
 ```
+<br/>
 
-If the discount code is denied for some reason, the server should send
-back only:
+*If the discount code is invalid*, the merchant's system should send back only:
 
 1. The order\_id,
 2. the given discount\_code, and
 3. a description of why it failed.
-
-Additionally, the HTTP response code should be *anything except*
-HTTP 200; we suggest using HTTP 412.
-
+4. HTTP response code 412 (but anything other than 200 should be fine)
+<br/><br/>
 
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
@@ -726,3 +721,20 @@ HTTP 200; we suggest using HTTP 412.
 | artno | String | Required | Article number for internal system.
 | amount | Integer | Required | This should be how much to subtract from the order. This should be in basic units (meaning 100 SEK becomes '10000', 5 EUR is '500', etc).
 
+
+
+# Questions/Comments
+
+We hope this documentation was useful and answered any questions regarding the Stidner Complete API! But documentation
+doesn't always answer everything, so please feel free to get in contact with us (ideally via
+<a href='mailto:integration@stidner.com'>email</a>, or the comment box below). Thank you!
+
+<p id="disqus_thread"><div id="disqus_thread"></div></p>
+<script>var disqus_config = function () { this.page.url = 'http://developer.stidner.com';
+this.page.identifier = 'http-developer-stidner-com'; };
+(function() { var d = document, s = d.createElement('script');
+s.src = '//stidner.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);})();
+</script>
+<br/>
