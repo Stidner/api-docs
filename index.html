@@ -129,8 +129,10 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='http://stidner.com/'>About Stidner</a></li>
-            <li><a href='http://stidner.com/'>Request an API key</a></li>
+            <li><a href='https://www.stidner.com/' target='_blank'>About Stidner</a></li>
+            <li><a href='https://www.stidner.com/?lang=sv_SE#register-inputs' target='_blank'>Request an API key</a></li>
+            <li><a href='mailto:integration@stidner.com'>Ask a question (email)</a></li>
+            <li><a href='http://developer.stidner.com/#questions-comments'>Ask a question (Disqus)</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -138,15 +140,21 @@
       <div class="content">
         <h1 id="order-api">Order API</h1>
 
-<p>This document references the /order API endpoint and its contents, which developers can use to create checkout orders.</p>
+<p>This document references the /order API endpoint and its contents. This API is used to create checkout orders.</p>
 
-<p>Note: we offer a <a href="https://github.com/Stidner/php-sdk">PHP SDK</a> if you would like to use that to craft requests instead.
-<br />
-Some parts in this document assumes that you will be using the API directly (without the SDK), but most of the
-information is still relevant. In addition, you can change the language-tab on the right-hand sidebar to &ldquo;php-sdk&rdquo; for
-the PHP SDK examples, instead of the typical JSON objects.
-<br />
-Additionally, you can read the auto-generated (phpDocumentor) docs <a href="http://developer.stidner.com/phpdoc/">here</a>.</p>
+<p>Although the API may look complex because of the size of the documentation, it&rsquo;s actually quite straightforward to use:</p>
+
+<ol>
+<li>POST a json object containing information about the purchase to the /order endpoint.</li>
+<li><em>If the request was invalid in some way</em>, the API gives an error code and message explaining what went wrong.</li>
+<li><em>If the request and object was valid</em>, the response will include a URL. This URL should be displayed in an iframe on the merchant&rsquo;s website. All done!</li>
+</ol>
+
+<p>Alternatively, we offer a <a href='https://github.com/Stidner/php-sdk' target='_blank'>PHP SDK</a> if you would like to
+use that to craft requests. In the future, we plan to offer plugins for various e-commerce platforms.</p>
+
+<p>If you have any questions/comments about anything Stidner-related, please click one of the &ldquo;ask a question&rdquo; links in the
+left-hand sidebar, and we will get back to you. Thanks!</p>
 
 <h2 id="request">Request</h2>
 <pre class="highlight json-object"><code><span class="nf">POST</span> <span class="nn">/v1/order</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -155,21 +163,22 @@ Additionally, you can read the auto-generated (phpDocumentor) docs <a href="http
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
 
 <span class="p">{</span><span class="w">
-    </span><span class="nt">"merchant_reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reference123"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"merchant_reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reference321"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"merchant_reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"merchant_reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref2"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">151000</span><span class="p">,</span><span class="w">
     </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">42750</span><span class="p">,</span><span class="w">
     </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">193750</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"shipment_countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"DK"</span><span class="p">,</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">],</span><span class="w">
     </span><span class="nt">"billing_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
@@ -177,15 +186,13 @@ Additionally, you can read the auto-generated (phpDocumentor) docs <a href="http
         </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"items"</span><span class="p">:</span><span class="w">
-    </span><span class="p">[</span><span class="w">
+    </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digital"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: The Burning Crusade Collectors edition"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Latest game"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160830"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8000-660SE"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: Legion"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital download"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
@@ -197,7 +204,7 @@ Additionally, you can read the auto-generated (phpDocumentor) docs <a href="http
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"654321"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"220333"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Golden shoes"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"These shoes are made of gold"</span><span class="p">,</span><span class="w">
@@ -213,7 +220,7 @@ Additionally, you can read the auto-generated (phpDocumentor) docs <a href="http
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"654321"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REA200"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Store Credit"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
@@ -352,21 +359,14 @@ Additionally, you can read the auto-generated (phpDocumentor) docs <a href="http
 <span class="cp">?&gt;</span>
 </code></pre>
 
-<p>The API can be directly accessed by POSTing to https://api.stidner.com/v1/order.</p>
-
-<p>Header requirements (non-SDK users):</p>
+<p>The API can be directly accessed by POSTing to https://api.stidner.com/v1/order, with the following requirements:</p>
 
 <ul>
-<li><p>&ldquo;Authorization&rdquo;: must be BasicAuth. If you&rsquo;re not using the SDK, it will most likely be a base64-encoded string,
+<li><p>Header &ldquo;Authorization&rdquo;: must be BasicAuth. If you&rsquo;re not using the SDK, it will most likely be a base64-encoded string,
 consisting of &ldquo;USER-ID:API-KEY&rdquo;. You will receive these credentials from Stidner after sign-up.</p></li>
-<li><p>&ldquo;Content-Type&rdquo;: should always be an application/json object.</p></li>
-</ul>
-
-<p>Request body (non-SDK users):</p>
-
-<ul>
-<li>Body contents should be only a properly-formatted json object. An example object is shown to the right in the
-json-object language-tab, and the full options can be seen <a href="#order-object">later in the documentation</a>.</li>
+<li><p>Header &ldquo;Content-Type&rdquo;: should always be an application/json object.</p></li>
+<li><p>Body contents: should be only a properly-formatted json object. An example object is shown to the right in the
+json-object language-tab, and the full options can be seen <a href="#order-object">later in the documentation</a>.</p></li>
 </ul>
 
 <h2 id="response">Response</h2>
@@ -377,10 +377,10 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NmI5M2U2MTMtNDA1MC00NjdhLTk3ZDItY2YxZjVjZWM4ZjM1"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"iframe_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://complete.stidner.com/order/NmI5M2U2MTMtNDA1MC00NjdhLTk3ZDItY2YxZjVjZWM4ZjM1"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"merchant_reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reference123"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"merchant_reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reference321"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NWM4MDI5ZWItZGM0MS00ZDQ5LWE1OWYtMmQ0NmU5MzEzZGY3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iframe_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://complete.stidner.com/order/NWM4MDI5ZWItZGM0MS00ZDQ5LWE1OWYtMmQ0NmU5MzEzZGY3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant_reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant_reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref2"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
@@ -388,6 +388,10 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
         </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">151000</span><span class="p">,</span><span class="w">
         </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">42750</span><span class="p">,</span><span class="w">
         </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase_incomplete"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"shipment_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"choosing_provider"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"shipment_carrier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"shipment_product"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"shipment_countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"DK"</span><span class="p">,</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">],</span><span class="w">
         </span><span class="nt">"billing_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -395,7 +399,7 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
             </span><span class="nt">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
@@ -410,7 +414,7 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
             </span><span class="nt">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
@@ -425,32 +429,32 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
             </span><span class="nt">"push"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nt">"discount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nt">"created_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-29 14:52:11"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-26 13:01:26"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"completed_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-29 14:52:11"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-26 13:01:26"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"items"</span><span class="p">:</span><span class="w">
-        </span><span class="p">[</span><span class="w">
+        </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: The Burning Crusade Collectors edition"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8000-660SE"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160830"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: Legion"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digital"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Latest game"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital download"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">16500</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">82500</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/game.jpg"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
                 </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"654321"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"220333"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Golden shoes"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"These shoes are made of gold"</span><span class="p">,</span><span class="w">
@@ -463,11 +467,12 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
                 </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/goldshoes.jpg"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
                 </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"654321"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REA200"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Store Credit"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -480,6 +485,7 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
                 </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
             </span><span class="p">}</span><span class="w">
         </span><span class="p">]</span><span class="w">
@@ -498,8 +504,11 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
 <span class="cp">?&gt;</span>
 </code></pre>
 
-<p>For non-SDK users, here is an example of the response you should get after sending
-the request shown above. The HTTP status code has a few results:</p>
+<p>The response from the API will be a json object containing your inputs, and a few read-only items. One of these
+read-only items is &ldquo;iframe_url&rdquo;, which is the Stidner Complete checkout URL; this URL should be displayed in an iframe
+on the merchant&rsquo;s checkout page.</p>
+
+<p>The HTTP response code will be one of the following:</p>
 
 <ul>
 <li>200 OK: all is fine, order is created.</li>
@@ -532,8 +541,7 @@ the request shown above. The HTTP status code has a few results:</p>
 <p>These following tables describe all the objects which will be sent in your
 json-formatted POST request to the /order API.</p>
 
-<p>This particular object will be the &ldquo;main object&rdquo; in your request, which contains all other
-strings and objects which will be sent to the order API.</p>
+<p>This object will be the &ldquo;main object&rdquo; in your request, containing everything else which will be sent to the order API.</p>
 
 <table><thead>
 <tr>
@@ -613,7 +621,7 @@ strings and objects which will be sent to the order API.</p>
 <td>shipment_countries</td>
 <td>Array of strings</td>
 <td>Optional</td>
-<td>A list of countries which you may send your products to.<br><br><em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipment_countries: {&quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot;}</code></td>
+<td>A list of countries which you may send your products to.<br><br><em>Example for shipping within Scandinavia and Finland:</em> <code class="prettyprint">shipment_countries: [ &quot;FI&quot;, &quot;SE&quot;, &quot;NO&quot;, &quot;DK&quot; ]</code></td>
 </tr>
 <tr>
 <td>billing_address</td>
@@ -814,11 +822,7 @@ strings and objects which will be sent to the order API.</p>
 <span class="cp">?&gt;</span>
 </code></pre>
 
-<p>This is the &ldquo;item&rdquo; subobject, which basically is an array of items
-in a customer&rsquo;s order, and various related values. For example, if a
-customer bought 3 of the same coffee mug, and one bag of coffee from
-your store, you would use this object twice in the main &ldquo;order&rdquo; items
-array. Values:</p>
+<p>This is the &ldquo;item&rdquo; subobject, which basically is an array of items in a customer&rsquo;s order, and various related values.</p>
 
 <table><thead>
 <tr>
@@ -917,8 +921,8 @@ array. Values:</p>
 <span class="cp">?&gt;</span>
 </code></pre>
 
-<p>All of the items in this object are strings of URLs. These URLs should
-link to various pages of your web-shop. Values:</p>
+<p>All of the items in this object are strings, which should be URLs. These URLs should link to various pages of the
+merchant&rsquo;s web-shop.</p>
 
 <table><thead>
 <tr>
@@ -932,7 +936,7 @@ link to various pages of your web-shop. Values:</p>
 <td>terms</td>
 <td>String</td>
 <td>Required</td>
-<td>HTTP/HTTPS URL to the merchant&rsquo;s terms and conditions page.</td>
+<td>HTTP/HTTPS URL to the merchant&rsquo;s Terms and Conditions page.</td>
 </tr>
 <tr>
 <td>checkout</td>
@@ -976,9 +980,8 @@ link to various pages of your web-shop. Values:</p>
 <span class="cp">?&gt;</span>
 </code></pre>
 
-<p>All of the items in this object are strings of CSS hex colors (eg #FFFFFF).
-All of these are 100% optional, but feel free to use them if you wish to
-customize the checkout design. Acceptable values:</p>
+<p>All of the items in this object are strings of CSS hex colors (eg #FFFFFF). These are all optional, and only need to be
+used if the merchant wishes to customize Stidner&rsquo;s checkout design. Acceptable values:</p>
 
 <table><thead>
 <tr>
@@ -1034,16 +1037,18 @@ customize the checkout design. Acceptable values:</p>
 
 <h1 id="discount-callback">Discount Callback</h1>
 
-<p>This section references the discount system and how it all connects.
-There are two parts in this process:</p>
+<p>This section references the <em>optional</em> discount system and how it all connects. There are two parts in this process:</p>
 
 <ol>
 <li><a href="#stidner-checkout-39-s-request">Stidner Checkout&rsquo;s request</a>, and</li>
 <li><a href="#merchant-39-s-response">Merchant&rsquo;s response</a></li>
 </ol>
 
-<p>As a reminder, this is a callback for the discount process; you do not need to use it if you
-are not using <code class="prettyprint">urls.discount</code> in the order API.</p>
+<p>As a merchant, you have a URL set up which will accept a POST from Stidner&rsquo;s servers containing a json object, and
+your response should be another json object showing if the discount code entered was valid or not.</p>
+
+<p>Again, this is a callback for the discount process; you do not need to use it if you are not setting <code class="prettyprint">urls.discount</code> in
+the order API, and/or if you will not be offering discount codes in the checkout.</p>
 
 <h2 id="stidner-checkout-39-s-request">Stidner Checkout&rsquo;s request</h2>
 
@@ -1061,23 +1066,19 @@ are not using <code class="prettyprint">urls.discount</code> in the order API.</
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This object is sent from Stidner&rsquo;s servers to the web-shop&rsquo;s discount URL.
-To make discounting very flexible, we have chosen to have the shop-owner
-manage their own discounts, through their own endpoint.</p>
+<p>This object is sent from Stidner&rsquo;s servers to the merchant&rsquo;s configured discount URL. To make discounting very flexible,
+merchants will manage their own discounts through their own endpoint.</p>
 
-<p>To reiterate, you will <strong>not</strong> be crafting this first object as a
-merchant. This object will be sent from the Stidner Checkout page when a
-customer enters a discount code. As a merchant, you simply read this
-request (which will be sent to the previously configured &ldquo;discount&rdquo; URL,
-which was set in the <a href="#order-api">Order API</a>), and then respond in the format
+<p>To reiterate, merchants will <strong>not</strong> be crafting this request. This request will be sent to the merchant&rsquo;s server
+from Stidner&rsquo;s checkout page when a customer tries to enter a discount code. The merchant will simply read this
+request (which will be sent to the previously configured <code class="prettyprint">urls.discount</code> endpoint), and will respond in the format
 defined in the <a href="#merchant-39-s-response">response section</a>.</p>
 
 <p>Additionally, the merchant endpoint Stidner Checkout will be sending to:</p>
 
 <ul>
-<li><p>must be using HTTPS, and</p></li>
-<li><p>must accept requests only with the shared BasicAuth token
-(as a reminder, you used it to POST to the <a href="#order-api">Order API</a>).</p></li>
+<li>must be using HTTPS, and</li>
+<li>must only accept requests using your BasicAuth token (which was used to create the order in the first place).</li>
 </ul>
 
 <table><thead>
@@ -1120,25 +1121,23 @@ defined in the <a href="#merchant-39-s-response">response section</a>.</p>
     </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100kr sale!"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Save 100 SEK on all orders more than 500 SEK."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Save 100 SEK on all orders of more than 500 SEK."</span><span class="p">,</span><span class="w">
     </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount_100530"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>As said above, this is the merchant&rsquo;s part to handle; all the
-converting, processing, etc is in your hands. Stidner Checkout will
-simply take the amount returned here, and internally subtract it from the order&rsquo;s
-total cost.</p>
+<p>As said above, this is the merchant&rsquo;s part to handle; all the converting, processing, etc is for the merchant to do.
+Stidner Checkout will just take the amount returned here, and internally subtract it from the order&rsquo;s total cost.
+<br/><br/></p>
 
-<p>If the discount code was successful, your system should send back
-everything it received in the above POST, plus adding on the
-following:</p>
+<p><em>If the discount code was valid</em>, the merchant&rsquo;s system should send back everything it received in the previous POST,
+and add on the following:</p>
 
 <ol>
-<li> An article number for the discount,</li>
-<li> the name and description of the discount code, and</li>
-<li> how much currency to subtract from the order.</li>
+<li>An article number for the discount code,</li>
+<li>the name and description of the discount code, and</li>
+<li>how much currency to subtract from the order.</li>
 </ol>
 
 <blockquote>
@@ -1150,21 +1149,21 @@ following:</p>
 <span class="p">{</span><span class="w">
     </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code only applies to orders of more than 500 SEK."</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code applies only to orders of more than 500 SEK."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>If the discount code is denied for some reason, the server should send
-back only:</p>
+<p><br/></p>
+
+<p><em>If the discount code is invalid</em>, the merchant&rsquo;s system should send back only:</p>
 
 <ol>
 <li>The order_id,</li>
 <li>the given discount_code, and</li>
 <li>a description of why it failed.</li>
+<li>HTTP response code 412 (but anything other than 200 should be fine)
+<br/><br/></li>
 </ol>
-
-<p>Additionally, the HTTP response code should be <em>anything except</em>
-HTTP 200; we suggest using HTTP 412.</p>
 
 <table><thead>
 <tr>
@@ -1211,6 +1210,24 @@ HTTP 200; we suggest using HTTP 412.</p>
 <td>This should be how much to subtract from the order. This should be in basic units (meaning 100 SEK becomes &#39;10000&rsquo;, 5 EUR is &#39;500&rsquo;, etc).</td>
 </tr>
 </tbody></table>
+
+<h1 id="questions-comments">Questions/Comments</h1>
+
+<p>We hope this documentation was useful and answered any questions regarding the Stidner Complete API! But documentation
+doesn&rsquo;t always answer everything, so please feel free to get in contact with us (ideally via
+<a href='mailto:integration@stidner.com'>email</a>, or the comment box below). Thank you!</p>
+
+<p id="disqus_thread"><div id="disqus_thread"></div></p>
+
+<script>var disqus_config = function () { this.page.url = 'http://developer.stidner.com';
+this.page.identifier = 'http-developer-stidner-com'; };
+(function() { var d = document, s = d.createElement('script');
+s.src = '//stidner.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);})();
+</script>
+
+<p><br/></p>
 
       </div>
       <div class="dark-box">
