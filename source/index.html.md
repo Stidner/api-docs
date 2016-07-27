@@ -5,7 +5,6 @@ toc_footers:
   - <a href='https://www.stidner.com/' target='_blank'>About Stidner</a>
   - <a href='https://www.stidner.com/?lang=sv_SE#register-inputs' target='_blank'>Request an API key</a>
   - <a href='mailto:integration@stidner.com'>Ask a question (email)</a>
-  - <a href='http://developer.stidner.com/#questions-comments'>Ask a question (Disqus)</a>
 
 language_tabs:
   - json-object
@@ -27,7 +26,7 @@ Although the API may look complex because of the size of the documentation, it's
 Alternatively, we offer a <a href='https://github.com/Stidner/php-sdk' target='_blank'>PHP SDK</a> if you would like to
 use that to craft requests. In the future, we plan to offer plugins for various e-commerce platforms.
 
-If you have any questions/comments about anything Stidner-related, please click one of the "ask a question" links in the
+If you have any questions/comments about anything Stidner-related, please click the "ask a question" link in the
 left-hand sidebar, and we will get back to you. Thanks!
 
 ## Request
@@ -726,15 +725,5 @@ Content-Type: application/json
 # Questions/Comments
 
 We hope this documentation was useful and answered any questions regarding the Stidner Complete API! But documentation
-doesn't always answer everything, so please feel free to get in contact with us (ideally via
-<a href='mailto:integration@stidner.com'>email</a>, or the comment box below). Thank you!
-
-<p id="disqus_thread"><div id="disqus_thread"></div></p>
-<script>var disqus_config = function () { this.page.url = 'http://developer.stidner.com';
-this.page.identifier = 'http-developer-stidner-com'; };
-(function() { var d = document, s = d.createElement('script');
-s.src = '//stidner.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);})();
-</script>
-<br/>
+doesn't always answer everything, so please feel free to get in contact with us via
+<a href='mailto:integration@stidner.com'>email</a>. Thank you!
