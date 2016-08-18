@@ -2,8 +2,8 @@
 title: Stidner - Order API documentation
 
 toc_footers:
-  - <a href='https://www.stidner.com/' target='_blank'>About Stidner</a>
-  - <a href='https://www.stidner.com/?lang=sv_SE#register-inputs' target='_blank'>Request an API key</a>
+  - <a href='https://www.stidner.com/' target='_blank'>Stidner Homepage</a>
+  - <a href='https://www.stidner.com/#register-inputs' target='_blank'>Merchant Registration</a>
   - <a href='mailto:integration@stidner.com'>Ask a question (email)</a>
 
 language_tabs:
@@ -28,6 +28,27 @@ use that to craft requests. In the future, we plan to offer plugins for various 
 
 If you have any questions/comments about anything Stidner-related, please click the "ask a question" link in the
 left-hand sidebar, and we will get back to you. Thanks!
+
+## Flow
+
+<a href="http://developer.stidner.com/images/orderapi.png" target="_blank"><img src="http://developer.stidner.com/images/orderapi.png"></a>
+
+1. Customer proceeds to Merchant's checkout page.
+2. Merchant sends order information as a json-formatted POST request to Stidner's API.
+3. Stidner returns the same data with added values. One of these values is "iframe_url"
+4. This iframe_url value should be sent to Customer.
+5. Customer's browser loads Stidner's iframe URL inside the Merchant's checkout page.
+6. Stidner sends static resources such as HTML and JavaScript to the Customer's browser.
+7. Customer proceeds through Stidner's checkout.
+8. On the checkout, the Customer can supply a discount code. If this code is given, Stidner will send this discount code to the Merchant's discount endpoint.
+9. Merchant will validate this code. If the code supplied is valid, return the given discount; if the code is invalid, return error message.
+10. Purchase is complete, and the checkout will trigger a browser redirect to supplied Merchant URL.
+11. Customer's browser loads this confirmation URL (from redirect).
+12. Merchant's server will fetch order data from Stidner for given checkout ID.
+13. Stidner returns given order information (which includes order status, shipping address, payment method used, etc)
+14. Merchant will includes the iframe URL (found in #13) to the Customer on their confirmation page.
+15. Customer's browser requests Stidner's receipt page, which was supplied by #14.
+16. Stidner sends the receipt page, showing that the purchase has been completed.
 
 ## Request
 
@@ -177,7 +198,7 @@ $item[1]->setType('digital')
     ->setQuantityUnit('pcs')
     ->setUnitPrice(66000)
     ->setTaxRate(2500)
-    ->setTotalPriceExcludingTax(66000)
+    ->setTotalPriceExcludingTax(66000)// Note: can use calculateItemPrice() here instead.
     ->setTotalPriceIncludingTax(82500)
     ->setTotalTaxAmount(16500)
     ->setImageUrl("https://example.com/game.jpg");
@@ -208,7 +229,7 @@ $order->setMerchantReference1(null)
     ->setPurchaseCountry("SE")
     ->setPurchaseCurrency("SEK")
     ->setLocale("sv_se")
-    ->setTotalPriceExcludingTax(171000)
+    ->setTotalPriceExcludingTax(171000)// Note: can use calculateTotalPrices() here instead.
     ->setTotalPriceIncludingTax(213750)
     ->setTotalTaxAmount(42750)
     ->setBillingAddress($billingAddress) // Don't forget to add all the objects!
@@ -506,7 +527,7 @@ $item[1]->setType('digital')
     ->setQuantityUnit('pcs')
     ->setUnitPrice(66000)
     ->setTaxRate(2500)
-    ->setTotalPriceExcludingTax(66000)
+    ->setTotalPriceExcludingTax(66000)//Note: can use calculateItemPrice() here.
     ->setTotalPriceIncludingTax(82500)
     ->setTotalTaxAmount(16500)
     ->setImageUrl('https://example.com/game.jpg');
