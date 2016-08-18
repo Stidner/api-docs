@@ -21,6 +21,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Stidner Complete Order API Documentation.">
 
     <title>Stidner - Order API documentation</title>
 
@@ -129,8 +130,8 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='https://www.stidner.com/' target='_blank'>About Stidner</a></li>
-            <li><a href='https://www.stidner.com/?lang=sv_SE#register-inputs' target='_blank'>Request an API key</a></li>
+            <li><a href='https://www.stidner.com/' target='_blank'>Stidner Homepage</a></li>
+            <li><a href='https://www.stidner.com/#register-inputs' target='_blank'>Merchant Registration</a></li>
             <li><a href='mailto:integration@stidner.com'>Ask a question (email)</a></li>
         </ul>
     </div>
@@ -154,6 +155,29 @@ use that to craft requests. In the future, we plan to offer plugins for various 
 
 <p>If you have any questions/comments about anything Stidner-related, please click the &ldquo;ask a question&rdquo; link in the
 left-hand sidebar, and we will get back to you. Thanks!</p>
+
+<h2 id="flow">Flow</h2>
+
+<p><a href="http://developer.stidner.com/images/orderapi.png" target="_blank"><img src="http://developer.stidner.com/images/orderapi.png"></a></p>
+
+<ol>
+<li>Customer proceeds to Merchant&rsquo;s checkout page.</li>
+<li>Merchant sends order information as a json-formatted POST request to Stidner&rsquo;s API.</li>
+<li>Stidner returns the same data with added values. One of these values is &ldquo;iframe_url&rdquo;</li>
+<li>This iframe_url value should be sent to Customer.</li>
+<li>Customer&rsquo;s browser loads Stidner&rsquo;s iframe URL inside the Merchant&rsquo;s checkout page.</li>
+<li>Stidner sends static resources such as HTML and JavaScript to the Customer&rsquo;s browser.</li>
+<li>Customer proceeds through Stidner&rsquo;s checkout.</li>
+<li>On the checkout, the Customer can supply a discount code. If this code is given, Stidner will send this discount code to the Merchant&rsquo;s discount endpoint.</li>
+<li>Merchant will validate this code. If the code supplied is valid, return the given discount; if the code is invalid, return error message.</li>
+<li>Purchase is complete, and the checkout will trigger a browser redirect to supplied Merchant URL.</li>
+<li>Customer&rsquo;s browser loads this confirmation URL (from redirect).</li>
+<li>Merchant&rsquo;s server will fetch order data from Stidner for given checkout ID.</li>
+<li>Stidner returns given order information (which includes order status, shipping address, payment method used, etc)</li>
+<li>Merchant will includes the iframe URL (found in #13) to the Customer on their confirmation page.</li>
+<li>Customer&rsquo;s browser requests Stidner&rsquo;s receipt page, which was supplied by #14.</li>
+<li>Stidner sends the receipt page, showing that the purchase has been completed.</li>
+</ol>
 
 <h2 id="request">Request</h2>
 <pre class="highlight json-object"><code><span class="nf">POST</span> <span class="nn">/v1/order</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -300,8 +324,8 @@ left-hand sidebar, and we will get back to you. Thanks!</p>
     <span class="o">-&gt;</span><span class="na">setQuantityUnit</span><span class="p">(</span><span class="s1">'pcs'</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setUnitPrice</span><span class="p">(</span><span class="mi">66000</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setTaxRate</span><span class="p">(</span><span class="mi">2500</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">66000</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">82500</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">66000</span><span class="p">)</span><span class="c1">// Note: can use calculateItemPrice() here instead.
+</span>    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">82500</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setTotalTaxAmount</span><span class="p">(</span><span class="mi">16500</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setImageUrl</span><span class="p">(</span><span class="s2">"https://example.com/game.jpg"</span><span class="p">);</span>
 
@@ -331,8 +355,8 @@ left-hand sidebar, and we will get back to you. Thanks!</p>
     <span class="o">-&gt;</span><span class="na">setPurchaseCountry</span><span class="p">(</span><span class="s2">"SE"</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setPurchaseCurrency</span><span class="p">(</span><span class="s2">"SEK"</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setLocale</span><span class="p">(</span><span class="s2">"sv_se"</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">171000</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">213750</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">171000</span><span class="p">)</span><span class="c1">// Note: can use calculateTotalPrices() here instead.
+</span>    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">213750</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setTotalTaxAmount</span><span class="p">(</span><span class="mi">42750</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setBillingAddress</span><span class="p">(</span><span class="nv">$billingAddress</span><span class="p">)</span> <span class="c1">// Don't forget to add all the objects!
 </span>    <span class="o">-&gt;</span><span class="na">addItem</span><span class="p">(</span><span class="nv">$item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -797,8 +821,8 @@ json-formatted POST request to the /order API.</p>
     <span class="o">-&gt;</span><span class="na">setQuantityUnit</span><span class="p">(</span><span class="s1">'pcs'</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setUnitPrice</span><span class="p">(</span><span class="mi">66000</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setTaxRate</span><span class="p">(</span><span class="mi">2500</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">66000</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">82500</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTotalPriceExcludingTax</span><span class="p">(</span><span class="mi">66000</span><span class="p">)</span><span class="c1">//Note: can use calculateItemPrice() here.
+</span>    <span class="o">-&gt;</span><span class="na">setTotalPriceIncludingTax</span><span class="p">(</span><span class="mi">82500</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setTotalTaxAmount</span><span class="p">(</span><span class="mi">16500</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setImageUrl</span><span class="p">(</span><span class="s1">'https://example.com/game.jpg'</span><span class="p">);</span>
 

@@ -436,7 +436,7 @@ html, body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #eaf2f6;
+  background-color: #fff;
   height: 100%;
   -webkit-text-size-adjust: none;
   /* Never autoresize text */ }
@@ -447,6 +447,13 @@ html, body {
   border-radius: 40px;
   width: 20px; }
 
+/*@mixin embossed-bg {
+  background: linear-gradient(to bottom, rgba(#000, 0.2), rgba(#000, 0) 8px),
+  linear-gradient(to top, rgba(#000, 0.2), rgba(#000, 0) 8px),
+  linear-gradient(to bottom, rgba($nav-embossed-border-top, 1), rgba($nav-embossed-border-top, 0) 1.5px),
+  linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px),
+  $nav-subitem-bg;
+}*/
 .tocify-wrapper {
   transition: left 0.3s ease-in-out;
   overflow-y: auto;
@@ -457,7 +464,7 @@ html, body {
   left: 0;
   bottom: 0;
   width: 230px;
-  background-color: #393939;
+  background-color: #F4F5F9;
   font-size: 13px;
   font-weight: bold; }
   .tocify-wrapper .lang-selector {
@@ -471,7 +478,7 @@ html, body {
   .tocify-wrapper > .search {
     position: relative; }
     .tocify-wrapper > .search input {
-      background: #393939;
+      background: #F4F5F9;
       border-width: 0 0 1px 0;
       border-color: #666;
       padding: 6px 0 6px 20px;
@@ -479,14 +486,14 @@ html, body {
       margin: 10px 15px;
       width: 200px;
       outline: none;
-      color: #fff;
+      color: #494949;
       border-radius: 0;
       /* ios has a default border radius */ }
     .tocify-wrapper > .search:before {
       position: absolute;
       top: 17px;
       left: 15px;
-      color: #fff; }
+      color: #494949; }
   .tocify-wrapper img + .tocify {
     margin-top: 20px; }
   .tocify-wrapper .search-results {
@@ -497,8 +504,7 @@ html, body {
     overflow-x: hidden;
     transition-property: height, margin;
     transition-duration: 180ms;
-    transition-timing-function: ease-in-out;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 8px), linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent 8px), linear-gradient(to bottom, black, transparent 1.5px), linear-gradient(to top, #939393, rgba(147, 147, 147, 0) 1.5px), #262626; }
+    transition-timing-function: ease-in-out; }
     .tocify-wrapper .search-results.visible {
       height: 30%;
       margin-bottom: 1em; }
@@ -506,7 +512,7 @@ html, body {
       margin: 1em 15px;
       line-height: 1; }
     .tocify-wrapper .search-results a {
-      color: #fff;
+      color: #494949;
       text-decoration: none; }
       .tocify-wrapper .search-results a:hover {
         text-decoration: underline; }
@@ -522,30 +528,31 @@ html, body {
     padding: 0;
     line-height: 28px; }
   .tocify-wrapper li {
-    color: #fff;
+    color: #494949;
     transition-property: background;
     transition-timing-function: linear;
     transition-duration: 230ms; }
   .tocify-wrapper .tocify-focus {
     box-shadow: 0px 1px 0px #000;
-    background-color: #29b592;
+    background-color: #333333;
     color: #fff; }
   .tocify-wrapper .tocify-subheader {
     display: none;
-    background-color: #262626;
+    background-color: #E6EAED;
     font-weight: 500;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 8px), linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent 8px), linear-gradient(to bottom, black, transparent 1.5px), linear-gradient(to top, #939393, rgba(147, 147, 147, 0) 1.5px), #262626; }
+    /*@include embossed-bg;
+    & > li:last-child {
+      box-shadow: none; // otherwise it'll overflow out of the subheader
+    }*/ }
     .tocify-wrapper .tocify-subheader .tocify-item > a {
       padding-left: 25px;
       font-size: 12px; }
-    .tocify-wrapper .tocify-subheader > li:last-child {
-      box-shadow: none; }
   .tocify-wrapper .toc-footer {
     padding: 1em 0;
     margin-top: 1em;
     border-top: 1px dashed #666; }
     .tocify-wrapper .toc-footer li, .tocify-wrapper .toc-footer a {
-      color: #fff;
+      color: #494949;
       text-decoration: none; }
     .tocify-wrapper .toc-footer a:hover {
       text-decoration: underline; }
@@ -570,7 +577,7 @@ html, body {
   #nav-button span {
     display: block;
     padding: 6px 6px 6px;
-    background-color: rgba(234, 242, 246, 0.7);
+    background-color: rgba(255, 255, 255, 0.7);
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
     -webkit-transform: rotate(-90deg) translate(-100%, 0);
@@ -588,7 +595,7 @@ html, body {
   margin-left: 230px;
   position: relative;
   z-index: 10;
-  background-color: #eaf2f6;
+  background-color: #fff;
   min-height: 100%;
   padding-bottom: 1px; }
   .page-wrapper .dark-box {
@@ -675,7 +682,7 @@ html, body {
   .content hr {
     margin: 2em 0;
     border-top: 2px solid #393939;
-    border-bottom: 2px solid #eaf2f6; }
+    border-bottom: 2px solid #fff; }
   .content table {
     margin-bottom: 1em;
     overflow: auto; }
@@ -692,9 +699,9 @@ html, body {
     .content table tr:last-child {
       border-bottom: 1px solid #ccc; }
     .content table tr:nth-child(odd) > td {
-      background-color: #f9fbfc; }
+      background-color: white; }
     .content table tr:nth-child(even) > td {
-      background-color: #f3f7fa; }
+      background-color: white; }
   .content dt {
     font-weight: bold; }
   .content dd {
