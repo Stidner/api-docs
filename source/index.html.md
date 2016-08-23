@@ -706,16 +706,17 @@ Content-Type: application/json
 
 {
     "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
-    "discount_code": "100KR-SALE",
-    "name": "100kr sale!",
-    "description": "Save 100 SEK on all orders of more than 500 SEK.",
+    "discount_code": "50KR-SALE",
+    "name": "50kr sale!",
+    "description": "Save 50 SEK on all orders of more than 500 SEK.",
     "artno": "discount_100530",
-    "amount": "10000"
+    "amount": "5000",
+    "tax": "1250"
 }
 ```
 
 As said above, this is the merchant's part to handle; all the converting, processing, etc is for the merchant to do.
-Stidner Checkout will just take the amount returned here, and internally subtract it from the order's total cost.
+Stidner Checkout will just take the values returned here, and internally subtract it from the order's total cost.
 <br/><br/>
 
 *If the discount code was valid*, the merchant's system should send back everything it received in the previous POST,
@@ -733,7 +734,7 @@ Content-Type: application/json
 
 {
     "order_id": "ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0",
-    "discount_code": "100KR-SALE",
+    "discount_code": "50KR-SALE",
     "description": "Code applies only to orders of more than 500 SEK."
 }
 ```
@@ -754,7 +755,8 @@ Content-Type: application/json
 | merchant\_reference1, merchant\_reference2 | String | Optional | Optional internal reference IDs.
 | name, description | String | Required | A name and description of what the discount is for. This will be shown on various customer and merchant pages, so proper (non-"internal") descriptions and names are important, as to reduce any possible confusion! The description should be set to a customer-friendly error message if the discount code is denied; see above denial for an example.
 | artno | String | Required | Article number for internal system.
-| amount | Integer | Required | This should be how much to subtract from the order. This should be in basic units (meaning 100 SEK becomes '10000', 5 EUR is '500', etc).
+| amount | Integer | Required | This should be how much total value should be subtracted from the order. This should be in basic units (meaning 100 SEK becomes '10000', 5 EUR is '500', etc).
+| tax | Integer | Optional | Subtract this much tax from the order, given in basic units. This parameter is optional, and does not "stack" with `"amount"`. For example, if you supply amount=5000, you should set tax=1250 on an order with a 25% taxrate; giving a 50 SEK discount.
 
 
 
