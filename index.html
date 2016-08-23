@@ -1142,16 +1142,17 @@ defined in the <a href="#merchant-39-s-response">response section</a>.</p>
 
 <span class="p">{</span><span class="w">
     </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100kr sale!"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Save 100 SEK on all orders of more than 500 SEK."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50KR-SALE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50kr sale!"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Save 50 SEK on all orders of more than 500 SEK."</span><span class="p">,</span><span class="w">
     </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount_100530"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1250"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <p>As said above, this is the merchant&rsquo;s part to handle; all the converting, processing, etc is for the merchant to do.
-Stidner Checkout will just take the amount returned here, and internally subtract it from the order&rsquo;s total cost.
+Stidner Checkout will just take the values returned here, and internally subtract it from the order&rsquo;s total cost.
 <br/><br/></p>
 
 <p><em>If the discount code was valid</em>, the merchant&rsquo;s system should send back everything it received in the previous POST,
@@ -1171,7 +1172,7 @@ and add on the following:</p>
 
 <span class="p">{</span><span class="w">
     </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50KR-SALE"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code applies only to orders of more than 500 SEK."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1230,7 +1231,13 @@ and add on the following:</p>
 <td>amount</td>
 <td>Integer</td>
 <td>Required</td>
-<td>This should be how much to subtract from the order. This should be in basic units (meaning 100 SEK becomes &#39;10000&rsquo;, 5 EUR is &#39;500&rsquo;, etc).</td>
+<td>This should be how much total value should be subtracted from the order. This should be in basic units (meaning 100 SEK becomes &#39;10000&rsquo;, 5 EUR is &#39;500&rsquo;, etc).</td>
+</tr>
+<tr>
+<td>tax</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Subtract this much tax from the order, given in basic units. This parameter is optional, and does not &ldquo;stack&rdquo; with <code class="prettyprint">&quot;amount&quot;</code>. For example, if you supply amount=5000, you should set tax=1250 on an order with a 25% taxrate; giving a 50 SEK discount.</td>
 </tr>
 </tbody></table>
 
