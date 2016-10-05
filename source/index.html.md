@@ -99,6 +99,22 @@ Content-Type: application/json
     },
     "items": [
         {
+            "type": "physical",
+            "artno": "220333",
+            "sku": "5205-250SE",
+            "name": "Golden shoes",
+            "description": "These shoes are made of gold",
+            "weight": 1300,
+            "quantity": 1,
+            "quantity_unit": "pcs",
+            "unit_price": 105000,
+            "tax_rate": 2500,
+            "total_price_excluding_tax": 105000,
+            "total_tax_amount": 26250,
+            "total_price_including_tax": 131250,
+            "image_url": "https://example.com/goldshoes.jpg"
+        },
+        {
             "type": "digital",
             "artno": "160830",
             "sku": "8000-660SE",
@@ -112,22 +128,6 @@ Content-Type: application/json
             "total_tax_amount": 16500,
             "total_price_including_tax": 82500,
             "image_url": "https://example.com/game.jpg"
-        },
-        {
-            "type": "physical",
-            "artno": "220333",
-            "sku": "5205-250SE",
-            "name": "Golden shoes",
-            "description": "These shoes are made of gold",
-            "weight": 130,
-            "quantity": 1,
-            "quantity_unit": "pcs",
-            "unit_price": 105000,
-            "tax_rate": 2500,
-            "total_price_excluding_tax": 105000,
-            "total_tax_amount": 26250,
-            "total_price_including_tax": 131250,
-            "image_url": "https://example.com/goldshoes.jpg"
         },
         {
             "type": "discount",
@@ -187,7 +187,7 @@ $options->setColorButton(null)
 // Make billing address object.
 $billingAddress = new \Stidner\Model\Address();
 $billingAddress->setType('person')
-    ->setBusinessName(null)// Do NOT use if setType("person")!
+    ->setBusinessName(null) // Do NOT use if setType("person")!
     ->setFirstName('Sven')
     ->setFamilyName('Andersson')
     ->setTitle('Mr')
@@ -203,24 +203,7 @@ $billingAddress->setType('person')
 
 // Add items. Each unique item in the order should have an unique ID or index.
 $item[1] = new \Stidner\Model\Order\Item();
-$item[1]->setType('digital')
-    ->setArtno("123456")
-    ->setSku("5205-250SE")
-    ->setName('World of Warcraft: The Burning Crusade Collectors edition')
-    ->setDescription("Latest game")
-    ->setWeight(null)
-    ->setQuantity(1)
-    ->setQuantityUnit('pcs')
-    ->setUnitPrice(66000)
-    ->setTaxRate(2500)
-    ->setTotalPriceExcludingTax(66000)// Note: can use calculateItemPrice() here instead.
-    ->setTotalPriceIncludingTax(82500)
-    ->setTotalTaxAmount(16500)
-    ->setImageUrl("https://example.com/game.jpg");
-
-// One more unique item (again, using a unique variable or index).
-$item[2] = new \Stidner\Model\Order\Item();
-$item[2]->setType('physical')
+$item[1]->setType('physical')
     ->setArtno("654321")
     ->setSku("5205-250SE")
     ->setName('Golden shoes')
@@ -235,6 +218,23 @@ $item[2]->setType('physical')
     ->setTotalTaxAmount(26250)
     ->setImageUrl("https://example.com/goldshoes.jpg");
 
+// One more unique item (again, using a unique variable or index).
+$item[2] = new \Stidner\Model\Order\Item();
+$item[2]->setType('digital')
+    ->setArtno("123456")
+    ->setSku("5205-250SE")
+    ->setName('World of Warcraft: The Burning Crusade Collectors edition')
+    ->setDescription("Latest game")
+    ->setWeight(null)
+    ->setQuantity(1)
+    ->setQuantityUnit('pcs')
+    ->setUnitPrice(66000)
+    ->setTaxRate(2500)
+    ->setTotalPriceExcludingTax(66000) // Note: can use calculateItemPrice() here instead.
+    ->setTotalPriceIncludingTax(82500)
+    ->setTotalTaxAmount(16500)
+    ->setImageUrl("https://example.com/game.jpg");
+
 
 // Bundle it all together now...
 // Make the main order object, and add everything to it!
@@ -244,7 +244,7 @@ $order->setMerchantReference1(null)
     ->setPurchaseCountry("SE")
     ->setPurchaseCurrency("SEK")
     ->setLocale("sv_se")
-    ->setTotalPriceExcludingTax(171000)// Note: can use calculateTotalPrices() here instead.
+    ->setTotalPriceExcludingTax(171000) // Note: can use calculateTotalPrices() here instead.
     ->setTotalPriceIncludingTax(213750)
     ->setTotalTaxAmount(42750)
     ->setBillingAddress($billingAddress) // Don't forget to add all the objects!
@@ -350,24 +350,6 @@ Content-Type: application/json
         "comment": "",
         "items": [
             {
-                "sku": "8000-660SE",
-                "artno": "160830",
-                "name": "World of Warcraft: Legion",
-                "type": "digital",
-                "description": "Digital download",
-                "total_price_excluding_tax": 66000,
-                "total_tax_amount": 16500,
-                "total_price_including_tax": 82500,
-                "weight": null,
-                "quantity": 1,
-                "quantity_unit": "pcs",
-                "unit_price": 66000,
-                "image_url": "https://example.com/game.jpg",
-                "tax_rate": 2500,
-                "returned": 0,
-                "refunded": 0
-            },
-            {
                 "sku": "5205-250SE",
                 "artno": "220333",
                 "name": "Golden shoes",
@@ -381,6 +363,24 @@ Content-Type: application/json
                 "quantity_unit": "pcs",
                 "unit_price": 105000,
                 "image_url": "https://example.com/goldshoes.jpg",
+                "tax_rate": 2500,
+                "returned": 0,
+                "refunded": 0
+            },
+            {
+                "sku": "8000-660SE",
+                "artno": "160830",
+                "name": "World of Warcraft: Legion",
+                "type": "digital",
+                "description": "Digital download",
+                "total_price_excluding_tax": 66000,
+                "total_tax_amount": 16500,
+                "total_price_including_tax": 82500,
+                "weight": null,
+                "quantity": 1,
+                "quantity_unit": "pcs",
+                "unit_price": 66000,
+                "image_url": "https://example.com/game.jpg",
                 "tax_rate": 2500,
                 "returned": 0,
                 "refunded": 0
@@ -492,7 +492,7 @@ This object will be the "main object" in your request, containing everything els
 
 $billingAddress = new \Stidner\Model\Address();
 $billingAddress->setType('person')
-    ->setBusinessName(null)// Do NOT use if setType("person")!
+    ->setBusinessName(null) // Do NOT use if setType("person")!
     ->setFirstName('Sven')
     ->setFamilyName('Andersson')
     ->setTitle('Mr')
@@ -507,20 +507,20 @@ $billingAddress->setType('person')
 ?>
 ```
 
-This object can be set using the key "billing_address", but it is not required.
+This object can be set using the key "billing_address", but setting this key is optional.
 
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
 | type | String | Required | Must be set to either `"person"` (private customers) or `"business"` (if selling to a business).
 | business_name | String | Conditional | Customer's business name, if they are buying as a business. Max 100 characters.
-| first\_name | String | Conditional | Customer's first name. Max 100 characters.
-| family\_name | String | Conditional | Customer's last name. Max 100 characters.
+| first\_name | String | Conditional | Customer's first name. Max 100 characters. Required if `type` is person.
+| family\_name | String | Conditional | Customer's last name. Max 100 characters. Required if `type` is person.
 | title | String | Optional | Title of customer. (Mr, Mrs, Dr, etc)
 | addressLine | String | Required | Street address of customer, first line. Max 100 characters.<br><br>*Example: "Drottninggatan 57"*
 | addressLine2 | String | Optional | Street address of customer, second line. Max 100 characters.<br><br>*Example: "LGH 1102"*
 | postalCode | String | Required | Customer's postal code.<br><br>*Example: "46132"*
 | city | String | Required | Customer's city.
-| region | String | Required | Customer's region or state.<br><br>*Example: "Västra Götalands län"*
+| region | String | Optional | Customer's region or state.<br><br>*Example: "Västra Götalands län"*
 | phone | String | Required | Customer's phone number, including country code.<br><br>*Example: "+46851972000"*
 | email | String | Required | Customer's email address.
 | countryCode | String | Required | The ISO 3166-1 alpha-2 (two character) country code of the customer.<br><br>*Example: "SE" for Sweden.*
@@ -532,24 +532,7 @@ This object can be set using the key "billing_address", but it is not required.
 <?php
 // Add items. Each unique item in the order should have an unique ID or index.
 $item[1] = new \Stidner\Model\Order\Item();
-$item[1]->setType('digital')
-    ->setArtno('123456')
-    ->setSku('5205-250SE')
-    ->setName('World of Warcraft: The Burning Crusade Collectors edition')
-    ->setDescription('Latest game')
-    ->setWeight(null)
-    ->setQuantity(1)
-    ->setQuantityUnit('pcs')
-    ->setUnitPrice(66000)
-    ->setTaxRate(2500)
-    ->setTotalPriceExcludingTax(66000)//Note: can use calculateItemPrice() here.
-    ->setTotalPriceIncludingTax(82500)
-    ->setTotalTaxAmount(16500)
-    ->setImageUrl('https://example.com/game.jpg');
-
-// One more unique item (again, using a unique variable or index).
-$item[2] = new \Stidner\Model\Order\Item();
-$item[2]->setType('physical')
+$item[1]->setType('physical')
     ->setArtno('654321')
     ->setSku('5205-250SE')
     ->setName('Golden shoes')
@@ -563,6 +546,23 @@ $item[2]->setType('physical')
     ->setTotalPriceIncludingTax(131250)
     ->setTotalTaxAmount(26250)
     ->setImageUrl('https://example.com/goldshoes.jpg');
+
+// One more unique item (again, using a unique variable or index).
+$item[2] = new \Stidner\Model\Order\Item();
+$item[2]->setType('digital')
+    ->setArtno('123456')
+    ->setSku('5205-250SE')
+    ->setName('World of Warcraft: The Burning Crusade Collectors edition')
+    ->setDescription('Latest game')
+    ->setWeight(null)
+    ->setQuantity(1)
+    ->setQuantityUnit('pcs')
+    ->setUnitPrice(66000)
+    ->setTaxRate(2500)
+    ->setTotalPriceExcludingTax(66000) //Note: can use calculateItemPrice() here.
+    ->setTotalPriceIncludingTax(82500)
+    ->setTotalTaxAmount(16500)
+    ->setImageUrl('https://example.com/game.jpg');
 ?>
 ```
 
@@ -575,12 +575,13 @@ This is the "item" subobject, which basically is an array of items in a customer
 | sku | String | Optional | The SKU of the item.
 | name | String | Required | The name of the product.
 | description | String | Optional | The description of the product.
-| weight | Integer | Conditional | Needed when type is set to "physical". Weight of product, in grams. Will be rounded to the nearest tenth.<br><br>*Example: an item of 10,5kg would be set as '1050'.*
+| weight | Integer | Conditional | Needed when type is set to "physical". Weight of product, in grams. Will be rounded to the nearest tenth. NOTE: the total weight of the order may not exceed 20 kilograms (limitation imposed by shipping companies).<br><br>*Example: an item of 10,5kg would be set as '1050'.*
 | quantity | Integer | Required | Quantity of item.
 | quantity\_unit | String | Required | Unit to describe quantity. <br><br>Acceptable values: `"pcs"`, `"metre"`, `"m3"`, or `"kg"`.
 | unit\_price | Integer | Required | How much each unit costs. This will be in minor units, excluding tax.<br><br>*Example: if one unit of an item you're selling is worth 40 SEK before tax, you would use '4000' here.*
 | tax\_rate | Integer | Required | The tax rate of this item. Written like most numbers in this API: no decimals, but to the 10th place.<br><br>*Example: in Sweden, the standard VAT rate is 25%, so the request is most likely going to be:* `"tax_rate": 2500`
 | total\_price\_excluding\_tax, total\_price\_including\_tax, total\_tax\_amount | Integer | Required | This object's price calculations. These values should include cents/ören (with an implicit decimal). Basically the same thing as the main order calculation, but containing only this item's values.<br><br>*Example: one customer buys 3 of the same coffee mug. 40 SEK is the value of each mug, giving 120 SEK total before tax. Given the VAT rate of 25%, 30 SEK is added in tax. So the finalized values become:* `"total_price_excluding_tax": 12000,` `"total_tax_amount": 3000,` `"total_price_including_tax": 15000`
+| warehouse\_location | String | Optional | The physical location of the item in the merchant's warehouse.
 | image\_url | String | Optional | URL to a picture of this item. Max 2000 characters.
 
 
@@ -606,10 +607,10 @@ merchant's web-shop.
 
 | Key name | Type | R/O/C | Description |
 |---|---|---|---|
-| terms | String | Required | HTTP/HTTPS URL to the merchant's Terms and Conditions page.
-| checkout | String | Required | HTTP/HTTPS URL to the merchant's checkout page.
-| confirmation | String | Required | HTTP/HTTPS URL to the merchant's confirmation page.
-| push | String | Optional | HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant's server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST's response. If this feature is used, the URL must be HTTPS. *As a reminder, if you want to view the formatting:* send a GET to https://api.stidner.com/v1/order/$order\_id, with "$order\_id" being the order's ID.
+| terms | String | Required | HTTP/HTTPS URL to the merchant's Terms and Conditions page. This URL will be displayed on the checkout.
+| checkout | String | Required | HTTP/HTTPS URL to the merchant's checkout page. 
+| confirmation | String | Required | HTTP/HTTPS URL to the merchant's confirmation page. This URL will be loaded in the user's browser when their purchase is completed.
+| push | String | Optional | HTTPS-only URL to the merchant push endpoint. If used, this will be an endpoint on the merchant's server which can receive an optional push of the final order status. This will be a json object with basically the same keys and structures as the initial POST's response. This URL must be HTTPS. *As a reminder, if you want to view the formatting:* send a GET to https://api.stidner.com/v1/order/$order\_id, with "$order\_id" being the order's ID.
 | discount | String | Optional | HTTPS-only URL to the merchant's discount page. This is used during checkout to get the value and validity of any discount code provided by the customer. This **must** be set if you are wishing to offer any kinds of discount codes with our discount process. Please read [Discount Callback](#discount-callback) for more information and requirements.
 
 
