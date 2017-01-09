@@ -17,7 +17,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="images/manifest.json">
+    <link rel="manifest" href="/images/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -33,11 +33,11 @@
   background-color: #272822;
 }
 .highlight .err {
-  color: #151515;
-  background-color: #ac4142;
+  color: #272822;
+  background-color: #f92672;
 }
 .highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
-  color: #505050;
+  color: #75715e;
 }
 .highlight .cp {
   color: #f4bf75;
@@ -46,45 +46,45 @@
   color: #f4bf75;
 }
 .highlight .o, .highlight .ow {
-  color: #d0d0d0;
+  color: #f8f8f2;
 }
 .highlight .p, .highlight .pi {
-  color: #d0d0d0;
+  color: #f8f8f2;
 }
 .highlight .gi {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .gd {
-  color: #ac4142;
+  color: #f92672;
 }
 .highlight .gh {
-  color: #6a9fb5;
-  background-color: #151515;
+  color: #66d9ef;
+  background-color: #272822;
   font-weight: bold;
 }
 .highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
-  color: #aa759f;
+  color: #ae81ff;
 }
 .highlight .kc {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .kt {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .kd {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .sr {
-  color: #75b5aa;
+  color: #a1efe4;
 }
 .highlight .si {
-  color: #8f5536;
+  color: #cc6633;
 }
 .highlight .se {
-  color: #8f5536;
+  color: #cc6633;
 }
 .highlight .nn {
   color: #f4bf75;
@@ -96,13 +96,13 @@
   color: #f4bf75;
 }
 .highlight .na {
-  color: #6a9fb5;
+  color: #66d9ef;
 }
 .highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .ss {
-  color: #90a959;
+  color: #a6e22e;
 }
     </style>
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
@@ -114,11 +114,11 @@
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar.png" />
+        <img src="images/navbar.png" alt="Navbar" />
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.png" />
+      <img src="images/logo.png" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="json-object">json-object</a>
               <a href="#" data-language-name="php-sdk">php-sdk</a>
@@ -151,7 +151,7 @@
 </ol>
 
 <p>Alternatively, we offer a <a href='https://github.com/Stidner/php-sdk' target='_blank'>PHP SDK</a> if you would like to
-use that to craft requests. In the future, we plan to offer plugins for various e-commerce platforms.</p>
+use that to craft requests. We also offer prebuilt plugins for various e-commerce platforms such as Magento and WooCommerce.</p>
 
 <p>If you have any questions/comments about anything Stidner-related, please click the &ldquo;ask a question&rdquo; link in the
 left-hand sidebar, and we will get back to you. Thanks!</p>
@@ -186,85 +186,84 @@ left-hand sidebar, and we will get back to you. Thanks!</p>
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
 
 <span class="p">{</span><span class="w">
-    </span><span class="nt">"merchant_reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref1"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"merchant_reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref2"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">151000</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">42750</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">193750</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"shipment_countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"DK"</span><span class="p">,</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">],</span><span class="w">
-    </span><span class="nt">"billing_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trollhättan"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
+    </span><span class="s2">"merchant_reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"merchant_reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">151000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">42750</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">193750</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"shipment_countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"DK"</span><span class="p">,</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"billing_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trollhättan"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"220333"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Golden shoes"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"These shoes are made of gold"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">1300</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">26250</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">131250</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/goldshoes.jpg"</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"220333"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Golden shoes"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"These shoes are made of gold"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">1300</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">26250</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">131250</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/goldshoes.jpg"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digital"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160830"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8000-660SE"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: Legion"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital download"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">16500</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">82500</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/game.jpg"</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digital"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160830"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8000-660SE"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: Legion"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital download"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">16500</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">82500</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/game.jpg"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REA200"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Store Credit"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REA200"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Store Credit"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="nt">"merchant_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"terms"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/terms_of_service.html"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"checkout"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/checkout.php"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"confirmation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/confirmation.php"</span><span class="w">
+    </span><span class="s2">"merchant_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"terms"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/terms_of_service.html"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"checkout"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/checkout.php"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"confirmation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/confirmation.php"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"color_background"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#ffffff"</span><span class="w">
+    </span><span class="s2">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"color_button_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#ffffff"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<pre class="highlight php-sdk"><code><span class="cp">&lt;?php</span>
+</span></code></pre><pre class="highlight php-sdk"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Include the composer autoloads, or whatever way you prefer.
 </span><span class="k">require_once</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
 
@@ -381,7 +380,6 @@ left-hand sidebar, and we will get back to you. Thanks!</p>
 <span class="p">}</span>
 <span class="cp">?&gt;</span>
 </code></pre>
-
 <p>The API can be directly accessed by POSTing to https://api.stidner.com/v1/order, with the following requirements:</p>
 
 <ul>
@@ -397,125 +395,124 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
 
 <span class="p">{</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NWM4MDI5ZWItZGM0MS00ZDQ5LWE1OWYtMmQ0NmU5MzEzZGY3"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"iframe_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://complete.stidner.com/order/NWM4MDI5ZWItZGM0MS00ZDQ5LWE1OWYtMmQ0NmU5MzEzZGY3"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"merchant_reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref1"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"merchant_reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref2"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">193750</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">151000</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">42750</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase_incomplete"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"shipment_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"choosing_provider"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"shipment_carrier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"shipment_product"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"shipment_countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"DK"</span><span class="p">,</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">],</span><span class="w">
-        </span><span class="nt">"billing_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trollhättan"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NWM4MDI5ZWItZGM0MS00ZDQ5LWE1OWYtMmQ0NmU5MzEzZGY3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"iframe_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://complete.stidner.com/order/NWM4MDI5ZWItZGM0MS00ZDQ5LWE1OWYtMmQ0NmU5MzEzZGY3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"merchant_reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"merchant_reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"purchase_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"purchase_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEK"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"se_sv"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">193750</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">151000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">42750</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase_incomplete"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shipment_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"choosing_provider"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shipment_carrier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shipment_product"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shipment_countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"DK"</span><span class="p">,</span><span class="w"> </span><span class="s2">"SE"</span><span class="p">],</span><span class="w">
+        </span><span class="s2">"billing_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trollhättan"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nt">"shipping_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trollhättan"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
+        </span><span class="s2">"shipping_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sven"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andersson"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mr"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+46851972000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"svenandersson@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"addressLine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drottninggatan 75"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGH 1102"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46133"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trollhättan"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Västra Götalands Län"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE"</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nt">"merchant_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"terms"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/terms_of_service.html"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"checkout"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/checkout.php"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"confirmation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/confirmation.php"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"push"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"discount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="s2">"merchant_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"terms"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/terms_of_service.html"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"checkout"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/checkout.php"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"confirmation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/confirmation.php"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"push"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"discount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nt">"created_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-26 13:01:26"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"completed_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-26 13:01:26"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"created_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-26 13:01:26"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"completed_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-26 13:01:26"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"220333"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Golden shoes"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"These shoes are made of gold"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">26250</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">131250</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/goldshoes.jpg"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5205-250SE"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"220333"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Golden shoes"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"These shoes are made of gold"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">26250</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">131250</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">105000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/goldshoes.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8000-660SE"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160830"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: Legion"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digital"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital download"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">16500</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">82500</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/game.jpg"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8000-660SE"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160830"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World of Warcraft: Legion"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digital"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital download"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">16500</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">82500</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">66000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/game.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REA200"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Store Credit"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REA200"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Store Credit"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_price_excluding_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"total_price_including_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"quantity_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pcs"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"unit_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"returned"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"refunded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
             </span><span class="p">}</span><span class="w">
         </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<pre class="highlight php-sdk"><code><span class="cp">&lt;?php</span>
+</span></code></pre><pre class="highlight php-sdk"><code><span class="cp">&lt;?php</span>
 <span class="c1">// You shouldn't need to see/handle the API response manually with the PHP SDK,
 //  but you can of course var_dump($request) to see the object in testing.
 //
@@ -526,7 +523,6 @@ json-object language-tab, and the full options can be seen <a href="#order-objec
 <span class="k">echo</span> <span class="s2">"&lt;iframe src='</span><span class="nv">$iframeUrl</span><span class="s2">' width='75%' height='75%'&gt;&lt;/iframe&gt;"</span><span class="p">;</span>
 <span class="cp">?&gt;</span>
 </code></pre>
-
 <p>The response from the API will be a json object containing your inputs, and a few read-only items. One of these
 read-only items is &ldquo;iframe_url&rdquo;, which is the Stidner Complete checkout URL; this URL should be displayed in an iframe
 on the merchant&rsquo;s checkout page.</p>
@@ -560,7 +556,6 @@ on the merchant&rsquo;s checkout page.</p>
     <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">(</span><span class="nv">$options</span><span class="p">);</span>
 <span class="cp">?&gt;</span>
 </code></pre>
-
 <p>These following tables describe all the objects which will be sent in your
 json-formatted POST request to the /order API.</p>
 
@@ -716,7 +711,6 @@ json-formatted POST request to the /order API.</p>
     <span class="o">-&gt;</span><span class="na">setCountryCode</span><span class="p">(</span><span class="s1">'SE'</span><span class="p">);</span>
 <span class="cp">?&gt;</span>
 </code></pre>
-
 <p>This object can be set using the key &ldquo;billing_address&rdquo;, but setting this key is optional.</p>
 
 <table><thead>
@@ -844,7 +838,6 @@ json-formatted POST request to the /order API.</p>
     <span class="o">-&gt;</span><span class="na">setImageUrl</span><span class="p">(</span><span class="s1">'https://example.com/game.jpg'</span><span class="p">);</span>
 <span class="cp">?&gt;</span>
 </code></pre>
-
 <p>This is the &ldquo;item&rdquo; subobject, which basically is an array of items in a customer&rsquo;s order, and various related values.</p>
 
 <table><thead>
@@ -949,7 +942,6 @@ json-formatted POST request to the /order API.</p>
     <span class="o">-&gt;</span><span class="na">setDiscount</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
 <span class="cp">?&gt;</span>
 </code></pre>
-
 <p>All of the items in this object are strings, which should be URLs. These URLs should link to various pages of the
 merchant&rsquo;s web-shop.</p>
 
@@ -1008,7 +1000,6 @@ merchant&rsquo;s web-shop.</p>
     <span class="o">-&gt;</span><span class="na">setColorBackground</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
 <span class="cp">?&gt;</span>
 </code></pre>
-
 <p>All of the items in this object are strings of CSS hex colors (eg #FFFFFF). These are all optional, and only need to be
 used if the merchant wishes to customize Stidner&rsquo;s checkout design. Acceptable values:</p>
 
@@ -1090,11 +1081,10 @@ the order API, and/or if you will not be offering discount codes in the checkout
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
 
 <span class="p">{</span><span class="w">
-    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="w">
+    </span><span class="s2">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100KR-SALE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <p>This object is sent from Stidner&rsquo;s servers to the merchant&rsquo;s configured discount URL. To make discounting very flexible,
 merchants will manage their own discounts through their own endpoint.</p>
 
@@ -1147,16 +1137,15 @@ defined in the <a href="#merchant-39-s-response">response section</a>.</p>
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
 
 <span class="p">{</span><span class="w">
-    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50KR-SALE"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50kr sale!"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Save 50 SEK on all orders of more than 500 SEK."</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount_100530"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1250"</span><span class="w">
+    </span><span class="s2">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50KR-SALE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50kr sale!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Save 50 SEK on all orders of more than 500 SEK."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"artno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"discount_100530"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1250"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <p>As said above, this is the merchant&rsquo;s part to handle; all the converting, processing, etc is for the merchant to do.
 Stidner Checkout will just take the values returned here, and internally subtract it from the order&rsquo;s total cost.
 <br/><br/></p>
@@ -1177,12 +1166,11 @@ and add on the following:</p>
 <span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
 
 <span class="p">{</span><span class="w">
-    </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50KR-SALE"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code applies only to orders of more than 500 SEK."</span><span class="w">
+    </span><span class="s2">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZWU2Mjc0NmYtMDRiMy00ZFOZLTgzNWYtZDU5MGJmZjJmNjQ0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"discount_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50KR-SALE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code applies only to orders of more than 500 SEK."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <p><br/></p>
 
 <p><em>If the discount code is invalid</em>, the merchant&rsquo;s system should send back only:</p>
@@ -1246,6 +1234,39 @@ and add on the following:</p>
 <td>Subtract this much tax from the order, given in basic units. This parameter is optional, and does not &ldquo;stack&rdquo; with <code class="prettyprint">&quot;amount&quot;</code>. For example, if you supply amount=5000, you should set tax=1250 on an order with a 25% taxrate; giving a 50 SEK discount.</td>
 </tr>
 </tbody></table>
+
+<h1 id="test-credentials">Test Credentials</h1>
+
+<h2 id="order-api">Order API</h2>
+
+<p>To get test credentials for the order API, you should sign up as a merchant from the Stidner homepage. After doing this,
+your test API keys will be found on your
+<a href="https://merchant.sandbox.stidner.com/auth/login" target="_blank">merchant interface</a>.</p>
+
+<h2 id="checkout-interface">Checkout Interface</h2>
+
+<p>Now when using a checkout on our sandbox environment, there are various test credentials that should be used for the
+different payment options we offer. Real credit card numbers on the sandbox environment will be declined.</p>
+
+<h4 id="credit-card-payments-stripe">Credit card payments (Stripe)</h4>
+
+<p>Test card number: 4242424242424242<br/>
+Expire date: any future month/year.<br/>
+CVC: any 3-digit number.</p>
+
+<h4 id="bank-transfer-trustly">Bank transfer (Trustly)</h4>
+
+<p>After choosing your country and a bank, click continue <strong>without</strong> checking the &ldquo;Set order options&rdquo; button.</p>
+
+<p>Now enter a 10 digit number, for example 1111111111, choose the &ldquo;Säkerhetskod&rdquo; option, and continue through Trustly.</p>
+
+<h4 id="invoicing-collector">Invoicing (Collector)</h4>
+
+<p>Invoicing has a different flow than the other payment methods. The checkout must be created as this test user:</p>
+
+<p>Country: Sweden<br/>
+Phone number: 0763000000<br/>
+Postcode: 70213</p>
 
 <h1 id="questions-comments">Questions/Comments</h1>
 
